@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <item
+        android:id="@+id/bookmark"
+        android:icon="@drawable/ic_action_bookmark"
+        android:title="@string/bookmarked_text" />
+
+    <item
+        android:id="@+id/main_page"
+        android:icon="@drawable/ic_action_first_page"
+        android:title="@string/main_page_text" />
+
+
+    <item android:title="@string/apps_text">
+        <menu>
+
+            <item
+                android:id="@+id/rate"
+                android:icon="@drawable/ic_action_star"
+                android:title="@string/rate" />
+
+            <item
+                android:id="@+id/other_apps"
+                android:icon="@drawable/ic_action_apps"
+                android:title="@string/other_apps" />
+        </menu>
+    </item>
+
+    <item android:title="@string/developer_text">
+        <menu>
+            <item
+                android:id="@+id/about"
+                android:icon="@drawable/ic_action_info"
+                android:title="@string/about_us" />
+
+            <item
+                android:id="@+id/protect"
+                android:icon="@drawable/ic_action_protect"
+                android:title="@string/protect_us" />
+        </menu>
+    </item>
+
+</menu>

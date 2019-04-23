@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".views.activity.RippleEffectActivity"
+    android:orientation="vertical">
+
+
+    <!--<FrameLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:foreground="?attr/selectableItemBackground"-->
+        <!--android:clickable="true">-->
+
+        <!--<ImageView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@drawable/material_picture1"-->
+            <!--android:adjustViewBounds="true"-->
+            <!--/>-->
+
+    <!--</FrameLayout>-->
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/material_picture1"
+        android:adjustViewBounds="true"
+        android:clickable="true"
+        android:foreground="?attr/selectableItemBackground"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/standard_margin_x3"
+        android:text="ripple effect"
+        android:textSize="@dimen/standard_font_size_very_large"
+        android:layout_gravity="center_horizontal"
+        android:clickable="true"
+        android:background="@drawable/ripple"/>
+
+</LinearLayout>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/ll"
+    android:visibility="invisible">
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/standard_margin">
+
+        <com.example.amin.dictionande.custom_views.CustomPersianEditText
+            android:id="@+id/et_notebook"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/notebook_name_text"
+            android:maxLength="50"
+            android:layout_marginVertical="@dimen/standard_margin_x2"
+            android:layout_marginHorizontal="@dimen/standard_table_distance"
+            android:textSize="@dimen/standard_font_size_large"
+            android:padding="@dimen/standard_padding"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="@dimen/standard_table_distance"
+        android:gravity="center"
+        android:layout_marginBottom="@dimen/standard_margin">
+
+        <com.example.amin.dictionande.custom_views.CustomPersianButton
+            android:id="@+id/btn_verify"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/verify_text"
+            android:textSize="@dimen/standard_font_size_large"
+            android:layout_marginHorizontal="@dimen/standard_margin"
+            android:background="?attr/selectableItemBackgroundBorderless"/>
+
+        <com.example.amin.dictionande.custom_views.CustomPersianButton
+            android:id="@+id/btn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel_text"
+            android:textSize="@dimen/standard_font_size_large"
+            android:layout_marginHorizontal="@dimen/standard_margin"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            />
+        <!--android:background="@drawable/ripple_text_button"-->
+
+    </LinearLayout>
+
+</LinearLayout>

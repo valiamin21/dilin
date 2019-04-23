@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.circularreveal.cardview.CircularRevealCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/standard_margin_x2"
+    android:layout_marginTop="@dimen/standard_margin_x2"
+    android:layout_marginBottom="@dimen/standard_margin"
+    android:elevation="@dimen/standard_card_elevation"
+    android:foreground="?attr/selectableItemBackgroundBorderless"
+    app:cardCornerRadius="@dimen/standard_radius"
+    app:contentPadding="@dimen/standard_card_padding">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="@dimen/standard_margin"
+        android:gravity="center">
+
+
+        <LinearLayout
+            android:id="@+id/linear_txts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <com.example.amin.dictionande.custom_views.CustomPersianTextView
+                android:id="@+id/txt_notebook_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/standard_margin"
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/standard_font_size_large"
+                tools:text="نام دفتر" />
+
+            <com.example.amin.dictionande.custom_views.CustomPersianTextView
+                android:id="@+id/txt_words_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/standard_margin"
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/standard_font_size_large"
+                tools:text="تعداد کلمات : ۲۲" />
+
+            <com.example.amin.dictionande.custom_views.CustomPersianTextView
+                android:id="@+id/txt_bookmarked_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/standard_font_size_large"
+                tools:text="نشان شده: ۵" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_imgs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/linear_txts"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/standard_margin">
+
+            <ImageButton
+                android:id="@+id/btn_play"
+                android:layout_width="@dimen/standard_icon_size"
+                android:layout_height="@dimen/standard_icon_size"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_action_play" />
+
+
+            <ImageButton
+                android:id="@+id/btn_favorite"
+                android:layout_width="@dimen/standard_icon_size"
+                android:layout_height="@dimen/standard_icon_size"
+                android:layout_marginHorizontal="@dimen/standard_margin"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_action_favorite" />
+
+
+            <ImageButton
+                android:id="@+id/btn_delete"
+                android:layout_width="@dimen/standard_icon_size"
+                android:layout_height="@dimen/standard_icon_size"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_action_delete" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+</android.support.design.circularreveal.cardview.CircularRevealCardView>

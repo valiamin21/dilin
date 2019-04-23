@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/material_background1"/>
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nested_scroll_view_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="@drawable/material_background1">
+
+        <com.example.amin.dictionande.custom_views.MotionableTextView
+            android:id="@+id/tv_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textSize="@dimen/standard_font_size_very_large"
+            android:text="@string/no_word_was_added"
+            android:layout_marginTop="@dimen/show_empty_recycler_view_text_margin"
+
+            />
+
+    </android.support.v4.widget.NestedScrollView>
+</RelativeLayout>

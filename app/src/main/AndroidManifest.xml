@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.amin.dictionande">
+    <!-- To access Google+ APIs: -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:name=".MyApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/dictionary"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".views.activity.DonateActivity"></activity>
+        <activity android:name=".views.activity.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".views.activity.ShowWordsListActivity" />
+        <activity android:name=".views.activity.TabLayoutActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".views.activity.ShowWordsListActivity" />
+        </activity>
+        <activity android:name=".views.activity.TransitionActivity" />
+        <activity android:name=".views.activity.ActivityA" />
+        <activity android:name=".views.activity.ActivityB" />
+        <activity android:name=".views.activity.RevealEffectActivity" />
+        <activity android:name=".views.activity.RippleEffectActivity" />
+        <activity android:name=".views.activity.ShowNoteBooksListActivity" />
+        <activity android:name=".views.activity.ToolbarBehaviorActivity" />
+        <activity android:name=".views.activity.CollapsingToolbarActivity" />
+        <activity android:name=".views.activity.TabCoordiantorLayoutActivity" />
+        <activity android:name=".views.activity.BottomSheetActivity" />
+        <activity android:name=".views.activity.About_Us_Programmer" />
+
+        <receiver android:name=".widgets.ShowWordsWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/show_words_widget_info" />
+        </receiver>
+    </application>
+
+</manifest>

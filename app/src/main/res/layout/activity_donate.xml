@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".views.activity.DonateActivity"
+    android:layoutDirection="rtl">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/app_bar">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/ctl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:contentScrim="@color/colorPrimary"
+            app:titleEnabled="false">
+
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/programming_space"
+                app:layout_collapseMode="parallax" />
+
+            <android.support.v7.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:title="@string/protect_us"
+                app:titleTextColor="@android:color/darker_gray"/>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <com.example.amin.dictionande.custom_views.FloationgActionImageView
+        android:id="@+id/coffee_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:fabCustomSize="@dimen/coffee_image_size"
+        android:src="@drawable/coffee"
+        app:layout_anchor="@id/app_bar"
+        app:layout_anchorGravity="center_horizontal|bottom"
+        />
+
+    <!--<com.github.abdularis.civ.AvatarImageView-->
+
+        <!--android:layout_width="170dp"-->
+        <!--android:layout_height="170dp"-->
+        <!--android:src="@drawable/coffee"-->
+        <!--app:strokeColor="#1976D2"-->
+        <!--app:strokeWidth="0dp"-->
+        <!--app:state="IMAGE"-->
+        <!--app:avatarBackgroundColor="#1976D2"-->
+        <!--app:layout_anchor="@id/app_bar"-->
+        <!--app:layout_anchorGravity="center_horizontal|bottom"/>-->
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/protect_us_tv_margin_top"
+                android:layout_marginHorizontal="@dimen/standard_font_size_large"
+                android:textColor="@android:color/black"
+                android:text="@string/donate_me_a_coffee_money_if_app_was_useful"
+                android:textAlignment="center"
+                android:textSize="@dimen/standard_font_size_very_large"/>
+
+            <Button
+                android:id="@+id/coffee_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:text="@string/ok_text"
+                android:textSize="@dimen/standard_font_size_very_large"
+                android:textColor="@color/colorPrimary"
+                android:layout_gravity="center"
+                android:background="?attr/selectableItemBackground"/>
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>

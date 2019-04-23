@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="@string/favorite_text"
+        android:id="@+id/favorite"
+        android:icon="@drawable/ic_action_favorite"/>
+
+    <item android:title="@string/apps_text">
+        <menu>
+            <item android:title="@string/rate"
+                android:id="@+id/rate"
+                android:icon="@drawable/ic_action_star"/>
+
+            <item android:title="@string/other_apps"
+                android:id="@+id/other_apps"
+                android:icon="@drawable/ic_action_apps"/>
+        </menu>
+    </item>
+
+    <item android:title="@string/developer_text">
+        <menu>
+            <item android:title="@string/about_us"
+                android:id="@+id/about"
+                android:icon="@drawable/ic_action_info"/>
+
+            <item android:title="@string/protect_us"
+                android:id="@+id/protect"
+                android:icon="@drawable/ic_action_protect"/>
+        </menu>
+    </item>
+
+</menu>

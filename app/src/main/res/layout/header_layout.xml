@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="@dimen/navigation_header_height">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:foreground="?attr/selectableItemBackgroundBorderless">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/material_picture2"
+            android:scaleType="centerCrop"/>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:foreground="?attr/selectableItemBackgroundBorderless">
+
+        <ImageView
+            android:layout_width="@dimen/navigation_header_icon_width"
+            android:layout_height="@dimen/navigation_header_icon_width"
+            android:src="@drawable/dictionary" />
+
+    </FrameLayout>
+
+    <com.example.amin.dictionande.custom_views.CustomPersianTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:text="@string/app_name"
+        android:layout_margin="@dimen/standard_margin"
+        android:textSize="@dimen/standard_font_size_large"
+        android:textColor="@android:color/black"/>
+</FrameLayout>

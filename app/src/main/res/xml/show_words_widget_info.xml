@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:initialKeyguardLayout="@layout/show_words_widget"
+    android:initialLayout="@layout/show_words_widget"
+    android:minWidth="110dp"
+    android:minHeight="80dp"
+    android:previewImage="@drawable/show_words_widget_preview_image"
+    android:resizeMode="horizontal|vertical"
+    android:updatePeriodMillis="900"
+    android:widgetCategory="home_screen|keyguard"/>
