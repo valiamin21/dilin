@@ -4,14 +4,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".views.activity.SplashActivity"
-    android:background="@color/colorPrimary">
+    tools:context="ir.proglovving.dilin.views.activity.SplashActivity">
 
 
     <ImageView
+        android:id="@+id/img_splash_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/dictionary"
-        android:adjustViewBounds="true" />
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/splash_background"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/img_dilin_icon"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="invisible"/>
+
+    <ir.proglovving.dilin.custom_views.CusTextView
+        android:id="@+id/tv_dilin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/app_name"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/splash_font_size"
+        android:textStyle="italic|bold"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/img_splash_background"
+        app:layout_constraintEnd_toEndOf="@+id/img_splash_background"
+        app:layout_constraintStart_toStartOf="@+id/img_splash_background"
+        app:layout_constraintTop_toBottomOf="@+id/img_dilin_icon"
+        tools:text="دیلین" />
 
 </android.support.constraint.ConstraintLayout>

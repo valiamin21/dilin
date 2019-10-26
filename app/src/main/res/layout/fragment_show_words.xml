@@ -7,17 +7,15 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/material_background1"/>
+        android:layout_height="match_parent" />
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/nested_scroll_view_empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
-        android:background="@drawable/material_background1">
+        android:visibility="gone">
 
-        <com.example.amin.dictionande.custom_views.MotionableTextView
+        <ir.proglovving.dilin.custom_views.MotionableTextView
             android:id="@+id/tv_empty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

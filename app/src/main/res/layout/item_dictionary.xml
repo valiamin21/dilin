@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/standard_margin_x2"
+    android:layout_marginTop="@dimen/standard_margin"
+    android:layout_marginBottom="@dimen/standard_margin"
+    android:clickable="true"
+    android:foreground="?attr/selectableItemBackgroundBorderless"
+    app:cardCornerRadius="@dimen/standard_radius">
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/relative_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/standard_margin">
+
+
+        <FrameLayout
+            android:id="@+id/frm_us"
+            android:layout_width="@dimen/standard_icon_size"
+            android:layout_height="@dimen/standard_icon_size"
+            android:layout_alignParentLeft="true"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:alpha="0.4"
+                android:src="@drawable/ic_action_united_state_flag" />
+
+            <ImageButton
+                android:id="@+id/img_speech_us"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:scaleType="center"
+                android:src="@drawable/ic_action_volume_up"
+                android:tint="@color/icon_color"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/frm_uk"
+            android:layout_width="@dimen/standard_icon_size"
+            android:layout_height="@dimen/standard_icon_size"
+            android:layout_marginLeft="@dimen/standard_margin"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            app:layout_constraintLeft_toRightOf="@id/frm_us"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:alpha="0.4"
+                android:src="@drawable/ic_action_united_kingdom_flag" />
+
+            <ImageButton
+                android:id="@+id/img_speech_uk"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:scaleType="center"
+                android:src="@drawable/ic_action_volume_up"
+                android:tint="@color/icon_color"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="@dimen/standard_icon_size"
+            android:layout_height="@dimen/standard_icon_size"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackgroundBorderless">
+
+            <ImageButton
+                android:id="@+id/img_add_to_notebook"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:src="@drawable/ic_action_add_to_notebook"
+                android:scaleType="fitXY"
+                android:tint="@color/icon_color"/>
+
+        </FrameLayout>
+
+        <ir.proglovving.dilin.custom_views.CusTextView
+            android:id="@+id/txt_word"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/standard_margin"
+            android:layout_marginTop="@dimen/standard_margin"
+            android:layout_marginEnd="@dimen/standard_margin"
+            android:textColor="@color/english_words_color"
+            android:textSize="@dimen/standard_font_size_large"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/frm_us"
+            tools:text="word : lk;j;a dfksjflkdasjf dfkjadfhdlkf dlkfjd;lfjdas;l fd;lfkjdalfjkd;ljf d;fjkd;lfkjdskl;fjds ;fjdsl;kfjds;lk fds;ljfdlkf dskjfli kkjk;lj ;lkdjfd;safkjsd ;kj;kd k\n;ldj;i " />
+
+        <ir.proglovving.dilin.custom_views.CusTextView
+            android:id="@+id/txt_meaning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:layout_below="@id/txt_word"
+            android:layout_marginTop="@dimen/standard_margin"
+            android:layout_marginBottom="@dimen/standard_margin"
+            android:paddingHorizontal="@dimen/standard_margin_x2_5"
+            android:textColor="@color/persian_words_color"
+            android:textSize="@dimen/standard_font_size_large"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_word"
+            tools:text="معنای کلمه این می باشد و دارای دو حالت فعلی و اسمی می باشد که دارای معانی متفاموتی می باشد و در اینجا اصلا برای ما اهمیتی ندارد و صرفا برای تست کردن نحوه ی کارکرد برنامه این قسمت نوشته شده است." />
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</android.support.v7.widget.CardView>

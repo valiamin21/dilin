@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:id="@+id/ll"
+    android:id="@+id/ll_dialog_add_notebook"
     android:visibility="invisible">
 
     <android.support.design.widget.TextInputLayout
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/standard_margin">
 
-        <com.example.amin.dictionande.custom_views.CustomPersianEditText
+        <ir.proglovving.dilin.custom_views.CusEditText
             android:id="@+id/et_notebook"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
         android:gravity="center"
         android:layout_marginBottom="@dimen/standard_margin">
 
-        <com.example.amin.dictionande.custom_views.CustomPersianButton
+        <ir.proglovving.dilin.custom_views.CusButton
             android:id="@+id/btn_verify"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
             android:layout_marginHorizontal="@dimen/standard_margin"
             android:background="?attr/selectableItemBackgroundBorderless"/>
 
-        <com.example.amin.dictionande.custom_views.CustomPersianButton
+        <ir.proglovving.dilin.custom_views.CusButton
             android:id="@+id/btn_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".views.activity.ShowWordActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_marginEnd="@dimen/standard_padding"
+            android:gravity="start|center_vertical"
+            android:padding="@dimen/standard_padding"
+            app:layout_scrollFlags="scroll|enterAlways">
+
+            <ir.proglovving.dilin.custom_views.CusTextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="دفتر من"
+                android:textColor="@color/primary_text"
+                android:textSize="@dimen/standard_font_size_large" />
+
+            <android.support.v7.widget.AppCompatImageButton
+                android:id="@+id/btn_rotate"
+                android:layout_width="@dimen/standard_icon_size"
+                android:layout_height="@dimen/standard_icon_size"
+                android:layout_marginStart="@dimen/standard_margin"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/showing_together"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_action_two_columns"
+                android:tint="@color/icon_color"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <FrameLayout
+                android:id="@+id/frm_us"
+                android:layout_width="@dimen/standard_icon_size"
+                android:layout_height="@dimen/standard_icon_size"
+                android:layout_marginStart="@dimen/standard_margin"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/ic_action_united_state_flag" />
+
+                <android.support.v7.widget.AppCompatImageButton
+                    android:id="@+id/img_speech_us"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/american_speech"
+                    android:scaleType="center"
+                    android:src="@drawable/ic_action_volume_up"
+                    android:tint="@color/icon_color" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/frm_uk"
+                android:layout_width="@dimen/standard_icon_size"
+                android:layout_height="@dimen/standard_icon_size"
+                android:layout_marginStart="@dimen/standard_margin"
+                app:layout_constraintLeft_toRightOf="@id/frm_us"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/ic_action_united_kingdom_flag" />
+
+                <android.support.v7.widget.AppCompatImageButton
+                    android:id="@+id/img_speech_uk"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/british_speech"
+                    android:scaleType="center"
+                    android:src="@drawable/ic_action_volume_up"
+                    android:tint="@color/icon_color" />
+            </FrameLayout>
+
+            <android.support.v7.widget.AppCompatImageButton
+                android:id="@+id/btn_edit"
+                android:layout_width="@dimen/standard_icon_size"
+                android:layout_height="@dimen/standard_icon_size"
+                android:layout_marginStart="@dimen/standard_margin"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/edit"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_action_edit"
+                android:tint="@color/icon_color"
+                app:layout_constraintRight_toLeftOf="@id/btn_bookmark"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <android.support.v7.widget.AppCompatImageButton
+                android:id="@+id/btn_bookmark"
+                android:layout_width="@dimen/standard_icon_size"
+                android:layout_height="@dimen/standard_icon_size"
+                android:layout_marginStart="@dimen/standard_margin"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/bookmarking"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_action_bookmark"
+                android:tint="@color/icon_color"
+                app:layout_constraintRight_toLeftOf="@id/btn_delete"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <android.support.v7.widget.AppCompatImageButton
+                android:id="@+id/btn_delete"
+                android:layout_width="@dimen/standard_icon_size"
+                android:layout_height="@dimen/standard_icon_size"
+                android:layout_marginStart="@dimen/standard_margin"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/delete"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_action_delete"
+                android:tint="@color/icon_color"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </LinearLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>

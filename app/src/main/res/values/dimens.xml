@@ -1,28 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="small_margin">4dp</dimen>
     <dimen name="standard_margin">8dp</dimen>
     <dimen name="standard_margin_x2">16dp</dimen>
+    <dimen name="standard_margin_x2_5">24dp</dimen>
     <dimen name="standard_margin_x3">32dp</dimen>
 
     <dimen name="standard_font_size_normal">14sp</dimen>
     <dimen name="standard_font_size_small">12sp</dimen>
     <dimen name="standard_font_size_large">16sp</dimen>
     <dimen name="standard_font_size_very_large">20sp</dimen>
+    <dimen name="splash_font_size">40sp</dimen>
 
     <dimen name="standard_icon_size">32dp</dimen>
 
+    <dimen name="app_toolbar_bottom_padding">2dp</dimen>
+    <dimen name="app_padding_small">4dp</dimen>
     <dimen name="standard_padding">8dp</dimen>
     <dimen name="standard_card_padding">2dp</dimen>
+    <dimen name="app_imageButton_padding">2dp</dimen>
 
     <dimen name="standard_table_distance">40dp</dimen>
 
-    <dimen name="standard_radius">7dp</dimen>
+    <dimen name="standard_radius">8dp</dimen>
     <dimen name="standard_radius_x2">15dp</dimen>
     <dimen name="standard_stroke">2dp</dimen>
-    <dimen name="standard_card_elevation">10dp</dimen>
+    <dimen name="standard_card_elevation">5dp</dimen>
 
-    <dimen name="standard_nav_width">250dp</dimen>
-    <dimen name="navigation_header_height">200dp</dimen>
+    <dimen name="standard_nav_width">300dp</dimen>
+    <dimen name="navigation_header_height">225dp</dimen>
     <dimen name="navigation_header_icon_width">110dp</dimen>
 
     <!--
@@ -30,11 +36,13 @@ Refer to App Widget Documentation for margin information
 http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     -->
     <dimen name="widget_margin">5dp</dimen>
-    <dimen name="widget_title_margin">5dp</dimen>
+    <dimen name="widget_title_margin">8dp</dimen>
 
     <dimen name="show_empty_recycler_view_text_margin">120dp</dimen>
 
     <dimen name="coffee_image_size">150dp</dimen>
-    <dimen name="protect_us_tv_margin_top">90dp</dimen>
+    <dimen name="protect_us_tv_margin_top">50dp</dimen>
+    <dimen name="app_standard_border_width">1dp</dimen>
 
+    <dimen name="tooltip_elevation">2dp</dimen>
 </resources>

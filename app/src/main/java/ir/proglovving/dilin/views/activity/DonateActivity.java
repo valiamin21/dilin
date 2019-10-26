@@ -1,0 +1,66 @@
+package ir.proglovving.dilin.views.activity;
+
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
+
+import ir.proglovving.dilin.R;
+
+public class DonateActivity extends AppCompatActivity {
+
+    private FloatingActionButton coffeeFAB;
+    private Button coffeeButton;
+    private String url = "https://idpay.ir/amin-vali";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_donate);
+
+        initViews();
+
+
+
+        coffeeFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                donateCoffee();
+            }
+        });
+
+        coffeeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                donateCoffee();
+            }
+        });
+    }
+
+    @SuppressLint("RestrictedApi")
+    @Override
+    public void onBackPressed() {
+        coffeeFAB.setVisibility(View.GONE);
+        super.onBackPressed();
+    }
+
+    private void initViews() {
+        coffeeFAB = (FloatingActionButton)findViewById(R.id.coffee_image);
+        coffeeButton = (Button)findViewById(R.id.coffee_button);
+    }
+
+    private void donateCoffee(){
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(url));
+        startActivity(intent);
+    }
+
+    public static void start(Context context, Bundle optionsCompat){
+        context.startActivity(new Intent(context, DonateActivity.class),optionsCompat);
+    }
+}

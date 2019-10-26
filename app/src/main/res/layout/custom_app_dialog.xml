@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/standard_padding">
+
+    <ir.proglovving.dilin.custom_views.CusTextView
+        android:id="@+id/tv_cusDialog_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/standard_padding"
+        android:paddingLeft="@dimen/standard_padding"
+        android:paddingRight="@dimen/standard_padding"
+        android:textColor="@color/primary_text"
+        android:textSize="@dimen/standard_font_size_very_large"
+        tools:text="عنوان" />
+
+    <ir.proglovving.dilin.custom_views.CusTextView
+        android:id="@+id/tv_cusDialog_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textColor="@color/primary_text"
+        android:textSize="@dimen/standard_font_size_large"
+        tools:text="معنای کلمه این می باشد و دارای دو حالت فعلی و اسمی می باشد که دارای معانی متفاموتی می باشد و در اینجا اصلا برای ما اهمیتی ندارد و صرفا برای تست کردن نحوه ی کارکرد برنامه این قسمت نوشته شده است." />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layoutDirection="rtl"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/standard_margin_x2"
+        android:paddingLeft="@dimen/standard_margin_x3">
+
+        <ir.proglovving.dilin.custom_views.CusButton
+            android:id="@+id/btn_cusDialog_positive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/standard_margin_x3"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackground"
+            android:textSize="@dimen/standard_font_size_small"
+            tools:text="@string/verify_text"
+            android:textColor="@color/colorAccent"/>
+
+        <ir.proglovving.dilin.custom_views.CusButton
+            android:id="@+id/btn_cusDialog_negative"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/standard_margin_x3"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackground"
+            android:textSize="@dimen/standard_font_size_small"
+            tools:text="@string/cancel_text"
+            android:textColor="@color/colorAccent"/>
+
+    </LinearLayout>
+
+</LinearLayout>

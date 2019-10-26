@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".views.activity.ShowWordsListActivity"
+    tools:context="ir.proglovving.dilin.views.activity.ShowWordsListActivity"
     android:id="@+id/drawable_layout"
     android:layoutDirection="rtl">
 
@@ -22,7 +22,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_scrollFlags="enterAlways|scroll"
-                android:background="@color/colorPrimary">
+                android:background="@color/colorPrimary"
+                android:paddingBottom="@dimen/app_toolbar_bottom_padding">
 
             </android.support.v7.widget.Toolbar>
 
@@ -32,7 +33,9 @@
             android:id="@+id/container_frame_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" >
+
+        </FrameLayout>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab_add"
@@ -43,8 +46,7 @@
             android:layout_gravity="bottom|start"
             android:layout_marginStart="@dimen/standard_margin_x2"
             android:layout_marginBottom="@dimen/standard_margin_x2"
-            app:rippleColor="@android:color/white"
-            android:transitionName="@string/fab_transition_name"/>
+            app:rippleColor="@android:color/white" />
 
     </android.support.design.widget.CoordinatorLayout>
 
@@ -54,7 +56,7 @@
         android:layout_height="match_parent"
         android:layout_gravity= "start"
         app:menu="@menu/navigation_show_words"
-        app:itemIconTint="@color/colorAccent"
+        app:itemIconTint="@color/icon_color"
         app:headerLayout="@layout/header_layout"/>
 
 </android.support.v4.widget.DrawerLayout>

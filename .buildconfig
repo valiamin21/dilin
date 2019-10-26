@@ -1,0 +1,10 @@
+[default]
+name=Default
+runtime=host
+config-opts=
+run-opts=
+prefix=/home/amin/.cache/gnome-builder/install/debug/host
+app-id=
+postbuild=
+prebuild=
+default=true

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ir.proglovving.dilin.views.activity.DevTestActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btn_csv_backup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/standard_table_distance"
+            android:layout_marginTop="@dimen/standard_margin_x2"
+            android:background="@drawable/selector_app_button"
+            android:text="get csv backup" />
+
+        <Button
+            android:id="@+id/btn_txt_backup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/standard_table_distance"
+            android:layout_marginTop="@dimen/standard_margin_x2"
+            android:background="@drawable/selector_app_button"
+            android:text="get .txt backup"/>
+
+        <Button
+            android:id="@+id/btn_txt_retrieve"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/standard_table_distance"
+            android:layout_marginTop="@dimen/standard_margin_x2"
+            android:background="@drawable/selector_app_button"
+            android:text="get .txt backup value"/>
+
+        <TextView
+            android:id="@+id/tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/standard_table_distance"
+            android:layout_marginTop="@dimen/standard_margin_x3"/>
+
+        <Button
+            android:id="@+id/btn_open_main_page"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/standard_table_distance"
+            android:layout_marginTop="@dimen/standard_margin_x2"
+            android:background="@drawable/selector_app_button"
+            android:text="open main page"/>
+
+
+    </LinearLayout>
+
+</ScrollView>

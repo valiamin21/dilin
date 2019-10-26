@@ -7,112 +7,71 @@
     android:layout_marginHorizontal="@dimen/standard_margin_x2"
     android:layout_marginTop="@dimen/standard_margin"
     android:layout_marginBottom="@dimen/standard_margin"
-    app:cardCornerRadius="@dimen/standard_radius"
+    android:clickable="true"
     android:foreground="?attr/selectableItemBackgroundBorderless"
-    android:clickable="true">
+    app:cardCornerRadius="@dimen/standard_radius">
 
-
-
-    <RelativeLayout
-        android:id="@+id/relative_layout"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <android.support.constraint.ConstraintLayout
             android:id="@+id/ll_pronun"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/standard_margin"
             android:layout_marginBottom="@dimen/standard_margin"
-            android:layout_alignParentLeft="true">
+            android:orientation="horizontal">
 
             <FrameLayout
                 android:id="@+id/frm_us"
                 android:layout_width="@dimen/standard_icon_size"
                 android:layout_height="@dimen/standard_icon_size"
-                android:layout_marginTop="@dimen/standard_margin"
                 android:layout_marginHorizontal="@dimen/standard_margin"
-                android:layout_alignParentLeft="true"
-                android:clickable="true"
-                android:foreground="?attr/selectableItemBackgroundBorderless">
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/united_state_flag"
                     android:adjustViewBounds="true"
-                    android:alpha="0.4"/>
+                    android:src="@drawable/ic_action_united_state_flag" />
 
                 <ImageButton
                     android:id="@+id/img_speech_us"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/ic_action_volume_up"
+                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:scaleType="center"
-                    android:background="@null"/>
+                    android:src="@drawable/ic_action_volume_up"
+                    android:tint="@color/icon_color" />
             </FrameLayout>
 
             <FrameLayout
                 android:id="@+id/frm_uk"
                 android:layout_width="@dimen/standard_icon_size"
                 android:layout_height="@dimen/standard_icon_size"
-                android:layout_marginTop="@dimen/standard_margin"
-                android:layout_marginLeft="@dimen/standard_margin"
-                android:layout_alignParentLeft="true"
-                android:clickable="true"
-                android:foreground="?attr/selectableItemBackgroundBorderless">
+                android:layout_marginStart="@dimen/standard_margin"
+                app:layout_constraintLeft_toRightOf="@id/frm_us"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/united_kingdom_flag"
                     android:adjustViewBounds="true"
-                    android:alpha="0.4"/>
+                    android:src="@drawable/ic_action_united_kingdom_flag" />
 
                 <ImageButton
                     android:id="@+id/img_speech_uk"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/ic_action_volume_up"
+                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:scaleType="center"
-                    android:background="@null"/>
+                    android:src="@drawable/ic_action_volume_up"
+                    android:tint="@color/icon_color" />
             </FrameLayout>
-        </LinearLayout>
-
-        <com.example.amin.dictionande.custom_views.CustomEnglishTextView
-            android:id="@+id/txt_voc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/ll_pronun"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="@dimen/standard_margin"
-            android:layout_marginBottom="@dimen/standard_margin"
-            android:textColor="@color/english_words_color"
-            android:textSize="@dimen/standard_font_size_large"
-            tools:text="word : " />
-
-        <com.example.amin.dictionande.custom_views.CustomPersianTextView
-            android:id="@+id/txt_meaning"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/txt_voc"
-            android:layout_alignParentRight="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginHorizontal="@dimen/standard_margin_x3"
-            android:layout_marginBottom="@dimen/standard_margin"
-            android:textColor="@color/persian_words_color"
-            android:textSize="@dimen/standard_font_size_large"
-            tools:text="معنای کلمه این می باشد و دارای دو حالت فعلی و اسمی می باشد که دارای معانی مت" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/txt_meaning"
-            android:layout_marginTop="@dimen/standard_margin_x2"
-            android:layout_marginRight="@dimen/standard_margin"
-            android:layout_marginBottom="@dimen/standard_margin"
-            android:gravity="right"
-            android:orientation="horizontal">
 
             <ImageButton
                 android:id="@+id/btn_delete"
@@ -121,29 +80,68 @@
                 android:layout_marginHorizontal="@dimen/standard_margin"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_action_delete" />
+                android:src="@drawable/ic_action_delete"
+                android:tint="@color/icon_color"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
                 android:id="@+id/btn_bookmark"
                 android:layout_width="@dimen/standard_icon_size"
                 android:layout_height="@dimen/standard_icon_size"
-                android:layout_marginHorizontal="@dimen/standard_margin"
+                android:layout_marginStart="@dimen/standard_margin"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:scaleType="fitCenter"
+                android:tint="@color/icon_color"
+                app:layout_constraintRight_toLeftOf="@id/btn_delete"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:src="@drawable/ic_action_bookmark" />
 
             <ImageButton
+                app:layout_constraintRight_toLeftOf="@id/btn_bookmark"
                 android:id="@+id/btn_edit"
                 android:layout_width="@dimen/standard_icon_size"
                 android:layout_height="@dimen/standard_icon_size"
-                android:layout_marginHorizontal="@dimen/standard_margin"
+                android:layout_marginStart="@dimen/standard_margin"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_action_edit" />
+                android:src="@drawable/ic_action_edit"
+                android:tint="@color/icon_color"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
 
-        </LinearLayout>
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/standard_margin_x2"
+            android:layout_marginRight="@dimen/standard_margin_x2"
+            android:layout_marginBottom="@dimen/standard_margin"
+            android:background="?android:attr/listDivider" />
 
-    </RelativeLayout>
+        <ir.proglovving.dilin.custom_views.CusTextView
+            android:id="@+id/txt_word"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/standard_margin"
+            android:layout_marginRight="@dimen/standard_margin"
+            android:layout_marginBottom="@dimen/standard_margin"
+            android:textColor="@color/english_words_color"
+            android:textSize="@dimen/standard_font_size_large"
+            tools:text="word : " />
 
+        <ir.proglovving.dilin.custom_views.CusTextView
+            android:id="@+id/txt_meaning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginBottom="@dimen/standard_margin"
+            android:paddingLeft="@dimen/standard_margin_x2_5"
+            android:paddingRight="@dimen/standard_margin_x2_5"
+            android:textColor="@color/persian_words_color"
+            android:textSize="@dimen/standard_font_size_large"
+            tools:text="معنای کلمه این می باشد و دارای دو حالت فعلی و اسمی می باشد که دارای معانی متفاموتی می باشد و در اینجا اصلا برای ما اهمیتی ندارد و صرفا برای تست کردن نحوه ی کارکرد برنامه این قسمت نوشته شده است." />
+
+    </LinearLayout>
 
 </android.support.v7.widget.CardView>
