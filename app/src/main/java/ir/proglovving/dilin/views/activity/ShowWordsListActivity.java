@@ -92,7 +92,7 @@ public class ShowWordsListActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        Utilities.updageShowWordsWidget(this);
+        Utilities.updateShowWordsWidget(this);
     }
 
     @Override

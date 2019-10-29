@@ -93,7 +93,7 @@ public class Utilities {
     }
 
 
-    public static void updageShowWordsWidget(Context context) {
+    public static void updateShowWordsWidget(Context context) {
         Intent intent = new Intent(context, ShowWordsWidget.class);
         intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
         // Use an array and EXTRA_APPWIDGET_IDS instead of AppWidgetManager.EXTRA_APPWIDGET_ID,

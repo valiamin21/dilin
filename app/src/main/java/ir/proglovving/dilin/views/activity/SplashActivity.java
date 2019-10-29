@@ -43,8 +43,8 @@ public class SplashActivity extends AppCompatActivity {
             }
         }, 1);
 
-        showDilinIconAnimation(BACKGROUND_REVEAL_TIME,DILIN_ANIMATION_TIME);
-        showDilinTextViewAnimation(BACKGROUND_REVEAL_TIME,DILIN_ANIMATION_TIME);
+        showDilinIconAnimation(BACKGROUND_REVEAL_TIME, DILIN_ANIMATION_TIME);
+        showDilinTextViewAnimation(BACKGROUND_REVEAL_TIME, DILIN_ANIMATION_TIME);
 
         // below is a thread for starting next activity
         new Thread(new Runnable() {
@@ -62,6 +62,7 @@ public class SplashActivity extends AppCompatActivity {
         }).start();
 
     }
+
     private void showDilinTextViewAnimation(int delayTime, final int animationTime) {
         new CountDownTimer(delayTime, delayTime) {
 
