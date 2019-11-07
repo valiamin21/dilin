@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -36,7 +37,9 @@ import ir.proglovving.dilin.R;
 import ir.proglovving.dilin.Utilities;
 import ir.proglovving.dilin.data_model.Notebook;
 import ir.proglovving.dilin.database_open_helpers.NotebookOpenHelper;
+import ir.proglovving.dilin.views.fragment.DictionarySearchFragment;
 import ir.proglovving.dilin.views.fragment.ShowNoteBooksFragment;
+import ir.proglovving.dilin.views.fragment.ShowWordsFragment;
 
 public class ShowNoteBooksListActivity extends AppCompatActivity{
 
@@ -50,8 +53,10 @@ public class ShowNoteBooksListActivity extends AppCompatActivity{
     private NavigationView navigationView;
 //    private FloatingActionButton fabAddNotebook;
     private FrameLayout containerFrameLayout;
+    private BottomNavigationView bottomNavigationView;
 
     private ShowNoteBooksFragment showNoteBooksFragment;
+    private DictionarySearchFragment dictionarySearchFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -186,11 +191,44 @@ public class ShowNoteBooksListActivity extends AppCompatActivity{
             public void run() {
                 Utilities.applyFontForAViewGroup(navigationView, ShowNoteBooksListActivity.this);
             }
-        },1);
+        },5000);
 
 
         containerFrameLayout = (FrameLayout) findViewById(R.id.container_frame_layout);
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Utilities.applyFontForAViewGroup(bottomNavigationView,ShowNoteBooksListActivity.this);
 
+            }
+        },1);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
+                if(dictionarySearchFragment == null){
+                    dictionarySearchFragment = new DictionarySearchFragment();
+                    getSupportFragmentManager().beginTransaction().add(containerFrameLayout.getId(),dictionarySearchFragment).commit();
+                }
+                getSupportFragmentManager().beginTransaction().hide(showNoteBooksFragment).commit();
+                getSupportFragmentManager().beginTransaction().hide(dictionarySearchFragment).commit();
+
+                switch (menuItem.getItemId()){
+                    case R.id.notebooks:
+                        getSupportFragmentManager().beginTransaction().show(showNoteBooksFragment).commit();
+                        break;
+                    case R.id.search:
+                        Toast.makeText(ShowNoteBooksListActivity.this, "search was clicked", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.dictionary:
+                        getSupportFragmentManager().beginTransaction().show(dictionarySearchFragment).commit();
+                        break;
+                }
+                return true;
+            }
+        });
         /*
         fabAddNotebook = (FloatingActionButton) findViewById(R.id.fab_add);
         fabAddNotebook.setTag(View.VISIBLE); // در این جا از تگ ویوی fabAddNotebook به عنوان نشانه ای برای تشخیص ویزیبل بودن یا نبودن آن استفاده می شود.
