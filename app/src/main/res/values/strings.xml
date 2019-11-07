@@ -84,4 +84,6 @@
     <string name="american_speech">تلفظ آمریکایی</string>
     <string name="british_speech">تلفظ بریتانیایی</string>
 
+    <string name="search">جست و جو</string>
+    <string name="dictionary">دیکشنری</string>
 </resources>
