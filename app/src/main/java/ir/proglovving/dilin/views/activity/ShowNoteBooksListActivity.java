@@ -297,6 +297,7 @@ public class ShowNoteBooksListActivity extends AppCompatActivity{
     public static void start(Context context){
         Intent starter = new Intent(context, ShowNoteBooksListActivity.class);
         // starter.putSomething!
+
         context.startActivity(starter);
     }
 
