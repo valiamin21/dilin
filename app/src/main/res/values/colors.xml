@@ -22,6 +22,7 @@
     <!--<color name="icon_color">#E53935</color>-->
     <!--<color name="icon_color">#BD97CB</color>-->
     <color name="heart_icon_color">#D10808</color>
+    <color name="white">#FFF</color>
 
     <color name="window_background">#EEEEEE</color>
 
