@@ -48,7 +48,7 @@ public class ShowNoteBooksListActivity extends AppCompatActivity{
 //        private CollapsingToolbarLayout collapsingToolbarLayout;
     private CoordinatorLayout coordinatorLayout;
     private NavigationView navigationView;
-    private FloatingActionButton fabAddNotebook;
+//    private FloatingActionButton fabAddNotebook;
     private FrameLayout containerFrameLayout;
 
     private ShowNoteBooksFragment showNoteBooksFragment;
@@ -191,6 +191,7 @@ public class ShowNoteBooksListActivity extends AppCompatActivity{
 
         containerFrameLayout = (FrameLayout) findViewById(R.id.container_frame_layout);
 
+        /*
         fabAddNotebook = (FloatingActionButton) findViewById(R.id.fab_add);
         fabAddNotebook.setTag(View.VISIBLE); // در این جا از تگ ویوی fabAddNotebook به عنوان نشانه ای برای تشخیص ویزیبل بودن یا نبودن آن استفاده می شود.
         fabAddNotebook.setOnClickListener(new View.OnClickListener() {
@@ -199,6 +200,8 @@ public class ShowNoteBooksListActivity extends AppCompatActivity{
                 showAddNoteBookDialog();
             }
         });
+
+         */
 
 //        fabSearch = (FloatingActionButton)findViewById(R.id.fab_search);
 //        fabSearch.setOnClickListener(new View.OnClickListener() {
@@ -307,13 +310,13 @@ public class ShowNoteBooksListActivity extends AppCompatActivity{
                     @Override
                     public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                         super.onScrolled(recyclerView, dx, dy);
-                        if (dy > 0) {
+                        /*if (dy > 0) {
                             fabAddNotebook.hide();
                         } else {
                             if(((int) fabAddNotebook.getTag()) == View.VISIBLE){
                                 fabAddNotebook.show();
                             }
-                        }
+                        }*/
                     }
                 };
     }
