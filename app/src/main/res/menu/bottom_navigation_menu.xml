@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/notebooks"
+        android:icon="@drawable/ic_action_books_stack"
+        android:title="@string/notebooks" />
+
+    <item
+        android:id="@+id/search"
+        android:icon="@drawable/ic_action_search"
+        android:title="@string/search" />
+
+    <item
+        android:id="@+id/dictionary"
+        android:icon="@drawable/ic_action_vocabulary"
+        android:title="@string/dictionary" />
+
+</menu>
