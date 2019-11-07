@@ -191,7 +191,7 @@ public class ShowNoteBooksListActivity extends AppCompatActivity{
             public void run() {
                 Utilities.applyFontForAViewGroup(navigationView, ShowNoteBooksListActivity.this);
             }
-        },5000);
+        },1);
 
 
         containerFrameLayout = (FrameLayout) findViewById(R.id.container_frame_layout);
@@ -200,7 +200,6 @@ public class ShowNoteBooksListActivity extends AppCompatActivity{
             @Override
             public void run() {
                 Utilities.applyFontForAViewGroup(bottomNavigationView,ShowNoteBooksListActivity.this);
-
             }
         },1);
 
