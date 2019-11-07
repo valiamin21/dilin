@@ -22,41 +22,37 @@
                 android:id="@+id/toolbar_show_note_activity"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin" />
+                app:layout_scrollFlags="scroll|enterAlways" />
 
         </android.support.design.widget.AppBarLayout>
 
 
         <FrameLayout
+            android:id="@+id/container_frame_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-            <FrameLayout
-                android:id="@+id/container_frame_layout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <android.support.design.widget.BottomNavigationView
-                android:id="@+id/bottom_navigation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:background="@color/white"
-                app:menu="@menu/bottom_navigation_menu" />
-        </FrameLayout>
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@color/white"
+            app:layout_anchorGravity="bottom"
+            app:menu="@menu/bottom_navigation_menu" />
 
 
-<!--        <android.support.design.widget.FloatingActionButton-->
-<!--            android:id="@+id/fab_add"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="bottom|start"-->
-<!--            android:layout_margin="@dimen/standard_margin_x2"-->
-<!--            android:src="@drawable/ic_action_add"-->
-<!--            app:fabSize="normal"-->
-<!--            app:rippleColor="@android:color/white"-->
-<!--            android:visibility="gone"/>-->
+        <!--        <android.support.design.widget.FloatingActionButton-->
+        <!--            android:id="@+id/fab_add"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_gravity="bottom|start"-->
+        <!--            android:layout_margin="@dimen/standard_margin_x2"-->
+        <!--            android:src="@drawable/ic_action_add"-->
+        <!--            app:fabSize="normal"-->
+        <!--            app:rippleColor="@android:color/white"-->
+        <!--            android:visibility="gone"/>-->
 
         <!--<android.support.design.widget.FloatingActionButton-->
         <!--android:id="@+id/fab_search"-->
