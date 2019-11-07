@@ -45,7 +45,7 @@ public class ShowNoteBooksListActivity extends AppCompatActivity{
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
     private Toolbar toolbar;
-        private CollapsingToolbarLayout collapsingToolbarLayout;
+//        private CollapsingToolbarLayout collapsingToolbarLayout;
     private CoordinatorLayout coordinatorLayout;
     private NavigationView navigationView;
     private FloatingActionButton fabAddNotebook;
@@ -109,12 +109,10 @@ public class ShowNoteBooksListActivity extends AppCompatActivity{
     private void setupViews() {
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator);
 
-        collapsingToolbarLayout = (CollapsingToolbarLayout)findViewById(R.id.ctl);
-
         toolbar = (Toolbar) findViewById(R.id.toolbar_show_note_activity);
         setSupportActionBar(toolbar);
-        collapsingToolbarLayout.setTitle(getString(R.string.notebooks));
-        Utilities.applyFontForCollapsingToolbarLayou(collapsingToolbarLayout,this);
+        toolbar.setTitle(getString(R.string.notebooks));
+        Utilities.applyFontForToolbar(toolbar,this);
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawable_layout);
         drawerToggle =
@@ -132,6 +130,7 @@ public class ShowNoteBooksListActivity extends AppCompatActivity{
                 ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(ShowNoteBooksListActivity.this, null);
 
                 switch (menuItem.getItemId()) {
+                    /*
                     case R.id.favorite:
 
                         showNoteBooksFragment = new ShowNoteBooksFragment(
@@ -144,7 +143,7 @@ public class ShowNoteBooksListActivity extends AppCompatActivity{
                         if (showNoteBooksFragment.isFavoriteMode()) { // اگر در حال نمایش مورد علاقه بود
                             menuItem.setTitle(R.string.all_notebooks);
                             menuItem.setIcon(R.drawable.ic_action_all_books);
-                            collapsingToolbarLayout.setTitle(getString(R.string.favorite_text));
+//                            oolbarLayout.setTitle(getString(R.string.favorite_text));
 
                             fabAddNotebook.hide();
                             fabAddNotebook.setTag(View.INVISIBLE);
@@ -152,7 +151,7 @@ public class ShowNoteBooksListActivity extends AppCompatActivity{
 
                             menuItem.setTitle(R.string.favorite_text);
                             menuItem.setIcon(R.drawable.ic_action_favorite);
-                            collapsingToolbarLayout.setTitle(getString(R.string.all_notebooks));
+//                            collapsingToolbarLayout.setTitle(getString(R.string.all_notebooks));
 
                             fabAddNotebook.show();
                             fabAddNotebook.setTag(View.VISIBLE);
@@ -161,6 +160,7 @@ public class ShowNoteBooksListActivity extends AppCompatActivity{
                         drawerLayout.closeDrawers();
 
                         break;
+                        */
                     case R.id.rate:
                         Toast.makeText(ShowNoteBooksListActivity.this, "rate was clicked", Toast.LENGTH_SHORT).show();
                         break;
