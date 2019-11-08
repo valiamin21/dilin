@@ -218,8 +218,8 @@ public class ShowNoteBooksListActivity extends AppCompatActivity{
                     case R.id.notebooks:
                         getSupportFragmentManager().beginTransaction().show(showNoteBooksFragment).commit();
                         break;
-                    case R.id.search:
-                        Toast.makeText(ShowNoteBooksListActivity.this, "search was clicked", Toast.LENGTH_SHORT).show();
+                    case R.id.bookmark:
+                        Toast.makeText(ShowNoteBooksListActivity.this, "bookmark", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.dictionary:
                         getSupportFragmentManager().beginTransaction().show(dictionarySearchFragment).commit();
