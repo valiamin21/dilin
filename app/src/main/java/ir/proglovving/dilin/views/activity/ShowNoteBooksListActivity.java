@@ -15,6 +15,8 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -37,6 +39,7 @@ import ir.proglovving.dilin.R;
 import ir.proglovving.dilin.Utilities;
 import ir.proglovving.dilin.data_model.Notebook;
 import ir.proglovving.dilin.database_open_helpers.NotebookOpenHelper;
+import ir.proglovving.dilin.views.fragment.BookmarkedWordsFragment;
 import ir.proglovving.dilin.views.fragment.DictionarySearchFragment;
 import ir.proglovving.dilin.views.fragment.ShowNoteBooksFragment;
 import ir.proglovving.dilin.views.fragment.ShowWordsFragment;
@@ -57,6 +60,7 @@ public class ShowNoteBooksListActivity extends AppCompatActivity{
 
     private ShowNoteBooksFragment showNoteBooksFragment;
     private DictionarySearchFragment dictionarySearchFragment;
+    private BookmarkedWordsFragment bookmarkedWordsFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -207,21 +211,26 @@ public class ShowNoteBooksListActivity extends AppCompatActivity{
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
-                if(dictionarySearchFragment == null){
-                    dictionarySearchFragment = new DictionarySearchFragment();
-                    getSupportFragmentManager().beginTransaction().add(containerFrameLayout.getId(),dictionarySearchFragment).commit();
-                }
-                getSupportFragmentManager().beginTransaction().hide(showNoteBooksFragment).commit();
-                getSupportFragmentManager().beginTransaction().hide(dictionarySearchFragment).commit();
+                hideAFragmentForBottomNavigation(dictionarySearchFragment,getSupportFragmentManager());
+                hideAFragmentForBottomNavigation(showNoteBooksFragment,getSupportFragmentManager());
+                hideAFragmentForBottomNavigation(bookmarkedWordsFragment,getSupportFragmentManager());
 
                 switch (menuItem.getItemId()){
                     case R.id.notebooks:
                         getSupportFragmentManager().beginTransaction().show(showNoteBooksFragment).commit();
                         break;
                     case R.id.bookmark:
-                        Toast.makeText(ShowNoteBooksListActivity.this, "bookmark", Toast.LENGTH_SHORT).show();
+                        if(bookmarkedWordsFragment == null){
+                            bookmarkedWordsFragment = BookmarkedWordsFragment.newInstance();
+                            getSupportFragmentManager().beginTransaction().add(containerFrameLayout.getId(),bookmarkedWordsFragment).commit();
+                        }
+                        getSupportFragmentManager().beginTransaction().show(bookmarkedWordsFragment).commit();
                         break;
                     case R.id.dictionary:
+                        if(dictionarySearchFragment == null){
+                            dictionarySearchFragment = new DictionarySearchFragment();
+                            getSupportFragmentManager().beginTransaction().add(containerFrameLayout.getId(),dictionarySearchFragment).commit();
+                        }
                         getSupportFragmentManager().beginTransaction().show(dictionarySearchFragment).commit();
                         break;
                 }
@@ -248,6 +257,12 @@ public class ShowNoteBooksListActivity extends AppCompatActivity{
 //            }
 //        });
 
+    }
+
+    private void hideAFragmentForBottomNavigation(@Nullable Fragment fragment, FragmentManager fm){
+        if(fragment != null){
+            fm.beginTransaction().hide(fragment).commit();
+        }
     }
 
     @Override
