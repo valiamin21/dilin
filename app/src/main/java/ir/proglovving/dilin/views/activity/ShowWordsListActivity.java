@@ -81,7 +81,7 @@ public class ShowWordsListActivity extends AppCompatActivity {
         setupViews();
 
         showWordsFragment = new ShowWordsFragment(
-                coordinatorLayout, false, ShowWordsFragment.REFRESH_TYPE_SETUP, getOnScrollListener(), notebookId
+                false, ShowWordsFragment.REFRESH_TYPE_SETUP, getOnScrollListener(), notebookId
         );
 
         getSupportFragmentManager().beginTransaction()
@@ -313,8 +313,7 @@ public class ShowWordsListActivity extends AppCompatActivity {
                 switch (menuItem.getItemId()) {
 
                     case R.id.bookmark:
-                        showWordsFragment = new ShowWordsFragment(coordinatorLayout
-                                , !showWordsFragment.isBookmarkedMode(), ShowWordsFragment.REFRESH_TYPE_SETUP, getOnScrollListener(), notebookId);
+                        showWordsFragment = new ShowWordsFragment(!showWordsFragment.isBookmarkedMode(), ShowWordsFragment.REFRESH_TYPE_SETUP, getOnScrollListener(), notebookId);
                         getSupportFragmentManager().beginTransaction()
                                 .replace(containerFrameLayout.getId(), showWordsFragment)
                                 .commit();
@@ -344,10 +343,10 @@ public class ShowWordsListActivity extends AppCompatActivity {
 
                     case R.id.about:
 
-                        ProgrammerAboutUsActivity.start(ShowWordsListActivity.this,compat.toBundle());
+                        ProgrammerAboutUsActivity.start(ShowWordsListActivity.this, compat.toBundle());
                         break;
                     case R.id.protect:
-                        DonateActivity.start(ShowWordsListActivity.this,compat.toBundle());
+                        DonateActivity.start(ShowWordsListActivity.this, compat.toBundle());
                         break;
                 }
                 return true;
@@ -381,7 +380,7 @@ public class ShowWordsListActivity extends AppCompatActivity {
         Intent starter = new Intent(activity, ShowWordsListActivity.class);
         starter.putExtra(KEY_NOTEBOOK_ID, notebookId);
         starter.putExtra(KEY_NOTEBOOK_NAME, noteBookName);
-        activity.startActivityForResult(starter,requestCode);
+        activity.startActivityForResult(starter, requestCode);
     }
 
     private RecyclerView.OnScrollListener getOnScrollListener() {

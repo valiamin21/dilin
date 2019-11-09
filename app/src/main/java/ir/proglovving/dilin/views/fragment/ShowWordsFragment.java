@@ -41,7 +41,6 @@ public class ShowWordsFragment extends Fragment implements WordsRecyclerViewAdap
     private RecyclerView recyclerView;
     private NestedScrollView emptyMessageNestedScrollView;
     private MotionableTextView emptyTextView;
-    private CoordinatorLayout coordinatorLayout;
     private boolean isBookmarkedMode;
     private int refreshType = REFRESH_TYPE_CURRENT;
     private RecyclerView.OnScrollListener onScrollListener;
@@ -54,8 +53,7 @@ public class ShowWordsFragment extends Fragment implements WordsRecyclerViewAdap
     private LinearLayout dialogContainer;
 
 
-    public ShowWordsFragment(CoordinatorLayout coordinatorLayout, boolean bookmarkedMode, int refreshType, RecyclerView.OnScrollListener onScrollListener, int notebookId) {
-        this.coordinatorLayout = coordinatorLayout;
+    public ShowWordsFragment(boolean bookmarkedMode, int refreshType, RecyclerView.OnScrollListener onScrollListener, int notebookId) {
         this.isBookmarkedMode = bookmarkedMode;
         this.refreshType = refreshType;
         this.onScrollListener = onScrollListener;
