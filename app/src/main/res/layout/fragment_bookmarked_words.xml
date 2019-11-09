@@ -5,9 +5,27 @@
     android:layout_height="match_parent"
     tools:context=".views.fragment.BookmarkedWordsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/standard_margin_x2"/>
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nested_scroll_view_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <ir.proglovving.dilin.custom_views.MotionableTextView
+            android:id="@+id/tv_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/no_bookmarked_word_was_found"
+            android:textSize="@dimen/standard_font_size_very_large"
+            android:layout_marginTop="@dimen/show_empty_recycler_view_text_margin"/>
+
+    </android.support.v4.widget.NestedScrollView>
 
 </FrameLayout>
