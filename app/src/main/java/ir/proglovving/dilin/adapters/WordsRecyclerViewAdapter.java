@@ -20,12 +20,12 @@ import java.util.Locale;
 
 import ir.proglovving.dilin.MyApplication;
 import ir.proglovving.dilin.R;
+import ir.proglovving.dilin.data_model.DetailedWord;
 import ir.proglovving.dilin.data_model.Word;
 import ir.proglovving.dilin.database_open_helpers.WordsOpenHelper;
 import ir.proglovving.dilin.views.activity.ShowWordActivity;
 
 public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecyclerViewAdapter.WordMeaningViewHolder> {
-
 
     private Context context;
     private List<Word> words;
@@ -38,7 +38,6 @@ public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecycler
     private static boolean isTTSReady = false;
 
     public WordsRecyclerViewAdapter(Context context, List<Word> words, EventOfWordMeaningRecyclerView event, int notebookId) {
-
         this.context = context;
         this.words = words;
         this.event = event;
@@ -56,12 +55,15 @@ public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecycler
         });
     }
 
+    public WordsRecyclerViewAdapter(Context context,List<Word> detailedWords, EventOfWordMeaningRecyclerView event){
+        this.context = context;
+        this.words = words;
+        this.event = event;
+    }
+
     @NonNull
     @Override
     public WordMeaningViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-//        View view = LayoutInflater.from(context).inflate(R.layout.item_word,viewGroup,false);
-//        WordMeaningViewHolder vocMeanRecyclerViewHolder = new WordMeaningViewHolder(viewGroup);
-//        return vocMeanRecyclerViewHolder;
         return new WordMeaningViewHolder(
                 LayoutInflater.from(context).inflate(R.layout.item_word, viewGroup, false)
         );
@@ -69,6 +71,9 @@ public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecycler
 
     @Override
     public void onBindViewHolder(@NonNull final WordMeaningViewHolder wordMeaningViewHolder, final int i) {
+        if(words.get(i) instanceof DetailedWord){
+            notebookId = ((DetailedWord) words.get(i)).getNotebookId();
+        }
 
         wordMeaningViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,7 +81,6 @@ public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecycler
                 ShowWordActivity.start(context);
             }
         });
-
 
         final Word word = words.get(i);
         wordMeaningViewHolder.wordTextView.setText(word.getWord() + " :");
@@ -140,6 +144,11 @@ public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecycler
         });
 
         setAnimation(wordMeaningViewHolder.itemView, i);
+    }
+
+
+    private void onBindViewHolderForDetailedWords(WordMeaningViewHolder wordMeaningViewHolder, int i){
+
     }
 
     private void setAnimation(View viewToAnimation, int position) {
