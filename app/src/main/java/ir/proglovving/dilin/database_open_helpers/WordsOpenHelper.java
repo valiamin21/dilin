@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ir.proglovving.dilin.RandomPlayingWord;
+import ir.proglovving.dilin.data_model.DetailedWord;
+import ir.proglovving.dilin.data_model.Notebook;
 import ir.proglovving.dilin.data_model.Word;
 
 public class WordsOpenHelper extends SQLiteOpenHelper {
@@ -24,11 +26,26 @@ public class WordsOpenHelper extends SQLiteOpenHelper {
     private static final String COL_BOOKMARKED = "bookmarked";
 
     private String words_table_name;
+    private int notebookId;
+
+    public static List<DetailedWord> getDetailedWordList(Context context,boolean isBookmarked) {
+        List<DetailedWord> detailedWords = new ArrayList<>();
+
+        List<Notebook> notebookList = new NotebookOpenHelper(context).getNotebookList();
+        for (Notebook notebook : notebookList) {
+            detailedWords.addAll(
+                    new WordsOpenHelper(context,notebook.getId()).getDetailedWordList(isBookmarked)
+            );
+        }
+
+        return detailedWords;
+    }
 
 
     public WordsOpenHelper(Context context, int notebookId) {
-        super(context, "_"+notebookId, null, DB_VERSION);
-        this.words_table_name = "_"+notebookId;
+        super(context, "_" + notebookId, null, DB_VERSION);
+        this.words_table_name = "_" + notebookId;
+        this.notebookId = notebookId;
     }
 
     @Override
@@ -56,7 +73,7 @@ public class WordsOpenHelper extends SQLiteOpenHelper {
         sqLiteDatabase.close();
     }
 
-    public void addWords(List<Word> words){
+    public void addWords(List<Word> words) {
         for (int i = 0; i < words.size(); i++) {
             addWord(words.get(i));
         }
@@ -153,6 +170,32 @@ public class WordsOpenHelper extends SQLiteOpenHelper {
         return wordList;
     }
 
+    public List<DetailedWord> getDetailedWordList(boolean isBookmarked){
+        List<DetailedWord> detailedWordList = new ArrayList<>();
+
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        if(!sqLiteDatabase.isOpen()){
+            return detailedWordList;
+        }
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + words_table_name,null);
+        if(cursor.moveToFirst()){
+            do {
+                DetailedWord detailedWord = new DetailedWord();
+                setValuesOfCursorInWord(cursor,detailedWord);
+                if(isBookmarked && !detailedWord.isBookmark()){ // اگر کلمات نشان شده باید دریافت می شد و نشان شده نبود
+                    continue;
+                }
+
+                detailedWord.setNotebookId(notebookId);
+                detailedWordList.add(detailedWord);
+            }while(cursor.moveToNext());
+        }
+
+        cursor.close();
+        sqLiteDatabase.close();
+        return detailedWordList;
+    }
+
     public int getRawsCount() {
         SQLiteDatabase readableSqliSqLiteDatabase = getReadableDatabase();
         Cursor cursor = readableSqliSqLiteDatabase.rawQuery("SELECT * FROM " + words_table_name, null);
@@ -221,19 +264,19 @@ public class WordsOpenHelper extends SQLiteOpenHelper {
         return false;
     }
 
-    public int getNextId(int id){
+    public int getNextId(int id) {
         int result = id;
         SQLiteDatabase database = getReadableDatabase();
-        Cursor cursor = database.rawQuery("SELECT * FROM "+ words_table_name,null);
-        if(cursor.moveToFirst()){
-            do{
-                if(cursor.getInt(cursor.getColumnIndex(COL_ID)) == id){
-                    if(cursor.moveToNext()){
+        Cursor cursor = database.rawQuery("SELECT * FROM " + words_table_name, null);
+        if (cursor.moveToFirst()) {
+            do {
+                if (cursor.getInt(cursor.getColumnIndex(COL_ID)) == id) {
+                    if (cursor.moveToNext()) {
                         result = cursor.getInt(cursor.getColumnIndex(COL_ID));
                     }
                     break;
                 }
-            }while(cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
 
         cursor.close();
@@ -241,21 +284,21 @@ public class WordsOpenHelper extends SQLiteOpenHelper {
         return result;
     }
 
-    public List<Word> getBookmarkedWords(){
+    public List<Word> getBookmarkedWords() {
         List<Word> result = new ArrayList<>();
 
         List<Word> words = getWordList();
         for (int i = 0; i < words.size(); i++) {
-            if(words.get(i).isBookmark()){
+            if (words.get(i).isBookmark()) {
                 result.add(words.get(i));
             }
         }
         return result;
     }
 
-    public Word getRandomWord(){
+    public Word getRandomWord() {
         List<Word> words = getWordList();
-        return words.get(RandomPlayingWord.randInt(0, words.size()-1));
+        return words.get(RandomPlayingWord.randInt(0, words.size() - 1));
     }
 //    public int getNextId(int id) {
 //        int result = id;
