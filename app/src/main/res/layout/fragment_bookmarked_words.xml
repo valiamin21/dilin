@@ -6,16 +6,15 @@
     tools:context=".views.fragment.BookmarkedWordsFragment">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
+        android:id="@+id/recycler_view_bookmarked_fragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingLeft="@dimen/standard_margin_x2"/>
+        android:layout_height="match_parent" />
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/nested_scroll_view_empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
+        android:visibility="gone">
 
         <ir.proglovving.dilin.custom_views.MotionableTextView
             android:id="@+id/tv_empty"
