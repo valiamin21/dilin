@@ -20,7 +20,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
-import ir.proglovving.dilin.views.activity.ShowNoteBooksListActivity;
+import ir.proglovving.dilin.views.activity.MainActivity;
 import ir.proglovving.dilin.views.activity.SplashActivity;
 import ir.proglovving.dilin.widgets.ShowWordsWidget;
 
@@ -114,7 +114,7 @@ public class Utilities {
                 transition = new Slide();
                 transition.setDuration(1000);
                 transition.setInterpolator(new DecelerateInterpolator());
-            } else if (activity instanceof ShowNoteBooksListActivity) {
+            } else if (activity instanceof MainActivity) {
                 transition = new Fade();
                 transition.setDuration(500);
 

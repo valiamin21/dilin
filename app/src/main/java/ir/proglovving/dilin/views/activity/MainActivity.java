@@ -10,9 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
@@ -42,9 +40,8 @@ import ir.proglovving.dilin.database_open_helpers.NotebookOpenHelper;
 import ir.proglovving.dilin.views.fragment.BookmarkedWordsFragment;
 import ir.proglovving.dilin.views.fragment.DictionarySearchFragment;
 import ir.proglovving.dilin.views.fragment.ShowNoteBooksFragment;
-import ir.proglovving.dilin.views.fragment.ShowWordsFragment;
 
-public class ShowNoteBooksListActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity{
 
     public static final int RESULT_BACK_FROM_NOTEBOOKS_ACTIVITY = 52;
 
@@ -65,7 +62,7 @@ public class ShowNoteBooksListActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_note_books);
+        setContentView(R.layout.activity_main);
         setActivityTransitions();
         setupViews();
 
@@ -98,7 +95,7 @@ public class ShowNoteBooksListActivity extends AppCompatActivity{
                 .setPositive(getString(R.string.yes_text), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ShowNoteBooksListActivity.super.onBackPressed();
+                        MainActivity.super.onBackPressed();
                     }
                 })
                 .setNegative(getString(R.string.no_text), new View.OnClickListener() {
@@ -134,9 +131,9 @@ public class ShowNoteBooksListActivity extends AppCompatActivity{
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
-                Utilities.applyFontForAViewGroup(navigationView, ShowNoteBooksListActivity.this);
+                Utilities.applyFontForAViewGroup(navigationView, MainActivity.this);
 
-                ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(ShowNoteBooksListActivity.this, null);
+                ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, null);
 
                 switch (menuItem.getItemId()) {
                     /*
@@ -171,18 +168,18 @@ public class ShowNoteBooksListActivity extends AppCompatActivity{
                         break;
                         */
                     case R.id.rate:
-                        Toast.makeText(ShowNoteBooksListActivity.this, "rate was clicked", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "rate was clicked", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.other_apps:
-                        Toast.makeText(ShowNoteBooksListActivity.this, "other apps was clicked", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "other apps was clicked", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.about:
-//                        ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(ShowNoteBooksListActivity.this, null);
-                        startActivity(new Intent(ShowNoteBooksListActivity.this, ProgrammerAboutUsActivity.class), compat.toBundle());
+//                        ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, null);
+                        startActivity(new Intent(MainActivity.this, ProgrammerAboutUsActivity.class), compat.toBundle());
                         break;
                     case R.id.protect:
-//                        ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(ShowNoteBooksListActivity.this, null);
-                        startActivity(new Intent(ShowNoteBooksListActivity.this, DonateActivity.class), compat.toBundle());
+//                        ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, null);
+                        startActivity(new Intent(MainActivity.this, DonateActivity.class), compat.toBundle());
                         break;
                 }
                 return true;
@@ -193,7 +190,7 @@ public class ShowNoteBooksListActivity extends AppCompatActivity{
         navigationView.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Utilities.applyFontForAViewGroup(navigationView, ShowNoteBooksListActivity.this);
+                Utilities.applyFontForAViewGroup(navigationView, MainActivity.this);
             }
         },1);
 
@@ -203,7 +200,7 @@ public class ShowNoteBooksListActivity extends AppCompatActivity{
         bottomNavigationView.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Utilities.applyFontForAViewGroup(bottomNavigationView,ShowNoteBooksListActivity.this);
+                Utilities.applyFontForAViewGroup(bottomNavigationView, MainActivity.this);
             }
         },1);
 
@@ -253,7 +250,7 @@ public class ShowNoteBooksListActivity extends AppCompatActivity{
 //        fabSearch.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                startActivity(new Intent(ShowNoteBooksListActivity.this,DictionarySearchActivity.class));
+//                startActivity(new Intent(MainActivity.this,DictionarySearchActivity.class));
 //            }
 //        });
 
@@ -293,7 +290,7 @@ public class ShowNoteBooksListActivity extends AppCompatActivity{
         notebookNameEditText.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Utilities.showSoftKeyboard(notebookNameEditText, ShowNoteBooksListActivity.this);
+                Utilities.showSoftKeyboard(notebookNameEditText, MainActivity.this);
             }
         },100);
 
@@ -303,7 +300,7 @@ public class ShowNoteBooksListActivity extends AppCompatActivity{
                 if (notebookNameEditText.getText().length() == 0) {
                     notebookNameEditText.setError(getString(R.string.no_name_has_been_entered));
                     return;
-                } else if (new NotebookOpenHelper(ShowNoteBooksListActivity.this).
+                } else if (new NotebookOpenHelper(MainActivity.this).
                         isThereNotebook(notebookNameEditText.getText().toString())) {
                     notebookNameEditText.setError(getString(R.string.notebook_is_repeated));
                     return;
@@ -312,7 +309,7 @@ public class ShowNoteBooksListActivity extends AppCompatActivity{
                 notebook.setNoteBookName(notebookNameEditText.getText().toString());
                 notebook.setFavorite(false);
                 notebook.setPlaying(false);
-                new NotebookOpenHelper(ShowNoteBooksListActivity.this).addNotebook(notebook);
+                new NotebookOpenHelper(MainActivity.this).addNotebook(notebook);
 
                 showNoteBooksFragment.refreshRecyclerView(ShowNoteBooksFragment.REFRESH_TYPE_END);
                 dialog.dismiss();
@@ -350,7 +347,7 @@ public class ShowNoteBooksListActivity extends AppCompatActivity{
     }
 
     public static void start(Context context){
-        Intent starter = new Intent(context, ShowNoteBooksListActivity.class);
+        Intent starter = new Intent(context, MainActivity.class);
         // starter.putSomething!
 
         context.startActivity(starter);

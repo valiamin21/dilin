@@ -34,7 +34,7 @@
             android:name=".views.activity.ShowWordsListActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.activity.ShowNoteBooksListActivity"
+            android:name=".views.activity.MainActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".views.activity.ProgrammerAboutUsActivity"

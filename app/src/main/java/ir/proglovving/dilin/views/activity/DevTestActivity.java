@@ -129,7 +129,7 @@ public class DevTestActivity extends AppCompatActivity implements View.OnClickLi
 //                tv.setText(tvText);
                 break;
             case R.id.btn_open_main_page:
-                startActivity(new Intent(this, ShowNoteBooksListActivity.class));
+                startActivity(new Intent(this, MainActivity.class));
                 break;
         }
     }

@@ -55,7 +55,7 @@ public class SplashActivity extends AppCompatActivity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                ShowNoteBooksListActivity.start(SplashActivity.this);
+                MainActivity.start(SplashActivity.this);
 //                DevTestActivity.start(SplashActivity.this);
 //                DictionarySearchActivity.start(SplashActivity.this);
             }

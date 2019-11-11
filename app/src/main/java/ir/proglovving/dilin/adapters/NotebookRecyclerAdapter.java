@@ -27,7 +27,7 @@ import ir.proglovving.dilin.CustomDialogBuilder;
 import ir.proglovving.dilin.R;
 import ir.proglovving.dilin.data_model.Notebook;
 import ir.proglovving.dilin.database_open_helpers.NotebookOpenHelper;
-import ir.proglovving.dilin.views.activity.ShowNoteBooksListActivity;
+import ir.proglovving.dilin.views.activity.MainActivity;
 import ir.proglovving.dilin.views.activity.ShowWordsListActivity;
 
 public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecyclerAdapter.NotebookViewHolder> {
@@ -83,7 +83,7 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecycl
 //                        ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context,((Activity)context).findViewById(R.id.fab_add),context.getString(R.string.fab_transition_name));
 
                 ShowWordsListActivity.startForResult((Activity) context,notebook.getId(),notebook.getNoteBookName()
-                        , ShowNoteBooksListActivity.RESULT_BACK_FROM_NOTEBOOKS_ACTIVITY);
+                        , MainActivity.RESULT_BACK_FROM_NOTEBOOKS_ACTIVITY);
 
             }
         });
