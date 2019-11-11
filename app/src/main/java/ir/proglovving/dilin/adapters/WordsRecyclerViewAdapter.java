@@ -55,9 +55,9 @@ public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecycler
         });
     }
 
-    public WordsRecyclerViewAdapter(Context context,List<Word> detailedWords, EventOfWordMeaningRecyclerView event){
+    public WordsRecyclerViewAdapter(Context context,List detailedWords, EventOfWordMeaningRecyclerView event){
         this.context = context;
-        this.words = words;
+        this.words = detailedWords;
         this.event = event;
     }
 
@@ -144,11 +144,6 @@ public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecycler
         });
 
         setAnimation(wordMeaningViewHolder.itemView, i);
-    }
-
-
-    private void onBindViewHolderForDetailedWords(WordMeaningViewHolder wordMeaningViewHolder, int i){
-
     }
 
     private void setAnimation(View viewToAnimation, int position) {
