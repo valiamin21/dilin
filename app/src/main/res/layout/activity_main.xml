@@ -42,16 +42,16 @@
 
 
 
-            <!--        <android.support.design.widget.FloatingActionButton-->
-            <!--            android:id="@+id/fab_add"-->
-            <!--            android:layout_width="wrap_content"-->
-            <!--            android:layout_height="wrap_content"-->
-            <!--            android:layout_gravity="bottom|start"-->
-            <!--            android:layout_margin="@dimen/standard_margin_x2"-->
-            <!--            android:src="@drawable/ic_action_add"-->
-            <!--            app:fabSize="normal"-->
-            <!--            app:rippleColor="@android:color/white"-->
-            <!--            android:visibility="gone"/>-->
+                    <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/fab_add"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|start"
+                        android:layout_margin="@dimen/standard_margin_x2"
+                        android:src="@drawable/ic_action_add"
+                        app:fabSize="normal"
+                        app:rippleColor="@android:color/white"
+                       android:visibility="gone"/>
 
             <!--<android.support.design.widget.FloatingActionButton-->
             <!--android:id="@+id/fab_search"-->

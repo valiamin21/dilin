@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity{
 //        private CollapsingToolbarLayout collapsingToolbarLayout;
     private CoordinatorLayout coordinatorLayout;
     private NavigationView navigationView;
-//    private FloatingActionButton fabAddNotebook;
+    private FloatingActionButton fabAddNotebook;
     private FrameLayout containerFrameLayout;
     private BottomNavigationView bottomNavigationView;
 
@@ -68,7 +69,7 @@ public class MainActivity extends AppCompatActivity{
 
         Utilities.setupExitTransition(this);
 
-        showNoteBooksFragment = new ShowNoteBooksFragment(coordinatorLayout, false, ShowNoteBooksFragment.REFRESH_TYPE_SETUP, getOnScrollListener());
+        showNoteBooksFragment = new ShowNoteBooksFragment(coordinatorLayout, false, ShowNoteBooksFragment.REFRESH_TYPE_SETUP, (FloatingActionButton)findViewById(R.id.fab_add));
 
         getSupportFragmentManager().beginTransaction()
                 .add(containerFrameLayout.getId(), showNoteBooksFragment)
@@ -207,6 +208,9 @@ public class MainActivity extends AppCompatActivity{
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                if(menuItem.getItemId() != R.id.notebooks){
+                    fabAddNotebook.hide();
+                }
 
                 hideAFragmentForBottomNavigation(dictionarySearchFragment,getSupportFragmentManager());
                 hideAFragmentForBottomNavigation(showNoteBooksFragment,getSupportFragmentManager());
@@ -215,6 +219,7 @@ public class MainActivity extends AppCompatActivity{
                 switch (menuItem.getItemId()){
                     case R.id.notebooks:
                         getSupportFragmentManager().beginTransaction().show(showNoteBooksFragment).commit();
+                        fabAddNotebook.show();
                         break;
                     case R.id.bookmark:
                         if(bookmarkedWordsFragment == null){
@@ -234,7 +239,7 @@ public class MainActivity extends AppCompatActivity{
                 return true;
             }
         });
-        /*
+
         fabAddNotebook = (FloatingActionButton) findViewById(R.id.fab_add);
         fabAddNotebook.setTag(View.VISIBLE); // در این جا از تگ ویوی fabAddNotebook به عنوان نشانه ای برای تشخیص ویزیبل بودن یا نبودن آن استفاده می شود.
         fabAddNotebook.setOnClickListener(new View.OnClickListener() {
@@ -244,7 +249,7 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
-         */
+
 
 //        fabSearch = (FloatingActionButton)findViewById(R.id.fab_search);
 //        fabSearch.setOnClickListener(new View.OnClickListener() {
@@ -351,23 +356,6 @@ public class MainActivity extends AppCompatActivity{
         // starter.putSomething!
 
         context.startActivity(starter);
-    }
-
-    private RecyclerView.OnScrollListener getOnScrollListener() {
-        return
-                new RecyclerView.OnScrollListener() {
-                    @Override
-                    public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                        super.onScrolled(recyclerView, dx, dy);
-                        /*if (dy > 0) {
-                            fabAddNotebook.hide();
-                        } else {
-                            if(((int) fabAddNotebook.getTag()) == View.VISIBLE){
-                                fabAddNotebook.show();
-                            }
-                        }*/
-                    }
-                };
     }
 
 }

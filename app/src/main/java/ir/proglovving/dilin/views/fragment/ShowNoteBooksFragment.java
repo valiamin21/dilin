@@ -1,10 +1,14 @@
 package ir.proglovving.dilin.views.fragment;
 
+import android.animation.Animator;
 import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.GridLayoutManager;
@@ -12,11 +16,16 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import java.util.List;
 
 import ir.proglovving.dilin.R;
+import ir.proglovving.dilin.Utilities;
 import ir.proglovving.dilin.adapters.NotebookRecyclerAdapter;
 import ir.proglovving.dilin.custom_views.MotionableTextView;
 import ir.proglovving.dilin.data_model.Notebook;
@@ -34,7 +43,7 @@ public class ShowNoteBooksFragment extends Fragment implements NotebookRecyclerA
     private NestedScrollView emptyMessageNestedScrollView;
     private MotionableTextView emptyTextView;
     private int refreshType = REFRESH_TYPE_CURRENT;
-    private RecyclerView.OnScrollListener onScrollListener;
+    private FloatingActionButton fabAddNotebook;
     private CoordinatorLayout coordinatorLayout;
 
     private int lastRecyclerScrollState = 0;
@@ -47,11 +56,11 @@ public class ShowNoteBooksFragment extends Fragment implements NotebookRecyclerA
     }
 
     public ShowNoteBooksFragment(CoordinatorLayout coordinatorLayout, boolean favoriteMode,
-                                 int refreshType, RecyclerView.OnScrollListener onScrollListener) {
+                                 int refreshType, FloatingActionButton addFab) {
         this.coordinatorLayout = coordinatorLayout;
         this.isFavoriteMode = favoriteMode;
         this.refreshType = refreshType;
-        this.onScrollListener = onScrollListener;
+        this.fabAddNotebook = addFab;
     }
 
     @Nullable
@@ -60,16 +69,19 @@ public class ShowNoteBooksFragment extends Fragment implements NotebookRecyclerA
         final View view = inflater.inflate(R.layout.fragment_show_notebooks, container, false);
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2, LinearLayoutManager.VERTICAL, false));
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
 
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                lastRecyclerScrollState += dy;
+                if (dy > 0) {
+                    fabAddNotebook.hide();
+                    lastRecyclerScrollState += dy;
+                } else {
+                    if(((int) fabAddNotebook.getTag()) == View.VISIBLE){
+                        fabAddNotebook.show();
+                    }
+                }
             }
         });
 
@@ -79,7 +91,12 @@ public class ShowNoteBooksFragment extends Fragment implements NotebookRecyclerA
 
         refreshRecyclerView(refreshType);
 
-        recyclerView.addOnScrollListener(onScrollListener);
+        fabAddNotebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showAddNoteBookDialog();
+            }
+        });
 
         return view;
     }
@@ -171,6 +188,73 @@ public class ShowNoteBooksFragment extends Fragment implements NotebookRecyclerA
         }
 
         return notebooks;
+    }
+
+    public void showAddNoteBookDialog() {
+        final Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.dialog_add_notebook);
+        final LinearLayout dialogContainer = dialog.findViewById(R.id.ll_dialog_add_notebook);
+        final EditText notebookNameEditText = dialog.findViewById(R.id.et_notebook);
+        Button verifyButton = dialog.findViewById(R.id.btn_verify), cancelButton = dialog.findViewById(R.id.btn_cancel);
+
+        // کد زیر کیبورد گوشی را برای ادیت تکست نمایش می دهد
+        notebookNameEditText.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Utilities.showSoftKeyboard(notebookNameEditText, getContext());
+            }
+        },100);
+
+        verifyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (notebookNameEditText.getText().length() == 0) {
+                    notebookNameEditText.setError(getString(R.string.no_name_has_been_entered));
+                    return;
+                } else if (new NotebookOpenHelper(getContext()).
+                        isThereNotebook(notebookNameEditText.getText().toString())) {
+                    notebookNameEditText.setError(getString(R.string.notebook_is_repeated));
+                    return;
+                }
+                Notebook notebook = new Notebook();
+                notebook.setNoteBookName(notebookNameEditText.getText().toString());
+                notebook.setFavorite(false);
+                notebook.setPlaying(false);
+                new NotebookOpenHelper(getContext()).addNotebook(notebook);
+
+                refreshRecyclerView(REFRESH_TYPE_END);
+                dialog.dismiss();
+            }
+        });
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            dialogContainer.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+
+                    Animator animator = ViewAnimationUtils.createCircularReveal(
+                            dialogContainer, dialogContainer.getWidth(), dialogContainer.getHeight(), 0,
+                            Math.max(dialogContainer.getWidth(), dialogContainer.getHeight()));
+                    dialogContainer.setVisibility(View.VISIBLE);
+                    animator.start();
+                }
+
+
+            }, 200);
+        } else {
+            dialogContainer.setVisibility(View.VISIBLE);
+        }
+
     }
 
     @Override
