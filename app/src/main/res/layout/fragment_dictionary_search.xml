@@ -53,9 +53,11 @@
                 android:layout_marginHorizontal="@dimen/standard_margin"
                 android:layout_toLeftOf="@id/btn_erase"
                 android:layout_toRightOf="@id/btn_search"
-                android:maxLines="1"
                 android:hint="@string/dictionary_search_box_hint"
-                android:textAlignment="center"/>
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textAlignment="center" />
 
 
         </RelativeLayout>
@@ -63,18 +65,18 @@
 
     <ir.proglovving.dilin.custom_views.CusTextView
         android:id="@+id/tv_dictionary_guide"
-        app:layout_constraintTop_toBottomOf="@id/card_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/standard_margin_x2"
-        android:gravity="center"
-        android:layout_marginRight="@dimen/standard_table_distance"
         android:layout_marginLeft="@dimen/standard_table_distance"
-        tools:layout_editor_absoluteX="40dp"
+        android:layout_marginTop="@dimen/standard_margin_x2"
+        android:layout_marginRight="@dimen/standard_table_distance"
+        android:gravity="center"
         android:text="@string/dictionary_guide_text"
         android:textColor="@color/secondary_text"
-        android:textSize="@dimen/standard_font_size_large"/>
+        android:textSize="@dimen/standard_font_size_large"
+        app:layout_constraintTop_toBottomOf="@id/card_toolbar"
+        tools:layout_editor_absoluteX="40dp" />
 
     <ProgressBar
         android:id="@+id/progressbar_dictionary"
@@ -82,23 +84,23 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:visibility="invisible"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView_dictionary"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="invisible"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:spanCount="1"
-        tools:layout_editor_absoluteY="8dp"
-        android:visibility="invisible"/>
+        tools:layout_editor_absoluteY="8dp" />
 
 
 </android.support.constraint.ConstraintLayout>

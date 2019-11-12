@@ -8,9 +8,11 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
@@ -125,6 +127,17 @@ public class DictionarySearchFragment extends Fragment implements View.OnClickLi
                 recyclerViewPaddingTop = toolbarView.getHeight() + toolbarViewLayoutParams.topMargin + toolbarViewLayoutParams.bottomMargin;
             }
         }, 1);
+
+        // when user clicks search button of mobile keyboard following code does searching operation
+        searchEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if(actionId == EditorInfo.IME_ACTION_SEARCH){
+                    performSearch();
+                }
+                return false;
+            }
+        });
     }
 
     @Override
@@ -134,42 +147,45 @@ public class DictionarySearchFragment extends Fragment implements View.OnClickLi
                 searchEditText.setText("");
                 break;
             case R.id.btn_search:
-
-                guideTextView.setVisibility(View.INVISIBLE);
-                progressBar.setVisibility(View.VISIBLE);
-                recyclerView.setVisibility(View.INVISIBLE);
-
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        dictionaryOpenHelper = new DictionaryOpenHelper(getContext());
-                        dictionaryWordList = dictionaryOpenHelper.getDictionaryWordList(searchEditText.getText().toString());
-                        final boolean wordFoundInSearch = dictionaryWordList.size() != 0;
-
-                        final RecyclerView.Adapter adapter = new DictionaryRecyclerAdapter(
-                                getContext(),
-                                dictionaryWordList,
-                                recyclerViewPaddingTop
-                        );
-
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (wordFoundInSearch) {
-                                    guideTextView.setVisibility(View.INVISIBLE);
-                                } else {
-                                    guideTextView.setVisibility(View.VISIBLE);
-                                }
-                                recyclerView.setVisibility(View.VISIBLE);
-                                recyclerView.setAdapter(adapter);
-                                progressBar.setVisibility(View.INVISIBLE);
-                            }
-                        });
-
-                    }
-                }).start();
+                performSearch();
                 break;
         }
+    }
+
+    private void performSearch(){
+        guideTextView.setVisibility(View.INVISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.INVISIBLE);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                dictionaryOpenHelper = new DictionaryOpenHelper(getContext());
+                dictionaryWordList = dictionaryOpenHelper.getDictionaryWordList(searchEditText.getText().toString());
+                final boolean wordFoundInSearch = dictionaryWordList.size() != 0;
+
+                final RecyclerView.Adapter adapter = new DictionaryRecyclerAdapter(
+                        getContext(),
+                        dictionaryWordList,
+                        recyclerViewPaddingTop
+                );
+
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (wordFoundInSearch) {
+                            guideTextView.setVisibility(View.INVISIBLE);
+                        } else {
+                            guideTextView.setVisibility(View.VISIBLE);
+                        }
+                        recyclerView.setVisibility(View.VISIBLE);
+                        recyclerView.setAdapter(adapter);
+                        progressBar.setVisibility(View.INVISIBLE);
+                    }
+                });
+
+            }
+        }).start();
     }
 
 }
