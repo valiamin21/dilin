@@ -1,23 +1,32 @@
 package ir.proglovving.dilin.adapters;
 
+import android.animation.Animator;
+import android.app.Dialog;
 import android.content.Context;
+import android.os.Build;
 import android.speech.tts.TextToSpeech;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.OvershootInterpolator;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
 import java.util.Locale;
 
+import ir.proglovving.dilin.CustomDialogBuilder;
 import ir.proglovving.dilin.MyApplication;
 import ir.proglovving.dilin.R;
 import ir.proglovving.dilin.data_model.DetailedWord;
@@ -37,6 +46,12 @@ public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecycler
     private static TextToSpeech textToSpeech;
     private static boolean isTTSReady = false;
 
+    private Dialog addAndEditWordDialog;
+    Button verifyButton, cancelButton;
+    EditText wordEditText, meaningEditText;
+    TextInputLayout wordTextInputLayout, meaningTextInputLayout;
+    private LinearLayout dialogContainer;
+
     public WordsRecyclerViewAdapter(Context context, List<Word> words, EventOfWordMeaningRecyclerView event, int notebookId) {
         this.context = context;
         this.words = words;
@@ -55,7 +70,7 @@ public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecycler
         });
     }
 
-    public WordsRecyclerViewAdapter(Context context,List detailedWords, EventOfWordMeaningRecyclerView event){
+    public WordsRecyclerViewAdapter(Context context, List detailedWords, EventOfWordMeaningRecyclerView event) {
         this.context = context;
         this.words = detailedWords;
         this.event = event;
@@ -71,7 +86,7 @@ public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecycler
 
     @Override
     public void onBindViewHolder(@NonNull final WordMeaningViewHolder wordMeaningViewHolder, final int i) {
-        if(words.get(i) instanceof DetailedWord){
+        if (words.get(i) instanceof DetailedWord) {
             notebookId = ((DetailedWord) words.get(i)).getNotebookId();
         }
 
@@ -118,28 +133,28 @@ public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecycler
         wordMeaningViewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                event.onDeleteClick(word, i);
+                deleteWord(word,i);
             }
         });
 
         wordMeaningViewHolder.editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                event.onEditClick(word, i);
+                showBrowseEditWordDialog(word.getId(), lastPosition);
             }
         });
 
         wordMeaningViewHolder.speechButtonUK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MyApplication.speechWord(word.getWord(),Locale.UK,context);
+                MyApplication.speechWord(word.getWord(), Locale.UK, context);
             }
         });
 
         wordMeaningViewHolder.speechButtonUS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MyApplication.speechWord(word.getWord(),Locale.US,context);
+                MyApplication.speechWord(word.getWord(), Locale.US, context);
             }
         });
 
@@ -160,6 +175,118 @@ public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecycler
     @Override
     public int getItemCount() {
         return words.size();
+    }
+
+    private void dialogContainerRevealEffectShow() {
+        dialogContainer.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    Animator animator =
+                            ViewAnimationUtils.createCircularReveal(dialogContainer,
+                                    dialogContainer.getWidth(), dialogContainer.getHeight(), 0,
+                                    (float) Math.hypot(dialogContainer.getWidth(), dialogContainer.getHeight()));
+                    dialogContainer.setVisibility(View.VISIBLE);
+                    animator.start();
+                } else {
+                    dialogContainer.setVisibility(View.VISIBLE);
+                }
+
+            }
+        }, 100);
+
+    }
+
+    private void setupDialog() {
+        // TODO: 1/14/19 value 'true' in below code have to be improved later !
+        if (true
+//                ||
+//                addAndEditWordDialog == null ||
+//                wordEditText == null ||
+//                meaningEditText == null ||
+//                verifyButton == null ||
+//                cancelButton == null
+        ) {
+
+            addAndEditWordDialog = new Dialog(context);
+            addAndEditWordDialog.setContentView(R.layout.dialog_add_word);
+            addAndEditWordDialog.setTitle(R.string.adding_word_text);
+            dialogContainer = (LinearLayout) addAndEditWordDialog.findViewById(R.id.ll_dialog_add_word);
+            dialogContainer.setVisibility(View.INVISIBLE);
+
+            wordEditText = (EditText) addAndEditWordDialog.findViewById(R.id.et_word);
+            meaningEditText = (EditText) addAndEditWordDialog.findViewById(R.id.et_meaning);
+            wordTextInputLayout = (TextInputLayout) addAndEditWordDialog.findViewById(R.id.text_input_word);
+            meaningTextInputLayout = (TextInputLayout) addAndEditWordDialog.findViewById(R.id.text_input_meaning);
+            verifyButton = (Button) addAndEditWordDialog.findViewById(R.id.btn_verify);
+            cancelButton = (Button) addAndEditWordDialog.findViewById(R.id.btn_cancel);
+        } else {
+            wordEditText.setText("");
+            meaningEditText.setText("");
+        }
+    }
+
+    private void showBrowseEditWordDialog(final int id, final int position) {
+        setupDialog();
+
+        final Word word = new WordsOpenHelper(context, notebookId).getWord(id);
+        wordEditText.setText(word.getWord());
+        meaningEditText.setText(word.getMeaning());
+
+        verifyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (wordEditText.getText().length() == 0) {
+//                    wordEditText.setError(getString(R.string.no_word_was_entered_text));
+                    wordTextInputLayout.setError(context.getString(R.string.no_word_was_entered_text));
+                    return;
+                }
+
+                word.setWord(wordEditText.getText().toString());
+                word.setMeaning(meaningEditText.getText().toString());
+
+                new WordsOpenHelper(context, notebookId).update(word, id);
+
+                event.onWordEdited(position);
+
+                addAndEditWordDialog.dismiss();
+
+            }
+        });
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addAndEditWordDialog.dismiss();
+            }
+        });
+
+        addAndEditWordDialog.show();
+
+        dialogContainerRevealEffectShow();
+
+    }
+
+    private void deleteWord(final Word word, final int position) {
+        new CustomDialogBuilder(context)
+                .setTitle(R.string.delete_word_text)
+                .setMessage(R.string.do_you_want_to_delete_this_word_text)
+                .setPositive(R.string.yes_text, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        new WordsOpenHelper(context, notebookId).deleteWord(word.getId());
+//                        refreshRecyclerView(REFRESH_TYPE_CURRENT, position - 1);
+//                        refreshInCurrentPosition(position - 1);
+                        event.onDeleted(position);
+                    }
+                }).setNegative(R.string.no_text, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        }).create().show();
     }
 
     class WordMeaningViewHolder extends RecyclerView.ViewHolder {
@@ -183,10 +310,10 @@ public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecycler
     }
 
     public interface EventOfWordMeaningRecyclerView {
-        void onDeleteClick(Word word, int position);
+        void onDeleted(int position);
 
         void onBookmarkClick(Word word);
 
-        void onEditClick(Word word, int position);
+        void onWordEdited(int position);
     }
 }
