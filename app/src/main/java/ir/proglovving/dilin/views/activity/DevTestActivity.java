@@ -287,7 +287,7 @@ public class DevTestActivity extends AppCompatActivity implements View.OnClickLi
             notebookName = notebookList.get(i).getNoteBookName();
             notebookId = notebookList.get(i).getId();
 
-            List<Word> wordList = new WordsOpenHelper(this, notebookId).getWordList();
+            List<Word> wordList = new WordsOpenHelper(this, notebookId).getWordList(false);
             for (int j = 0; j < wordList.size(); j++) {
                 Word word = wordList.get(j);
                 txtContent += word.getWord();
@@ -310,7 +310,7 @@ public class DevTestActivity extends AppCompatActivity implements View.OnClickLi
         for (int i = 0; i < notebooks.size(); i++) {
             notebookName = notebooks.get(i).getNoteBookName();
             notebookId = notebooks.get(i).getId();
-            csvTask = new ExportDatabaseCSVTask(this, new WordsOpenHelper(this, notebookId).getWordList(), notebookName);
+            csvTask = new ExportDatabaseCSVTask(this, new WordsOpenHelper(this, notebookId).getWordList(false), notebookName);
             csvTask.execute();
         }
 

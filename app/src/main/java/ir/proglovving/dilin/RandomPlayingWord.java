@@ -89,7 +89,7 @@ public class RandomPlayingWord {
 
         List<Notebook> notebooks = new NotebookOpenHelper(context).getIsPlayingNotebooks();
         for (int i = 0; i < notebooks.size(); i++) {
-            List<Word> subWordList = new WordsOpenHelper(context,notebooks.get(i).getId()).getWordList();
+            List<Word> subWordList = new WordsOpenHelper(context,notebooks.get(i).getId()).getWordList(false);
             for (int j = 0; j < subWordList.size(); j++) {
                 wordList.add(subWordList.get(j));
             }

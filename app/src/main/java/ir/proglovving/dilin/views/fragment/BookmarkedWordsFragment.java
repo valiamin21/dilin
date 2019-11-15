@@ -18,7 +18,6 @@ import java.util.List;
 
 import ir.proglovving.dilin.R;
 import ir.proglovving.dilin.adapters.WordsRecyclerViewAdapter;
-import ir.proglovving.dilin.data_model.DetailedWord;
 import ir.proglovving.dilin.data_model.Word;
 import ir.proglovving.dilin.database_open_helpers.WordsOpenHelper;
 
@@ -68,7 +67,7 @@ public class BookmarkedWordsFragment extends Fragment implements WordsRecyclerVi
         recyclerView = view.findViewById(R.id.recycler_view_bookmarked_fragment);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
-        WordsRecyclerViewAdapter adapter = new WordsRecyclerViewAdapter(getContext(), WordsOpenHelper.getDetailedWordList(getContext(), true), this);
+        WordsRecyclerViewAdapter adapter = new WordsRecyclerViewAdapter(getContext(),WordsOpenHelper.getAllWords(getContext(),true),this);
         recyclerView.setAdapter(adapter);
         return view;
     }
@@ -92,7 +91,7 @@ public class BookmarkedWordsFragment extends Fragment implements WordsRecyclerVi
     public void refreshRecyclerViewInCurrentPosition(int currentPosition) {
         getArguments().putBoolean(ARGS_REFRESH_NEEDED,false);
 
-        List<DetailedWord> words = WordsOpenHelper.getDetailedWordList(getContext(), true);
+        List<Word> words = WordsOpenHelper.getAllWords(getContext(), true);
 
         /*
         if (new WordsOpenHelper(getContext(), notebookId).getRawsCount() == 0) { //  اگر هیچ کلمه ای اضافه نشده باشد
@@ -122,7 +121,7 @@ public class BookmarkedWordsFragment extends Fragment implements WordsRecyclerVi
     public void refreshRecyclerView(int refreshType) {
         getArguments().putBoolean(ARGS_REFRESH_NEEDED,false);
 
-        List<DetailedWord> words = WordsOpenHelper.getDetailedWordList(getContext(), true);
+        List<Word> words = WordsOpenHelper.getAllWords(getContext(), true);
 
         /*
         if (new WordsOpenHelper(getContext(), notebookId).getRawsCount() == 0) { //  اگر هیچ کلمه ای اضافه نشده باشد

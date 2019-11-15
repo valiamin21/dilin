@@ -2,12 +2,19 @@ package ir.proglovving.dilin.data_model;
 
 public class Word {
 
+    private int notebookId;
     private int id;
     private String word;
     private String meaning;
-    private String pic_address;
-    private String audio_address;
     private boolean isBookmark;
+
+    public void setNotebookId(int notebookId){
+        this.notebookId = notebookId;
+    }
+
+    public int getNotebookId(){
+        return notebookId;
+    }
 
     public void setId(int id){
         this.id = id;
@@ -31,22 +38,6 @@ public class Word {
 
     public void setMeaning(String meaning) {
         this.meaning = meaning;
-    }
-
-    public String getPic_address() {
-        return pic_address;
-    }
-
-    public void setPic_directory(String pic_address) {
-        this.pic_address = pic_address;
-    }
-
-    public String getAudio_address() {
-        return audio_address;
-    }
-
-    public void setAudio_directory(String audio_address) {
-        this.audio_address = audio_address;
     }
 
     public boolean isBookmark() {

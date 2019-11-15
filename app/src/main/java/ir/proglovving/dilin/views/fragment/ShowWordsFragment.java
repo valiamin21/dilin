@@ -86,7 +86,7 @@ public class ShowWordsFragment extends Fragment implements WordsRecyclerViewAdap
         }
 
         WordsRecyclerViewAdapter adapter = new WordsRecyclerViewAdapter(
-                getContext(), words, this, notebookId
+                getContext(), words, this
         );
 
         recyclerView.setAdapter(adapter);
@@ -114,7 +114,7 @@ public class ShowWordsFragment extends Fragment implements WordsRecyclerViewAdap
         }
 
         WordsRecyclerViewAdapter adapter = new WordsRecyclerViewAdapter(
-                getContext(), words, this, notebookId
+                getContext(), words, this
         );
 
         recyclerView.setAdapter(adapter);
@@ -132,7 +132,7 @@ public class ShowWordsFragment extends Fragment implements WordsRecyclerViewAdap
         WordsOpenHelper openHelper = new WordsOpenHelper(getContext(), notebookId);
 
         if (openHelper.getRawsCount() == 0 // اگر هیچ کلمه ای به دیتابیس اضافه نشده بود
-                || (isBookmarkedMode && openHelper.getBookmarkedWords().size() == 0) // یا اگر در حالت نشان شده بود و کلمه ی نشان شده ای نبود
+                || (isBookmarkedMode && openHelper.getWordList(true).size() == 0) // یا اگر در حالت نشان شده بود و کلمه ی نشان شده ای نبود
         ) { //  جست و جو نکن و در همان شرایط قبلی بمان
             return;
         }
@@ -155,32 +155,20 @@ public class ShowWordsFragment extends Fragment implements WordsRecyclerViewAdap
             emptyMessageNestedScrollView.setVisibility(View.INVISIBLE);
         }
         WordsRecyclerViewAdapter adapter = new WordsRecyclerViewAdapter(
-                getContext(), words, this, notebookId
+                getContext(), words, this
         );
 
         recyclerView.setAdapter(adapter);
     }
 
     private List<Word> getSuitableNotebooksList(boolean isBookmarkedMode) {
-        List<Word> words;
-        if (isBookmarkedMode) {
-            words = new WordsOpenHelper(getContext(), notebookId).getBookmarkedWords();
-        } else {
-            words = new WordsOpenHelper(getContext(), notebookId).getWordList();
-        }
-
-        return words;
+        return new WordsOpenHelper(getContext(), notebookId).getWordList(isBookmarkedMode);
     }
 
     private List<Word> getSuitableNotebooksList(boolean isBookmarkedMode, String search) {
         List<Word> result = new ArrayList<>();
 
-        List<Word> words;
-        if (isBookmarkedMode) {
-            words = new WordsOpenHelper(getContext(), notebookId).getBookmarkedWords();
-        } else {
-            words = new WordsOpenHelper(getContext(), notebookId).getWordList();
-        }
+        List<Word> words = new WordsOpenHelper(getContext(), notebookId).getWordList(isBookmarkedMode);
 
         for (int i = 0; i < words.size(); i++) {
             if (words.get(i).getWord().contains(search) || words.get(i).getMeaning().contains(search)) {
