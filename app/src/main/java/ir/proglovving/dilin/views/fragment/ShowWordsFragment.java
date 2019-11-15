@@ -1,31 +1,21 @@
 package ir.proglovving.dilin.views.fragment;
 
-import android.animation.Animator;
 import android.annotation.SuppressLint;
-import android.app.Dialog;
-import android.os.Build;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import ir.proglovving.dilin.CustomDialogBuilder;
 import ir.proglovving.dilin.R;
 import ir.proglovving.dilin.adapters.WordsRecyclerViewAdapter;
 import ir.proglovving.dilin.custom_views.MotionableTextView;
@@ -204,16 +194,26 @@ public class ShowWordsFragment extends Fragment implements WordsRecyclerViewAdap
     @Override
     public void onDeleted(int position) {
         refreshRecyclerViewInCurrentPosition(position - 1);
+
+        // sending broadcast for refreshing bookmarkedWordFragment
+        getActivity().sendBroadcast(new Intent("BookmarkedFragmentRefresh"));
     }
 
     @Override
     public void onBookmarkClick(Word word) {
         // TODO: 12/20/18  نمایش متن <<به لیست علاقه مندی ها افزوده شد>> و << از لیست علاقه مندی ها حذف شد>> اضافه شود
+
+        // sending broadcast for refreshing bookmarkedWordFragment
+        getActivity().sendBroadcast(new Intent("BookmarkedFragmentRefresh"));
     }
 
     @Override
     public void onWordEdited(int position) {
         refreshRecyclerViewInCurrentPosition(position);
+
+        // sending broadcast for refreshing bookmarkedWordFragment
+        getActivity().sendBroadcast(new Intent("BookmarkedFragmentRefresh"));
+
     }
 
 

@@ -86,7 +86,7 @@ public class WordsOpenHelper extends SQLiteOpenHelper {
         cv.put(COL_MEANING, word.getMeaning());
         cv.put(COL_PIC_DIRECTORY, word.getPic_address());
         cv.put(COL_AUDIO_DIRECTORY, word.getAudio_address());
-        cv.put(COL_BOOKMARKED, (word.isBookmark() ? 1 : 0));
+        cv.put(COL_BOOKMARKED, word.isBookmark());
         sqLiteDatabase.update(words_table_name, cv, COL_ID + " =?", new String[]{String.valueOf(id)});
 
         sqLiteDatabase.close();

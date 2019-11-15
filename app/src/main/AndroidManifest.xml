@@ -49,6 +49,13 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/show_words_widget_info" />
         </receiver>
+
+        <receiver android:name=".views.fragment.BookmarkedWordsFragment$BookmarksReceiver">
+            <intent-filter>
+                <action android:name="ir.proglovving.dilin.refreshBookmarkedFragment"/>
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

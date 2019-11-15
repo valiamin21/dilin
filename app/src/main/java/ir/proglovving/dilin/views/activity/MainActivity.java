@@ -236,6 +236,10 @@ public class MainActivity extends AppCompatActivity{
                         getSupportFragmentManager().beginTransaction().show(dictionarySearchFragment).commit();
                         break;
                 }
+
+                if(bookmarkedWordsFragment != null){
+                    bookmarkedWordsFragment.refreshIfNeeded();
+                }
                 return true;
             }
         });
