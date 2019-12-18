@@ -19,13 +19,13 @@ public class MyApplication extends Application {
 
     // releasing process
 
+    // TODO: 7/28/19  Modifying search page(offline dictionary)
     // TODO: 9/7/19 replacing landscape images with abstract images
     // TODO: 8/5/19 کاهش حجم عکس‌های استفاده شده در برنامه
     // TODO: 8/2/19 رفع مشکل ساخت دو دفتر برای تست در اولین اجرای برنامه
     // TODO: 8/1/19 putting right idpay link in app
     // TODO: 7/31/19 deleting addition pictures in drawable directory
     // TODO: 7/28/19  Putting a good picture of myself
-    // TODO: 7/28/19  Modifying search page(offline dictionary)
     // TODO: 7/24/19 اصلاح نویگیشن‌ویو: عملکرد آن هنگام کلیک آيتم‌ها در تمام صفحات به درستی کای نمی کند.
     // TODO: 9/7/19 deleting rating and other apps from navigationViews
     // TODO: 9/7/19 releasing app in markets
