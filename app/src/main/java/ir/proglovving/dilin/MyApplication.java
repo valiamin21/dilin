@@ -18,27 +18,26 @@ public class MyApplication extends Application {
      */
 
     // releasing process
-    // TODO: 8/10/19 modifying fragments of dilin(best practice)
+
     // TODO: 9/7/19 replacing landscape images with abstract images
     // TODO: 8/5/19 کاهش حجم عکس‌های استفاده شده در برنامه
-    // TODO: 8/2/19 modify motionable textView
     // TODO: 8/2/19 رفع مشکل ساخت دو دفتر برای تست در اولین اجرای برنامه
     // TODO: 8/1/19 putting right idpay link in app
     // TODO: 7/31/19 deleting addition pictures in drawable directory
     // TODO: 7/28/19  Putting a good picture of myself
     // TODO: 7/28/19  Modifying search page(offline dictionary)
-    // TODO: 7/24/19 complete search page
-    // TODO: 7/24/19 changing color or tint of icons of app
-    // TODO: 7/24/19 اضافه کردن قابلیت تغییر نام دفترها
-    // TODO: 7/20/19 bug fix: اصلاح بخش جست و جو. زمانی که کاربر در بین کلمات سرچ می کند و در همانجا کلمه ای را ویرایش می کند مشکل ایجاد می شود.
     // TODO: 7/24/19 اصلاح نویگیشن‌ویو: عملکرد آن هنگام کلیک آيتم‌ها در تمام صفحات به درستی کای نمی کند.
-    // TODO: 9/7/19 deleting rating_and other apps from navigationViews
+    // TODO: 9/7/19 deleting rating and other apps from navigationViews
     // TODO: 9/7/19 releasing app in markets
     // TODO: 9/7/19 adding rating and other_apps items in navigationViews
     // TODO: 9/7/19 releasing app in markets
 
 
-
+    // TODO: 7/20/19 bug fix: اصلاح بخش جست و جو. زمانی که کاربر در بین کلمات سرچ می کند و در همانجا کلمه ای را ویرایش می کند مشکل ایجاد می شود.
+    // TODO: 8/2/19 modify motionable textView
+    // TODO: 7/24/19 اضافه کردن قابلیت تغییر نام دفترها
+    // TODO: 8/10/19 modifying fragments of dilin(best practice)
+    // TODO: 12/18/19 making a custom recyclerView for app that saves last position
     // TODO: 8/5/19 علی بدیعی: در کل نباید اسم برنامه‌رو مستقیم بنویسی(توی صفحه‌ی اسپلش) بهتره که با یه فونت قشنگ بنویسی* عکس بگیری* بعد بچسبونی رو عکس والپیپر
     // TODO: 8/2/19 modifying text color of dialogs
     // TODO: 7/28/19  Color of app decreasing transparency of toolbar
