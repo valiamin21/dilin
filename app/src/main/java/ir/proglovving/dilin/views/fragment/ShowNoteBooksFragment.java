@@ -88,9 +88,9 @@ public class ShowNoteBooksFragment extends Fragment implements NotebookRecyclerA
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
+                lastRecyclerScrollState += dy;
                 if (dy > 0) {
                     fabAddNotebook.hide();
-                    lastRecyclerScrollState += dy;
                 } else {
                     if(((int) fabAddNotebook.getTag()) == View.VISIBLE){
                         fabAddNotebook.show();
@@ -119,6 +119,10 @@ public class ShowNoteBooksFragment extends Fragment implements NotebookRecyclerA
     public void onDestroyView() {
         super.onDestroyView();
         getContext().unregisterReceiver(updateNotebooksReceiver);
+    }
+
+    public void showLastRecyclerViewState(){
+        Toast.makeText(getContext(), "lastState = " + lastRecyclerScrollState, Toast.LENGTH_SHORT).show();
     }
 
     private void refreshRecyclerViewInCurrentPosition(int currentPosition) {
