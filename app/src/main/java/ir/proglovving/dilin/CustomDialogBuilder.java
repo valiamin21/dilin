@@ -75,7 +75,7 @@ public class CustomDialogBuilder {
         ((TextView) dialog.findViewById(R.id.tv_cusDialog_title)).setText(title);
         ((TextView) dialog.findViewById(R.id.tv_cusDialog_message)).setText(message);
 
-        // TODO: 7/24/19 modify onclick events for positive and negative button current code is so hopeless D:
+        // TODO: 7/24/19 modify onclick events for positive and negative button. current code is so hopeless D:
 
         ((Button) dialog.findViewById(R.id.btn_cusDialog_positive)).setText(positiveText);
         ((Button) dialog.findViewById(R.id.btn_cusDialog_positive)).setOnClickListener(new View.OnClickListener() {

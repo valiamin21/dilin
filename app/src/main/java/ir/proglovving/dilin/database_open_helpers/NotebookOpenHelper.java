@@ -14,8 +14,6 @@ import ir.proglovving.dilin.data_model.Notebook;
 
 public class NotebookOpenHelper extends SQLiteOpenHelper {
 
-    // TODO: 7/19/19 write a method for validate names for words table
-
     private static final String NOTEBOOK_TABLE_NAME = "notebooks";
     private static final int VERSION = 1;
 

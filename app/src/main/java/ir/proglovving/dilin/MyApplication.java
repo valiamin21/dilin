@@ -18,7 +18,6 @@ public class MyApplication extends Application {
      */
 
     // releasing process
-    // TODO: 9/7/19 making showWordActivity
     // TODO: 8/10/19 modifying fragments of dilin(best practice)
     // TODO: 9/7/19 replacing landscape images with abstract images
     // TODO: 8/5/19 کاهش حجم عکس‌های استفاده شده در برنامه

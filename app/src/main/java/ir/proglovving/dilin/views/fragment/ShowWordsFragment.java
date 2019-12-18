@@ -145,7 +145,6 @@ public class ShowWordsFragment extends Fragment implements WordsRecyclerViewAdap
         List<Word> words = getSuitableNotebooksList(isBookmarkedMode, search);
 
         if (words.size() == 0) { // اگر کلمه ای یافت نشد
-            // TODO: 2/3/19 اصلاح پیام کلمه ای اضافه نشده است به کلمه ای یافت نشد
             recyclerView.setVisibility(View.INVISIBLE);
             emptyTextView.changeText(R.string.nothing_was_found);
             emptyMessageNestedScrollView.setVisibility(View.VISIBLE);
