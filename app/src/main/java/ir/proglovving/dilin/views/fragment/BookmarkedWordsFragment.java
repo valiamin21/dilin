@@ -61,7 +61,7 @@ public class BookmarkedWordsFragment extends Fragment implements WordsRecyclerVi
                              Bundle savedInstanceState) {
 
         receiver = new BookmarksReceiver();
-        getContext().registerReceiver(receiver, new IntentFilter("BookmarkedFragmentRefresh"));
+        getContext().registerReceiver(receiver, new IntentFilter("ir.proglovving.dilin.BookmarkedFragmentRefresh"));
 
         View view = inflater.inflate(R.layout.fragment_bookmarked_words, container, false);
         recyclerView = view.findViewById(R.id.recycler_view_bookmarked_fragment);
@@ -186,7 +186,6 @@ public class BookmarkedWordsFragment extends Fragment implements WordsRecyclerVi
         @Override
         public void onReceive(Context context, Intent intent) {
             refreshRecyclerView(REFRESH_TYPE_SETUP);
-            Toast.makeText(context, "BookmarkedFragmentRefresh", Toast.LENGTH_SHORT).show();
         }
     }
 }

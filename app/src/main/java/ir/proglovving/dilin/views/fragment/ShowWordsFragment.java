@@ -183,7 +183,7 @@ public class ShowWordsFragment extends Fragment implements WordsRecyclerViewAdap
         refreshRecyclerViewInCurrentPosition(position - 1);
 
         // sending broadcast for refreshing bookmarkedWordFragment
-        getActivity().sendBroadcast(new Intent("BookmarkedFragmentRefresh"));
+        getActivity().sendBroadcast(new Intent("ir.proglovving.dilin.BookmarkedFragmentRefresh"));
     }
 
     @Override
@@ -191,7 +191,7 @@ public class ShowWordsFragment extends Fragment implements WordsRecyclerViewAdap
         // TODO: 12/20/18  نمایش متن <<به لیست علاقه مندی ها افزوده شد>> و << از لیست علاقه مندی ها حذف شد>> اضافه شود
 
         // sending broadcast for refreshing bookmarkedWordFragment
-        getActivity().sendBroadcast(new Intent("BookmarkedFragmentRefresh"));
+        getActivity().sendBroadcast(new Intent("ir.proglovving.dilin.BookmarkedFragmentRefresh"));
     }
 
     @Override
@@ -199,7 +199,7 @@ public class ShowWordsFragment extends Fragment implements WordsRecyclerViewAdap
         refreshRecyclerViewInCurrentPosition(position);
 
         // sending broadcast for refreshing bookmarkedWordFragment
-        getActivity().sendBroadcast(new Intent("BookmarkedFragmentRefresh"));
+        getActivity().sendBroadcast(new Intent("ir.proglovving.dilin.BookmarkedFragmentRefresh"));
 
     }
 

@@ -116,10 +116,6 @@ public class ShowNoteBooksFragment extends Fragment implements NotebookRecyclerA
         getContext().unregisterReceiver(updateNotebooksReceiver);
     }
 
-    public boolean isFavoriteMode() {
-        return isFavoriteMode;
-    }
-
     private void refreshRecyclerViewInCurrentPosition(int currentPosition) {
 //        List<Notebook> notebooks = getSuitableNotebooksList(isFavoriteMode);
 //
