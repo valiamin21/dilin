@@ -55,6 +55,11 @@ public class ShowNoteBooksFragment extends Fragment implements NotebookRecyclerA
 
     private UpdateNotebooksBroadcast updateNotebooksReceiver;
 
+    public static void updateMeByBroadcast(Context context){
+        context.sendBroadcast(new Intent("ir.proglovving.dilin.ir.proglovving.dilin.updateNotebooksBroadcast"));
+    }
+
+
     @SuppressLint("ValidFragment")
     public ShowNoteBooksFragment(CoordinatorLayout coordinatorLayout, boolean favoriteMode) {
         this.coordinatorLayout = coordinatorLayout;
@@ -73,7 +78,7 @@ public class ShowNoteBooksFragment extends Fragment implements NotebookRecyclerA
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         updateNotebooksReceiver = new UpdateNotebooksBroadcast();
-        getContext().registerReceiver(updateNotebooksReceiver,new IntentFilter("ir.proglovving.dilin.ir.proglovving.dilin.refreshBookmarkedFragment"));
+        getContext().registerReceiver(updateNotebooksReceiver,new IntentFilter("ir.proglovving.dilin.ir.proglovving.dilin.updateNotebooksBroadcast"));
 
         final View view = inflater.inflate(R.layout.fragment_show_notebooks, container, false);
         recyclerView = view.findViewById(R.id.recycler_view);

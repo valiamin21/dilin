@@ -105,14 +105,6 @@ public class MainActivity extends AppCompatActivity{
                 .create().show();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == RESULT_BACK_FROM_NOTEBOOKS_ACTIVITY){
-            showNoteBooksFragment.refreshRecyclerView(ShowNoteBooksFragment.REFRESH_TYPE_CURRENT);
-        }
-    }
-
     private void setupViews() {
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator);
 

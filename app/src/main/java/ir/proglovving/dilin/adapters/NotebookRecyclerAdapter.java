@@ -82,8 +82,7 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecycl
 //                ActivityOptionsCompat compat =
 //                        ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context,((Activity)context).findViewById(R.id.fab_add),context.getString(R.string.fab_transition_name));
 
-                ShowWordsListActivity.startForResult((Activity) context,notebook.getId(),notebook.getNoteBookName()
-                        , MainActivity.RESULT_BACK_FROM_NOTEBOOKS_ACTIVITY);
+                ShowWordsListActivity.start(context,notebook.getId(),notebook.getNoteBookName());
 
             }
         });

@@ -36,6 +36,7 @@ import ir.proglovving.dilin.R;
 import ir.proglovving.dilin.Utilities;
 import ir.proglovving.dilin.data_model.Word;
 import ir.proglovving.dilin.database_open_helpers.WordsOpenHelper;
+import ir.proglovving.dilin.views.fragment.ShowNoteBooksFragment;
 import ir.proglovving.dilin.views.fragment.ShowWordsFragment;
 
 public class ShowWordsListActivity extends AppCompatActivity {
@@ -186,6 +187,7 @@ public class ShowWordsListActivity extends AppCompatActivity {
                 word.setWord(wordEditText.getText().toString());
                 word.setMeaning(meaningEditText.getText().toString());
                 openHelper.addWord(word);
+                ShowNoteBooksFragment.updateMeByBroadcast(ShowWordsListActivity.this);
 
 
                 showWordsFragment.refreshRecyclerView(ShowWordsFragment.REFRESH_TYPE_END);
@@ -371,16 +373,9 @@ public class ShowWordsListActivity extends AppCompatActivity {
 
     public static void start(Context context, int notebookId, String noteBookName) {
         Intent starter = new Intent(context, ShowWordsListActivity.class);
-        starter.putExtra(KEY_NOTEBOOK_NAME, notebookId);
-        starter.putExtra(KEY_NOTEBOOK_NAME, noteBookName);
-        context.startActivity(starter);
-    }
-
-    public static void startForResult(Activity activity, int notebookId, String noteBookName, int requestCode) {
-        Intent starter = new Intent(activity, ShowWordsListActivity.class);
         starter.putExtra(KEY_NOTEBOOK_ID, notebookId);
         starter.putExtra(KEY_NOTEBOOK_NAME, noteBookName);
-        activity.startActivityForResult(starter, requestCode);
+        context.startActivity(starter);
     }
 
     private RecyclerView.OnScrollListener getOnScrollListener() {

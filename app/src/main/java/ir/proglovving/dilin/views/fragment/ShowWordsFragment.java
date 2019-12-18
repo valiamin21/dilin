@@ -123,7 +123,7 @@ public class ShowWordsFragment extends Fragment implements WordsRecyclerViewAdap
         } else if (refreshType == REFRESH_TYPE_END) {
             recyclerView.scrollToPosition(recyclerView.getAdapter().getItemCount() - 1);
         } else if (refreshType == REFRESH_TYPE_CURRENT) {
-
+            // TODO: 12/18/19 complete this section of code
         }
 
     }
@@ -183,15 +183,17 @@ public class ShowWordsFragment extends Fragment implements WordsRecyclerViewAdap
         refreshRecyclerViewInCurrentPosition(position - 1);
 
         // sending broadcast for refreshing bookmarkedWordFragment
-        getActivity().sendBroadcast(new Intent("ir.proglovving.dilin.BookmarkedFragmentRefresh"));
+        ShowNoteBooksFragment.updateMeByBroadcast(getContext());
+        BookmarkedWordsFragment.updateMebyBroadcast(getContext());
     }
 
     @Override
-    public void onBookmarkClick(Word word,int position) {
+    public void onBookmarkClick(Word word, int position) {
         // TODO: 12/20/18  نمایش متن <<به لیست علاقه مندی ها افزوده شد>> و << از لیست علاقه مندی ها حذف شد>> اضافه شود
 
         // sending broadcast for refreshing bookmarkedWordFragment
-        getActivity().sendBroadcast(new Intent("ir.proglovving.dilin.BookmarkedFragmentRefresh"));
+        ShowNoteBooksFragment.updateMeByBroadcast(getContext());
+        BookmarkedWordsFragment.updateMebyBroadcast(getContext());
     }
 
     @Override
@@ -199,7 +201,7 @@ public class ShowWordsFragment extends Fragment implements WordsRecyclerViewAdap
         refreshRecyclerViewInCurrentPosition(position);
 
         // sending broadcast for refreshing bookmarkedWordFragment
-        getActivity().sendBroadcast(new Intent("ir.proglovving.dilin.BookmarkedFragmentRefresh"));
+        BookmarkedWordsFragment.updateMebyBroadcast(getContext());
 
     }
 
