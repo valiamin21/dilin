@@ -188,7 +188,7 @@ public class ShowWordsFragment extends Fragment implements WordsRecyclerViewAdap
     }
 
     @Override
-    public void onBookmarkClick(Word word) {
+    public void onBookmarkClick(Word word,int position) {
         // TODO: 12/20/18  نمایش متن <<به لیست علاقه مندی ها افزوده شد>> و << از لیست علاقه مندی ها حذف شد>> اضافه شود
 
         // sending broadcast for refreshing bookmarkedWordFragment

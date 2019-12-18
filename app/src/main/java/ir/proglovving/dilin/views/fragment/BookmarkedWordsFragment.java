@@ -169,8 +169,9 @@ public class BookmarkedWordsFragment extends Fragment implements WordsRecyclerVi
     }
 
     @Override
-    public void onBookmarkClick(Word word) {
+    public void onBookmarkClick(Word word,int position) {
         getArguments().putBoolean(ARGS_REFRESH_NEEDED, true);
+        getArguments().putInt(ARGS_CURRENT_POSITION,position-1); // because of wrong with deleting last item of recyclerView
     }
 
     @Override
