@@ -166,12 +166,14 @@ public class BookmarkedWordsFragment extends Fragment implements WordsRecyclerVi
     @Override
     public void onDeleted(int position) {
         refreshRecyclerViewInCurrentPosition(position - 1);
+        getContext().sendBroadcast(new Intent("ir.proglovving.dilin.ir.proglovving.dilin.refreshBookmarkedFragment"));
     }
 
     @Override
     public void onBookmarkClick(Word word,int position) {
         getArguments().putBoolean(ARGS_REFRESH_NEEDED, true);
         getArguments().putInt(ARGS_CURRENT_POSITION,position-1); // because of wrong with deleting last item of recyclerView
+        getContext().sendBroadcast(new Intent("ir.proglovving.dilin.ir.proglovving.dilin.refreshBookmarkedFragment"));
     }
 
     @Override

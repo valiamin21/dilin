@@ -56,6 +56,8 @@
             </intent-filter>
         </receiver>
 
+        <receiver android:name=".views.fragment.ShowNoteBooksFragment$UpdateNotebooksBroadcast"/>
+
     </application>
 
 </manifest>

@@ -3,6 +3,10 @@ package ir.proglovving.dilin.views.fragment;
 import android.animation.Animator;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -21,6 +25,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -48,6 +53,7 @@ public class ShowNoteBooksFragment extends Fragment implements NotebookRecyclerA
 
     private int lastRecyclerScrollState = 0;
 
+    private UpdateNotebooksBroadcast updateNotebooksReceiver;
 
     @SuppressLint("ValidFragment")
     public ShowNoteBooksFragment(CoordinatorLayout coordinatorLayout, boolean favoriteMode) {
@@ -66,6 +72,9 @@ public class ShowNoteBooksFragment extends Fragment implements NotebookRecyclerA
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        updateNotebooksReceiver = new UpdateNotebooksBroadcast();
+        getContext().registerReceiver(updateNotebooksReceiver,new IntentFilter("ir.proglovving.dilin.ir.proglovving.dilin.refreshBookmarkedFragment"));
+
         final View view = inflater.inflate(R.layout.fragment_show_notebooks, container, false);
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2, LinearLayoutManager.VERTICAL, false));
@@ -99,6 +108,12 @@ public class ShowNoteBooksFragment extends Fragment implements NotebookRecyclerA
         });
 
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        getContext().unregisterReceiver(updateNotebooksReceiver);
     }
 
     public boolean isFavoriteMode() {
@@ -285,4 +300,11 @@ public class ShowNoteBooksFragment extends Fragment implements NotebookRecyclerA
         refreshRecyclerViewInCurrentPosition(position);
     }
 
+    public class UpdateNotebooksBroadcast extends BroadcastReceiver{
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            refreshRecyclerView(REFRESH_TYPE_CURRENT);
+        }
+    }
 }
