@@ -19,6 +19,8 @@ public class MyApplication extends Application {
 
     // releasing process
 
+    // TODO: 12/18/19 deleting showWordActivity
+    // TODO: 12/18/19 replacing play/pause option to edit notebookName in NotebooksRecyclerAdapter
     // TODO: 7/28/19  Modifying search page(offline dictionary)
     // TODO: 9/7/19 replacing landscape images with abstract images
     // TODO: 8/5/19 کاهش حجم عکس‌های استفاده شده در برنامه
