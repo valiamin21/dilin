@@ -76,7 +76,7 @@ public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecycler
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final WordMeaningViewHolder wordMeaningViewHolder, final int i) {
+    public void onBindViewHolder(@NonNull final WordMeaningViewHolder wordMeaningViewHolder, final int position) {
 
         wordMeaningViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,7 +85,7 @@ public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecycler
             }
         });
 
-        final Word word = words.get(i);
+        final Word word = words.get(position);
         wordMeaningViewHolder.wordTextView.setText(word.getWord() + " :");
         if (word.getMeaning().equals("")) { // اگر معنایی وارد نشده بود
             wordMeaningViewHolder.meaningTextView.setText(R.string.no_meaning_has_been_entered_text);
@@ -103,7 +103,7 @@ public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecycler
         wordMeaningViewHolder.bookmarkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                event.onBookmarkClick(word);
+                event.onBookmarkClick(word,position);
                 if (word.isBookmark()) {
                     word.setBookmark(false);
                     wordMeaningViewHolder.bookmarkButton.setImageResource(R.drawable.ic_action_bookmark_border);
@@ -121,7 +121,7 @@ public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecycler
         wordMeaningViewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteWord(word,i);
+                deleteWord(word,position);
             }
         });
 
@@ -146,7 +146,7 @@ public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecycler
             }
         });
 
-        setAnimation(wordMeaningViewHolder.itemView, i);
+        setAnimation(wordMeaningViewHolder.itemView, position);
     }
 
     private void setAnimation(View viewToAnimation, int position) {
@@ -300,7 +300,7 @@ public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecycler
     public interface EventOfWordMeaningRecyclerView {
         void onDeleted(int position);
 
-        void onBookmarkClick(Word word);
+        void onBookmarkClick(Word word,int position);
 
         void onWordEdited(int position);
     }
