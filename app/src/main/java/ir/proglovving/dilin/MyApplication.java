@@ -21,7 +21,7 @@ public class MyApplication extends Application {
 
     // TODO: 12/18/19 adding tooltip for app buttons
     // TODO: 12/18/19 replacing play/pause option to edit notebookName in NotebooksRecyclerAdapter
-    // TODO: 7/28/19  Modifying search page(offline dictionary)
+    // TODO: 7/28/19  Modifying search page(offline dictionary) : جابه‌جایی دو به دو
     // TODO: 9/7/19 replacing landscape images with abstract images
     // TODO: 8/5/19 کاهش حجم عکس‌های استفاده شده در برنامه
     // TODO: 8/2/19 رفع مشکل ساخت دو دفتر برای تست در اولین اجرای برنامه
