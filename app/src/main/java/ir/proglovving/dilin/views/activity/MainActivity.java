@@ -36,6 +36,7 @@ import android.widget.Toast;
 import ir.proglovving.dilin.CustomDialogBuilder;
 import ir.proglovving.dilin.R;
 import ir.proglovving.dilin.Utilities;
+import ir.proglovving.dilin.custom_views.ToolTip;
 import ir.proglovving.dilin.data_model.Notebook;
 import ir.proglovving.dilin.database_open_helpers.NotebookOpenHelper;
 import ir.proglovving.dilin.views.fragment.BookmarkedWordsFragment;
@@ -243,15 +244,13 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
-
-
-//        fabSearch = (FloatingActionButton)findViewById(R.id.fab_search);
-//        fabSearch.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(MainActivity.this,DictionarySearchActivity.class));
-//            }
-//        });
+        fabAddNotebook.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                ToolTip.show(MainActivity.this,getString(R.string.creating_notebook),fabAddNotebook);
+                return true;
+            }
+        });
 
     }
 
