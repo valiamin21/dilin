@@ -31,7 +31,6 @@ import ir.proglovving.dilin.MyApplication;
 import ir.proglovving.dilin.R;
 import ir.proglovving.dilin.data_model.Word;
 import ir.proglovving.dilin.database_open_helpers.WordsOpenHelper;
-import ir.proglovving.dilin.views.activity.ShowWordActivity;
 
 public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecyclerViewAdapter.WordMeaningViewHolder> {
 
@@ -77,13 +76,6 @@ public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecycler
 
     @Override
     public void onBindViewHolder(@NonNull final WordMeaningViewHolder wordMeaningViewHolder, final int position) {
-
-        wordMeaningViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ShowWordActivity.start(context);
-            }
-        });
 
         final Word word = words.get(position);
         wordMeaningViewHolder.wordTextView.setText(word.getWord() + " :");

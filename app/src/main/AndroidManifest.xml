@@ -14,7 +14,6 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".views.activity.ShowWordActivity"></activity>
         <activity android:name=".views.activity.DevTestActivity" />
         <activity android:name=".views.activity.DictionarySearchActivity"></activity>
         <activity
