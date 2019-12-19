@@ -86,6 +86,6 @@
     <string name="dictionary">دیکشنری</string>
 
     <string name="adding_to_notebook">اضافه کردن به دفتر</string>
-    <string name="English_pronunciation">تلفظ بریتانیایی</string>
-    <string name="American_pronunciation">تلفظ آمریکایی</string>
+    <string name="english_pronunciation">تلفظ بریتانیایی</string>
+    <string name="american_pronunciation">تلفظ آمریکایی</string>
 </resources>
