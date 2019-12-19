@@ -88,4 +88,6 @@
     <string name="adding_to_notebook">اضافه کردن به دفتر</string>
     <string name="english_pronunciation">تلفظ بریتانیایی</string>
     <string name="american_pronunciation">تلفظ آمریکایی</string>
+    <string name="adding_to_favorite">اضافه کردن به موردعلاقه‌ها</string>
+    <string name="showing_in_app_widget">نمایش در ویجت برنامه</string>
 </resources>
