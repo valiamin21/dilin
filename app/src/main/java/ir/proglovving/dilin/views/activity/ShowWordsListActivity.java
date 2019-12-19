@@ -12,19 +12,14 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
 import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.view.MenuItemCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.widget.Button;
@@ -44,12 +39,9 @@ public class ShowWordsListActivity extends AppCompatActivity {
     public static final String KEY_NOTEBOOK_ID = "notebook_id";
     public static final String KEY_NOTEBOOK_NAME = "notebook_name";
 
-    private DrawerLayout drawerLayout;
     private Toolbar toolbar;
     private FloatingActionButton addFab;
     private ActionBarDrawerToggle drawerToggle;
-    private CoordinatorLayout coordinatorLayout;
-    private NavigationView navigationView;
     private FrameLayout containerFrameLayout;
 
     private ShowWordsFragment showWordsFragment;
@@ -68,11 +60,6 @@ public class ShowWordsListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_words_list);
-
-//        Intent intent = getIntent();
-////        noteBookName = intent.getExtras().getString(KEY_NOTEBOOK_ID);
-//        int notebookId = intent.getExtras().getInt(KEY_NOTEBOOK_ID);
-//        noteBookName = "_"+notebookId;
 
         Intent intent = getIntent();
         noteBookName = intent.getStringExtra(KEY_NOTEBOOK_NAME);
@@ -108,16 +95,6 @@ public class ShowWordsListActivity extends AppCompatActivity {
         return true;
     }
 
-    @Override
-    public void onBackPressed() {
-        if (drawerLayout.isDrawerOpen(Gravity.START)) {
-            drawerLayout.closeDrawer(Gravity.START);
-            return;
-        }
-
-        super.onBackPressed();
-    }
-
     private void setupSearchView(final SearchView searchView) {
         SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
@@ -126,37 +103,20 @@ public class ShowWordsListActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String s) {
 //                refreshRecyclerView(s);
-                showWordsFragment.searchRefresh(s);
+//                showWordsFragment.searchRefresh(s);
                 searchView.clearFocus();
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
-                showWordsFragment.searchRefresh(s);
+//                showWordsFragment.searchRefresh(s);
                 return false;
             }
         });
         searchView.setQueryHint("جست و جو کنید...");
 
     }
-
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//
-//            case R.id.search:
-//                startActivity(new Intent(ShowWordsListActivity.this, TabLayoutActivity.class));
-//                break;
-//            case R.id.rate:
-//                Toast.makeText(this, "rate clicked", Toast.LENGTH_SHORT).show();
-//                break;
-//            case R.id.about:
-//                Toast.makeText(this, "about clicked", Toast.LENGTH_SHORT).show();
-//
-//        }
-//        return true;
-//    }
 
     private void showBrowseAddWordDialog() {
 
@@ -190,7 +150,7 @@ public class ShowWordsListActivity extends AppCompatActivity {
                 ShowNoteBooksFragment.updateMeByBroadcast(ShowWordsListActivity.this);
 
 
-                showWordsFragment.refreshRecyclerView(ShowWordsFragment.REFRESH_TYPE_END);
+//                showWordsFragment.refreshRecyclerView(ShowWordsFragment.REFRESH_TYPE_END);
                 addAndEditWordDialog.dismiss();
             }
         });
@@ -258,7 +218,7 @@ public class ShowWordsListActivity extends AppCompatActivity {
     }
 
     private void setupViews() {
-        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator);
+        CoordinatorLayout coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator);
 
         addFab = (FloatingActionButton) findViewById(R.id.fab_add);
         addFab.setTag(View.VISIBLE); //  در این جا از تگ ویوی addFab به عنوان نشانه ای برای تشخیص ویزیبل بودن یا نبودن آن استفاده می شود.
@@ -275,7 +235,6 @@ public class ShowWordsListActivity extends AppCompatActivity {
     }
 
     private void setupToolbar() {
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawable_layout);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(noteBookName);
         toolbar.setSubtitle(R.string.all_words);
@@ -286,82 +245,12 @@ public class ShowWordsListActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setDisplayShowHomeEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                finish();
-                drawerLayout.openDrawer(Gravity.RIGHT);
+                finish();
             }
         });
-
-//        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(
-//           this,
-//           drawerLayout,toolbar,   0,0);
-        drawerToggle = new ActionBarDrawerToggle(this,
-                drawerLayout, R.string.open, R.string.close);
-        drawerLayout.setDrawerListener(drawerToggle);
-        drawerToggle.syncState();
-
-        navigationView = (NavigationView) findViewById(R.id.navigation_view);
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-
-                ActivityOptionsCompat compat =
-                        ActivityOptionsCompat.makeSceneTransitionAnimation(ShowWordsListActivity.this, null);
-
-                switch (menuItem.getItemId()) {
-
-                    case R.id.bookmark:
-                        showWordsFragment = new ShowWordsFragment(!showWordsFragment.isBookmarkedMode(), ShowWordsFragment.REFRESH_TYPE_SETUP, getOnScrollListener(), notebookId);
-                        getSupportFragmentManager().beginTransaction()
-                                .replace(containerFrameLayout.getId(), showWordsFragment)
-                                .commit();
-
-                        if (showWordsFragment.isBookmarkedMode()) {
-                            menuItem.setTitle(R.string.all_words);
-                            // TODO: 2/3/19 آیکون زیر اصلاح شود
-                            menuItem.setIcon(R.drawable.ic_action_all_books);
-                            toolbar.setSubtitle(R.string.bookmarked_words_text);
-                            addFab.hide();
-                            addFab.setTag(View.INVISIBLE);
-                        } else {
-                            menuItem.setTitle(R.string.bookmarked_text);
-                            menuItem.setIcon(R.drawable.ic_action_bookmark);
-                            toolbar.setSubtitle(R.string.all_words);
-                            addFab.show();
-                            addFab.setTag(View.VISIBLE);
-                        }
-
-                        drawerLayout.closeDrawers();
-
-                        break;
-
-                    case R.id.main_page:
-                        finish();
-                        break;
-
-                    case R.id.about:
-
-                        ProgrammerAboutUsActivity.start(ShowWordsListActivity.this, compat.toBundle());
-                        break;
-                    case R.id.protect:
-                        DonateActivity.start(ShowWordsListActivity.this, compat.toBundle());
-                        break;
-                }
-                return true;
-            }
-        });
-
-        // adding custom font to navigationView
-        navigationView.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Utilities.applyFontForAViewGroup(navigationView, ShowWordsListActivity.this);
-            }
-        }, 1);
 
     }
 
