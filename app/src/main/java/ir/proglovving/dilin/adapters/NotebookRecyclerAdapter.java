@@ -25,12 +25,13 @@ import java.util.List;
 
 import ir.proglovving.dilin.CustomDialogBuilder;
 import ir.proglovving.dilin.R;
+import ir.proglovving.dilin.custom_views.ToolTip;
 import ir.proglovving.dilin.data_model.Notebook;
 import ir.proglovving.dilin.database_open_helpers.NotebookOpenHelper;
 import ir.proglovving.dilin.views.activity.MainActivity;
 import ir.proglovving.dilin.views.activity.ShowWordsListActivity;
 
-public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecyclerAdapter.NotebookViewHolder> {
+public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecyclerAdapter.NotebookViewHolder> implements View.OnLongClickListener {
     private Context context;
     private List<Notebook> notebooks;
     private CoordinatorLayout coordinatorLayout;
@@ -158,6 +159,10 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecycl
             }
         });
 
+        mViewHolder.deleteButton.setOnLongClickListener(this);
+        mViewHolder.favoriteButton.setOnLongClickListener(this);
+        mViewHolder.playButton.setOnLongClickListener(this);
+
         // TODO: 4/21/19 یه فکری برا این انیمیشنا بکن
 //        setAnimation(mViewHolder.itemView);
     }
@@ -249,6 +254,22 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecycl
     @Override
     public int getItemCount() {
         return notebooks.size();
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        switch (v.getId()){
+            case R.id.btn_delete:
+                ToolTip.show(context,context.getString(R.string.delete_notebook),v);
+                break;
+            case R.id.btn_favorite:
+                ToolTip.show(context,context.getString(R.string.adding_to_favorite),v);
+                break;
+            case R.id.btn_play:
+                ToolTip.show(context,context.getString(R.string.showing_in_app_widget),v);
+                break;
+        }
+        return true;
     }
 
     public class NotebookViewHolder extends RecyclerView.ViewHolder {
