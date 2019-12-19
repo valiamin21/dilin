@@ -150,7 +150,7 @@ public class ShowWordsListActivity extends AppCompatActivity {
                 ShowNoteBooksFragment.updateMeByBroadcast(ShowWordsListActivity.this);
 
 
-//                showWordsFragment.refreshRecyclerView(ShowWordsFragment.REFRESH_TYPE_END);
+                showWordsFragment.refreshRecyclerView(ShowWordsFragment.REFRESH_TYPE_END);
                 addAndEditWordDialog.dismiss();
             }
         });
