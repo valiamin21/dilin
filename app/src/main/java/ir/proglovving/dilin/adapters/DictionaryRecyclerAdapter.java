@@ -15,9 +15,10 @@ import java.util.Locale;
 
 import ir.proglovving.dilin.MyApplication;
 import ir.proglovving.dilin.R;
+import ir.proglovving.dilin.custom_views.ToolTip;
 import ir.proglovving.dilin.data_model.DictionaryWord;
 
-public class DictionaryRecyclerAdapter extends RecyclerView.Adapter<DictionaryRecyclerAdapter.DictionaryViewHolder> {
+public class DictionaryRecyclerAdapter extends RecyclerView.Adapter<DictionaryRecyclerAdapter.DictionaryViewHolder> implements View.OnLongClickListener {
 
     private static final int VIEW_TYPE_FIRST_ITEM = 0, VIEW_TYPE_DEFAULT = 1;
 
@@ -56,7 +57,7 @@ public class DictionaryRecyclerAdapter extends RecyclerView.Adapter<DictionaryRe
     }
 
     @Override
-    public void onBindViewHolder(@NonNull DictionaryViewHolder mViewHolder, int i) {
+    public void onBindViewHolder(@NonNull final DictionaryViewHolder mViewHolder, int i) {
         final DictionaryWord dictionaryWord = dictionaryWordList.get(i);
 
         mViewHolder.wordTextView.setText(dictionaryWord.getWord());
@@ -76,13 +77,18 @@ public class DictionaryRecyclerAdapter extends RecyclerView.Adapter<DictionaryRe
             }
         });
 
+
         mViewHolder.addToNotebookButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: 8/9/19 complete this method
-                Toast.makeText(context, "adding word to notebook!", Toast.LENGTH_SHORT).show();
+                // TODO: 12/20/19 complete this code
             }
         });
+
+        // adding longClickListener for showing tooltips
+        mViewHolder.addToNotebookButton.setOnLongClickListener(this);
+        mViewHolder.speechButtonUK.setOnLongClickListener(this);
+        mViewHolder.speechButtonUS.setOnLongClickListener(this);
     }
 
     @Override
@@ -97,6 +103,22 @@ public class DictionaryRecyclerAdapter extends RecyclerView.Adapter<DictionaryRe
         } else {
             return VIEW_TYPE_DEFAULT;
         }
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        switch (v.getId()){
+            case R.id.img_add_to_notebook:
+                ToolTip.show(context,context.getString(R.string.adding_to_notebook),v);
+                break;
+            case R.id.img_speech_us:
+                ToolTip.show(context,context.getString(R.string.american_pronunciation),v);
+                break;
+            case R.id.img_speech_uk:
+                ToolTip.show(context,context.getString(R.string.english_pronunciation),v);
+                break;
+        }
+        return true;
     }
 
     public static class DictionaryViewHolder extends RecyclerView.ViewHolder {
