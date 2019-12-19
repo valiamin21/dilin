@@ -12,19 +12,10 @@ import android.widget.Toast;
 import ir.proglovving.dilin.R;
 
 public class ToolTip {
-    private Context context;
-    private String text;
-    private View view;
-    private int xOffset;
-    private int yOffset;
+    private static int xOffset;
+    private static int yOffset;
 
-    public ToolTip(Context context, String text, View view) {
-        this.context = context;
-        this.text = text;
-        this.view = view;
-    }
-
-    public void show() {
+    public static void show(Context context, String text, View view) {
         final Toast toast = new Toast(context);
 
         final View toastView = LayoutInflater.from(context).inflate(R.layout.layout_tooltip, null);
