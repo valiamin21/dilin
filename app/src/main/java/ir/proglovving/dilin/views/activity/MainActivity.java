@@ -167,11 +167,9 @@ public class MainActivity extends AppCompatActivity{
                         Toast.makeText(MainActivity.this, "other apps was clicked", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.about:
-//                        ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, null);
                         startActivity(new Intent(MainActivity.this, ProgrammerAboutUsActivity.class), compat.toBundle());
                         break;
                     case R.id.protect:
-//                        ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, null);
                         startActivity(new Intent(MainActivity.this, DonateActivity.class), compat.toBundle());
                         break;
                 }
