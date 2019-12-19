@@ -79,11 +79,13 @@
     <string name="delete">حذف</string>
     <string name="bookmarking">نشان کردن</string>
     <string name="edit">ویرایش</string>
-    <string name="showing_together">نمایش کنار هم</string>
-    <string name="showing_linear">نمایش زیر هم</string>
     <string name="american_speech">تلفظ آمریکایی</string>
     <string name="british_speech">تلفظ بریتانیایی</string>
 
     <string name="search">جست و جو</string>
     <string name="dictionary">دیکشنری</string>
+
+    <string name="adding_to_notebook">اضافه کردن به دفتر</string>
+    <string name="English_pronunciation">تلفظ بریتانیایی</string>
+    <string name="American_pronunciation">تلفظ آمریکایی</string>
 </resources>
