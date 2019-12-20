@@ -21,8 +21,6 @@ public class MyApplication extends Application {
 
     // TODO: 12/18/19 replacing play/pause option to edit notebookName in NotebooksRecyclerAdapter
     // TODO: 7/28/19  Modifying search page(offline dictionary) : جابه‌جایی دو به دو
-    // TODO: 9/7/19 replacing landscape images with abstract images
-    // TODO: 8/5/19 کاهش حجم عکس‌های استفاده شده در برنامه
     // TODO: 8/2/19 رفع مشکل ساخت دو دفتر برای تست در اولین اجرای برنامه
     // TODO: 8/1/19 putting right idpay link in app
     // TODO: 7/28/19  Putting a good picture of myself
@@ -32,6 +30,7 @@ public class MyApplication extends Application {
     // TODO: 9/7/19 releasing app in markets
 
 
+    // TODO: 9/7/19 replacing landscape images with abstract images
     // TODO: 7/20/19 bug fix: اصلاح بخش جست و جو. زمانی که کاربر در بین کلمات سرچ می کند و در همانجا کلمه ای را ویرایش می کند مشکل ایجاد می شود.
     // TODO: 8/2/19 modify motionable textView
     // TODO: 7/24/19 اضافه کردن قابلیت تغییر نام دفترها
