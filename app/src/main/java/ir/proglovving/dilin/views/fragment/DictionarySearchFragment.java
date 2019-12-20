@@ -22,10 +22,11 @@ import java.util.List;
 
 import ir.proglovving.dilin.R;
 import ir.proglovving.dilin.adapters.DictionaryRecyclerAdapter;
+import ir.proglovving.dilin.custom_views.ToolTip;
 import ir.proglovving.dilin.data_model.DictionaryWord;
 import ir.proglovving.dilin.database_open_helpers.DictionaryOpenHelper;
 
-public class DictionarySearchFragment extends Fragment implements View.OnClickListener {
+public class DictionarySearchFragment extends Fragment implements View.OnClickListener, View.OnLongClickListener {
 
     private View toolbarView;
     private ImageButton eraseButton, searchButton;
@@ -110,10 +111,14 @@ public class DictionarySearchFragment extends Fragment implements View.OnClickLi
 
     private void setupViews(View view) {
         toolbarView = view.findViewById(R.id.card_toolbar);
+
         eraseButton = view.findViewById(R.id.btn_erase);
-        eraseButton.setOnClickListener(this);
         searchButton = view.findViewById(R.id.btn_search);
+        eraseButton.setOnClickListener(this);
         searchButton.setOnClickListener(this);
+        eraseButton.setOnLongClickListener(this);
+        searchButton.setOnLongClickListener(this);
+
         searchEditText = view.findViewById(R.id.ed_search);
         guideTextView = view.findViewById(R.id.tv_dictionary_guide);
         recyclerView = view.findViewById(R.id.recyclerView_dictionary);
@@ -188,4 +193,16 @@ public class DictionarySearchFragment extends Fragment implements View.OnClickLi
         }).start();
     }
 
+    @Override
+    public boolean onLongClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_erase:
+                ToolTip.show(getContext(),getContext().getString(R.string.erase),v);
+                break;
+            case R.id.btn_search:
+                ToolTip.show(getContext(),getContext().getString(R.string.search),v);
+                break;
+        }
+        return true;
+    }
 }
