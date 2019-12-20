@@ -98,7 +98,6 @@
                 tools:src="@drawable/ic_action_bookmark" />
 
             <ImageButton
-                app:layout_constraintRight_toLeftOf="@id/btn_bookmark"
                 android:id="@+id/btn_edit"
                 android:layout_width="@dimen/standard_icon_size"
                 android:layout_height="@dimen/standard_icon_size"
@@ -107,6 +106,7 @@
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_action_edit"
                 android:tint="@color/icon_color"
+                app:layout_constraintRight_toLeftOf="@id/btn_bookmark"
                 app:layout_constraintTop_toTopOf="parent" />
         </android.support.constraint.ConstraintLayout>
 
