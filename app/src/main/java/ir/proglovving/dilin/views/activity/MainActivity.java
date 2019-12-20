@@ -247,7 +247,7 @@ public class MainActivity extends AppCompatActivity{
         fabAddNotebook.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                ToolTip.show(MainActivity.this,getString(R.string.creating_notebook),fabAddNotebook);
+                ToolTip.show(MainActivity.this,getString(R.string.creating_notebook),v);
                 return true;
             }
         });
