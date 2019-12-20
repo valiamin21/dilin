@@ -19,7 +19,6 @@ public class MyApplication extends Application {
 
     // releasing process
 
-    // TODO: 12/18/19 adding tooltip for app buttons
     // TODO: 12/18/19 replacing play/pause option to edit notebookName in NotebooksRecyclerAdapter
     // TODO: 7/28/19  Modifying search page(offline dictionary) : جابه‌جایی دو به دو
     // TODO: 9/7/19 replacing landscape images with abstract images
