@@ -29,6 +29,7 @@ import android.widget.LinearLayout;
 
 import ir.proglovving.dilin.R;
 import ir.proglovving.dilin.Utilities;
+import ir.proglovving.dilin.custom_views.ToolTip;
 import ir.proglovving.dilin.data_model.Word;
 import ir.proglovving.dilin.database_open_helpers.WordsOpenHelper;
 import ir.proglovving.dilin.views.fragment.ShowNoteBooksFragment;
@@ -226,6 +227,13 @@ public class ShowWordsListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showBrowseAddWordDialog();
+            }
+        });
+        addFab.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                ToolTip.show(ShowWordsListActivity.this,getString(R.string.adding_word_text),v);
+                return true;
             }
         });
 
