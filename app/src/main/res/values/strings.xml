@@ -91,4 +91,6 @@
     <string name="adding_to_favorite">اضافه کردن به موردعلاقه‌ها</string>
     <string name="showing_in_app_widget">نمایش در ویجت برنامه</string>
     <string name="creating_notebook">ساختن دفتر</string>
+    <string name="erase">پاک کردن</string>
+
 </resources>
