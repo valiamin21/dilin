@@ -19,6 +19,7 @@ public class MyApplication extends Application {
 
     // releasing process
 
+    // TODO: 12/20/19 adding appIntro for app
     // TODO: 12/18/19 replacing play/pause option to edit notebookName in NotebooksRecyclerAdapter
     // TODO: 7/28/19  Modifying search page(offline dictionary) : جابه‌جایی دو به دو
     // TODO: 8/2/19 رفع مشکل ساخت دو دفتر برای تست در اولین اجرای برنامه
