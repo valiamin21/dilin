@@ -14,8 +14,9 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".views.activity.AppIntroActivity"></activity>
         <activity android:name=".views.activity.DevTestActivity" />
-        <activity android:name=".views.activity.DictionarySearchActivity"></activity>
+        <activity android:name=".views.activity.DictionarySearchActivity" />
         <activity
             android:name=".views.activity.DonateActivity"
             android:screenOrientation="portrait" />
@@ -48,11 +49,8 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/show_words_widget_info" />
         </receiver>
-
-        <receiver android:name=".views.fragment.BookmarkedWordsFragment$BookmarksReceiver"/>
-
-        <receiver android:name=".views.fragment.ShowNoteBooksFragment$UpdateNotebooksBroadcast"/>
-
+        <receiver android:name=".views.fragment.BookmarkedWordsFragment$BookmarksReceiver" />
+        <receiver android:name=".views.fragment.ShowNoteBooksFragment$UpdateNotebooksBroadcast" />
     </application>
 
 </manifest>
