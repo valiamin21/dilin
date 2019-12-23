@@ -4,12 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.widget.Toast;
 
 import com.github.paolorotolo.appintro.AppIntro;
 
+import ir.proglovving.dilin.FirstTimeManager;
 import ir.proglovving.dilin.R;
-import ir.proglovving.dilin.Utilities;
 import ir.proglovving.dilin.views.fragment.IntroFragment;
 
 public class AppIntroActivity extends AppIntro {
@@ -43,17 +42,24 @@ public class AppIntroActivity extends AppIntro {
         IntroFragment introFragment = IntroFragment.newInstance("this my fucking title","this is my fucking description",R.drawable.programmer_profile_picture1);
         addSlide(introFragment);
 
+        introFragment = IntroFragment.newInstance("second fucking title","second description",R.drawable.navigation_header_image);
+        addSlide(introFragment);
+
     }
 
     @Override
     public void onDonePressed(Fragment currentFragment) {
         super.onDonePressed(currentFragment);
-        Toast.makeText(this, "done", Toast.LENGTH_SHORT).show();
+        MainActivity.start(this);
+        FirstTimeManager.registerAsFirstTime(this);
+        finish();
     }
 
     @Override
     public void onSkipPressed(Fragment currentFragment) {
         super.onSkipPressed(currentFragment);
-        Toast.makeText(this, "skip", Toast.LENGTH_SHORT).show();
+        MainActivity.start(this);
+        FirstTimeManager.registerAsFirstTime(this);
+        finish();
     }
 }
