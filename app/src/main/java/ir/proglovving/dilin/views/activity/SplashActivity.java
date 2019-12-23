@@ -17,6 +17,7 @@ import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import ir.proglovving.dilin.FirstTimeManager;
 import ir.proglovving.dilin.R;
 
 public class SplashActivity extends AppCompatActivity {
@@ -55,9 +56,11 @@ public class SplashActivity extends AppCompatActivity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                MainActivity.start(SplashActivity.this);
-//                DevTestActivity.start(SplashActivity.this);
-//                DictionarySearchActivity.start(SplashActivity.this);
+                if(FirstTimeManager.isFirstTime(SplashActivity.this)){
+                    AppIntroActivity.start(SplashActivity.this);
+                }else{
+                    MainActivity.start(SplashActivity.this);
+                }
             }
         }).start();
 
@@ -148,7 +151,6 @@ public class SplashActivity extends AppCompatActivity {
         }
 
     }
-
 
     @Override
     protected void onStop() {
