@@ -38,6 +38,13 @@ public class Utilities {
         return false;
     }
 
+    public static void applyFontForAView(View view,Activity context){
+        if(view instanceof ViewGroup){
+            applyFontForAViewGroup((ViewGroup)view,context);
+        }else if(view instanceof TextView){
+            ((TextView)view).setTypeface(getAppTypeFace(context));
+        }
+    }
 
     public static void applyFontForCollapsingToolbarLayou(CollapsingToolbarLayout collapsingToolbarLayout, Activity context) {
         collapsingToolbarLayout.setCollapsedTitleTypeface(getAppTypeFace(context));
