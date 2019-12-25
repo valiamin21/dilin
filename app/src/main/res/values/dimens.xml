@@ -47,4 +47,5 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     <dimen name="tooltip_elevation">2dp</dimen>
 
     <dimen name="app_intro_image_margin_top">60dp</dimen>
+    <dimen name="app_intro_image_radius">15dp</dimen>
 </resources>

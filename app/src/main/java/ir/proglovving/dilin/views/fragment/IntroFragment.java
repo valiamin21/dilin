@@ -1,5 +1,6 @@
 package ir.proglovving.dilin.views.fragment;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.v4.app.Fragment;
@@ -52,6 +53,11 @@ public class IntroFragment extends Fragment {
         TextView titleTextView = view.findViewById(R.id.intro_title);
         TextView descriptionTextview = view.findViewById(R.id.intro_description);
         ImageView imageView = view.findViewById(R.id.intro_image_view);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+            // deleting image outline for adjusting image radius defined in it's selector!
+            imageView.setClipToOutline(true);
+        }
+
 
         titleTextView.setText(title);
         descriptionTextview.setText(description);
