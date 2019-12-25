@@ -43,6 +43,10 @@ public class IntroFragment extends Fragment {
         return newInstance(context.getString(title),context.getString(description),imageDrawable);
     }
 
+    public static IntroFragment newInstance(Context context,@StringRes int description,@DrawableRes int imageDrawable){
+        return newInstance("",context.getString(description),imageDrawable);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
