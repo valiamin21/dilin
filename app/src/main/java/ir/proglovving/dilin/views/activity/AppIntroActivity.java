@@ -4,11 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.View;
 
 import com.github.paolorotolo.appintro.AppIntro;
 
 import ir.proglovving.dilin.FirstTimeManager;
 import ir.proglovving.dilin.R;
+import ir.proglovving.dilin.Utilities;
 import ir.proglovving.dilin.views.fragment.IntroFragment;
 
 public class AppIntroActivity extends AppIntro {
@@ -23,10 +25,25 @@ public class AppIntroActivity extends AppIntro {
         super.onCreate(savedInstanceState);
         setDoneText("فهمیدم");
 
-        IntroFragment introFragment = IntroFragment.newInstance("this my fucking title","this is my fucking description",R.drawable.programmer_profile_picture1);
+        // hiding skipButton
+        skipButton.setEnabled(false);
+        skipButton.setAlpha(0);
+
+        // changing doneButton Font
+        doneButton.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Utilities.applyFontForAView(doneButton, AppIntroActivity.this);
+            }
+        }, 1);
+
+        IntroFragment introFragment = IntroFragment.newInstance(this,R.string.app_name,R.string.dilin_description,R.drawable.dilin_icon_web);
         addSlide(introFragment);
 
-        introFragment = IntroFragment.newInstance("second fucking title","second description",R.drawable.navigation_header_image);
+        introFragment = IntroFragment.newInstance(this,R.string.dilin_intro_tooltip_description,R.drawable.app_intro_image_tooltip);
+        addSlide(introFragment);
+
+        introFragment = IntroFragment.newInstance(this,R.string.widget,R.string.dilin_intro_widget_description,R.drawable.app_intro_image_widget);
         addSlide(introFragment);
 
     }
@@ -34,14 +51,6 @@ public class AppIntroActivity extends AppIntro {
     @Override
     public void onDonePressed(Fragment currentFragment) {
         super.onDonePressed(currentFragment);
-        MainActivity.start(this);
-        FirstTimeManager.registerAsFirstTime(this);
-        finish();
-    }
-
-    @Override
-    public void onSkipPressed(Fragment currentFragment) {
-        super.onSkipPressed(currentFragment);
         MainActivity.start(this);
         FirstTimeManager.registerAsFirstTime(this);
         finish();
