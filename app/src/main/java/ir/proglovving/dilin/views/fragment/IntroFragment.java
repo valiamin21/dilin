@@ -1,8 +1,10 @@
 package ir.proglovving.dilin.views.fragment;
 
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
@@ -20,7 +22,8 @@ public class IntroFragment extends Fragment {
 
     private String title;
     private String description;
-    @DrawableRes int imageDrawable;
+    @DrawableRes
+    int imageDrawable;
 
     public IntroFragment() {
         // Required empty public constructor
@@ -31,9 +34,13 @@ public class IntroFragment extends Fragment {
         Bundle args = new Bundle();
         args.putString(ARG_TITLE, title);
         args.putString(ARG_DESCRIPTION, description);
-        args.putInt(ARG_IMAGE_DRAWABLE,imageDrawable);
+        args.putInt(ARG_IMAGE_DRAWABLE, imageDrawable);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    public static IntroFragment newInstance(Context context, @StringRes int title, @StringRes int description, @DrawableRes int imageDrawable) {
+        return newInstance(context.getString(title),context.getString(description),imageDrawable);
     }
 
     @Override
@@ -53,7 +60,7 @@ public class IntroFragment extends Fragment {
         TextView titleTextView = view.findViewById(R.id.intro_title);
         TextView descriptionTextview = view.findViewById(R.id.intro_description);
         ImageView imageView = view.findViewById(R.id.intro_image_view);
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             // deleting image outline for adjusting image radius defined in it's selector!
             imageView.setClipToOutline(true);
         }
@@ -61,7 +68,7 @@ public class IntroFragment extends Fragment {
 
         titleTextView.setText(title);
         descriptionTextview.setText(description);
-        imageView.setImageDrawable(ContextCompat.getDrawable(getContext(),imageDrawable));
+        imageView.setImageDrawable(ContextCompat.getDrawable(getContext(), imageDrawable));
         return view;
     }
 }
