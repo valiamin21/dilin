@@ -93,4 +93,8 @@
     <string name="creating_notebook">ساختن دفتر</string>
     <string name="erase">پاک کردن</string>
 
+    <string name="dilin_description">دیلین فراتر از یه دیکشنریه! اینجا دیکشنری خودتو می‌سازی، کلمات‌رو مرور می‌کنی و یادشون می‌گیری!</string>
+    <string name="dilin_intro_tooltip_description">کار با دیلین خیلی سادس. کافیه دستت‌رو روی هر بخش که می‌خوای نگه‌داری تا راهنماشو ببینی.</string>
+    <string name="widget">ویجت</string>
+    <string name="dilin_intro_widget_description">دیلین یه ویجت باحال برای مرور کلمات توی صفحه‌ی اصلی گوشی داره!\n (یادت باشه تو گوشیت اضافش کنی)</string>
 </resources>
