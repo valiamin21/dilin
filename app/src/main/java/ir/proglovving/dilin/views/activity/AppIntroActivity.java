@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.View;
 
 import com.github.paolorotolo.appintro.AppIntro;
 
@@ -14,9 +13,11 @@ import ir.proglovving.dilin.Utilities;
 import ir.proglovving.dilin.views.fragment.IntroFragment;
 
 public class AppIntroActivity extends AppIntro {
+    private static String INTENT_KEY_START_FROM_NAVIGATION_VIEW = "start_from_navigation_view";
 
-    public static void start(Context context){
+    public static void start(Context context,boolean startFromNavigationView){
         Intent starter = new Intent(context,AppIntroActivity.class);
+        starter.putExtra(INTENT_KEY_START_FROM_NAVIGATION_VIEW,startFromNavigationView);
         context.startActivity(starter);
     }
 
@@ -51,8 +52,10 @@ public class AppIntroActivity extends AppIntro {
     @Override
     public void onDonePressed(Fragment currentFragment) {
         super.onDonePressed(currentFragment);
-        MainActivity.start(this);
-        FirstTimeManager.registerAsFirstTime(this);
+        if(!getIntent().getBooleanExtra(INTENT_KEY_START_FROM_NAVIGATION_VIEW,false)){
+            MainActivity.start(this);
+            FirstTimeManager.registerAsFirstTime(this);
+        }
         finish();
     }
 }
