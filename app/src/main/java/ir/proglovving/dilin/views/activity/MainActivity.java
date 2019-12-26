@@ -45,8 +45,6 @@ import ir.proglovving.dilin.views.fragment.ShowNoteBooksFragment;
 
 public class MainActivity extends AppCompatActivity{
 
-    public static final int RESULT_BACK_FROM_NOTEBOOKS_ACTIVITY = 52;
-
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
     private Toolbar toolbar;
