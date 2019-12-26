@@ -161,6 +161,9 @@ public class MainActivity extends AppCompatActivity{
 
                         break;
                         */
+                    case R.id.guidencec:
+                        AppIntroActivity.start(MainActivity.this,true);
+                        break;
                     case R.id.rate:
                         Toast.makeText(MainActivity.this, "rate was clicked", Toast.LENGTH_SHORT).show();
                         break;
