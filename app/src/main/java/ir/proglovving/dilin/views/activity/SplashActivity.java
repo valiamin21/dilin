@@ -57,7 +57,7 @@ public class SplashActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 if(FirstTimeManager.isFirstTime(SplashActivity.this)){
-                    AppIntroActivity.start(SplashActivity.this);
+                    AppIntroActivity.start(SplashActivity.this,false);
                 }else{
                     MainActivity.start(SplashActivity.this);
                 }
