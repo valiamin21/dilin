@@ -18,7 +18,6 @@ public class MyApplication extends Application {
      */
 
     // releasing process
-    // TODO: 12/26/19 adding 'guidence' option in navigationView
     // TODO: 7/28/19  Modifying search page(offline dictionary) : جابه‌جایی دو به دو
     // TODO: 8/2/19 رفع مشکل ساخت دو دفتر برای تست در اولین اجرای برنامه
     // TODO: 8/1/19 putting right idpay link in app
