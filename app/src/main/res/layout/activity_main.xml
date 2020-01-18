@@ -50,8 +50,7 @@
                         android:layout_margin="@dimen/standard_margin_x2"
                         android:src="@drawable/ic_action_add"
                         app:fabSize="normal"
-                        app:rippleColor="@android:color/white"
-                       android:visibility="gone"/>
+                        app:rippleColor="@android:color/white" />
 
             <!--<android.support.design.widget.FloatingActionButton-->
             <!--android:id="@+id/fab_search"-->
