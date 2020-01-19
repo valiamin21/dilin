@@ -93,7 +93,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/standard_margin"
-                android:text="@string/ok_text"
+                android:text="@string/ok_purchase"
                 android:textSize="@dimen/standard_font_size_very_large"
                 android:textColor="@color/colorAccent"
                 android:layout_gravity="center"
