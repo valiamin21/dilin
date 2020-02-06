@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layoutDirection="rtl">
+
+    <ir.proglovving.dilin.custom_views.CusTextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/adding_word_to_colon"
+        android:layout_margin="@dimen/standard_margin"
+        android:textSize="@dimen/standard_font_size_large"
+        android:textColor="@color/primary_text"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view_dw_to_n"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/standard_margin"
+        android:layout_below="@id/title"/>
+
+</RelativeLayout>

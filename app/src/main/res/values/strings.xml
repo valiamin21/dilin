@@ -99,4 +99,5 @@
     <string name="dilin_intro_tooltip_description">کار با دیلین خیلی سادس. کافیه دستت‌رو روی هر بخش که می‌خوای نگه‌داری تا راهنماشو ببینی.</string>
     <string name="widget">ویجت</string>
     <string name="dilin_intro_widget_description">دیلین یه ویجت باحال برای مرور کلمات توی صفحه‌ی اصلی گوشی داره!\n (یادت باشه تو گوشیت اضافش کنی)</string>
+    <string name="adding_word_to_colon">اضافه کردن کلمه به:</string>
 </resources>
