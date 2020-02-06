@@ -18,12 +18,8 @@ public class MyApplication extends Application {
      */
 
     // releasing process
-    // TODO: 7/28/19  Modifying search page(offline dictionary) : جابه‌جایی دو به دو
-    // TODO: 8/2/19 رفع مشکل ساخت دو دفتر برای تست در اولین اجرای برنامه
-    // TODO: 8/1/19 putting right idpay link in app
-    // TODO: 9/7/19 deleting rating and other apps from navigationViews
-    // TODO: 9/7/19 releasing app in markets
-    // TODO: 9/7/19 adding rating and other_apps items in navigationViews
+    // TODO: 2/6/20 implementing rating and other apps items in navigationView
+    // TODO: 2/6/20 modifying search button in app
     // TODO: 9/7/19 releasing app in markets
 
 
