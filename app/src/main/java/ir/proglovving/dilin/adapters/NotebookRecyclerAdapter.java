@@ -1,6 +1,7 @@
 package ir.proglovving.dilin.adapters;
 
-import android.app.Activity;
+import android.animation.Animator;
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Build;
 import android.os.CountDownTimer;
@@ -12,24 +13,29 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
 import ir.proglovving.dilin.CustomDialogBuilder;
 import ir.proglovving.dilin.R;
+import ir.proglovving.dilin.Utilities;
 import ir.proglovving.dilin.custom_views.ToolTip;
 import ir.proglovving.dilin.data_model.Notebook;
 import ir.proglovving.dilin.database_open_helpers.NotebookOpenHelper;
-import ir.proglovving.dilin.views.activity.MainActivity;
 import ir.proglovving.dilin.views.activity.ShowWordsListActivity;
+import ir.proglovving.dilin.views.fragment.ShowNoteBooksFragment;
 
 public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecyclerAdapter.NotebookViewHolder> implements View.OnLongClickListener {
     private Context context;
@@ -73,8 +79,6 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecycl
         mViewHolder.bookmarkedCountTextView.setText(context.getString(R.string.bookmarked_count)+ ": " + notebook.getBookmarkedCount());
 
         setFavoriteImage(mViewHolder.favoriteButton,notebook.isFavorite()); // TODO: 2/5/19 اگر لیست دفتر های محبوب در حال نمایش بود و کاربر همانجا دکمه ی لغو محبوبیت را زد باید از آن لیست حذف شود. این مورد اصلاح شود.
-
-        setPlayingImage(mViewHolder.playButton,notebook.isPlaying());
 
         mViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,48 +153,83 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecycl
             }
         });
 
-        mViewHolder.playButton.setOnClickListener(new View.OnClickListener() {
+        mViewHolder.editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setPlayingAnimation(mViewHolder.linearImages,mViewHolder.playButton , !notebook.isPlaying());
-                notebook.setPlaying(!notebook.isPlaying());
-                new NotebookOpenHelper(context).update(notebook);
-                event.onPlayClick(notebook);
+                showEditNoteBookDialog(notebook);
+                event.onEditClick(notebook);
             }
         });
 
         mViewHolder.deleteButton.setOnLongClickListener(this);
         mViewHolder.favoriteButton.setOnLongClickListener(this);
-        mViewHolder.playButton.setOnLongClickListener(this);
+        mViewHolder.editButton.setOnLongClickListener(this);
 
         // TODO: 4/21/19 یه فکری برا این انیمیشنا بکن
 //        setAnimation(mViewHolder.itemView);
     }
 
-    private void setPlayingAnimation(LinearLayout containerLinear, ImageButton imageButton, boolean isPlaying){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+    public void showEditNoteBookDialog(final Notebook notebook) {
+        final Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.dialog_add_notebook);
+        final LinearLayout dialogContainer = dialog.findViewById(R.id.ll_dialog_add_notebook);
+        final EditText notebookNameEditText = dialog.findViewById(R.id.et_notebook);
+        Button verifyButton = dialog.findViewById(R.id.btn_verify), cancelButton = dialog.findViewById(R.id.btn_cancel);
 
-            imageButton.setVisibility(View.INVISIBLE);
-            setPlayingImage(imageButton, isPlaying);
+        notebookNameEditText.setText(notebook.getNoteBookName());
 
-            Fade fade = new Fade();
-            fade.setDuration(500);
-            fade.setInterpolator(new DecelerateInterpolator());
+        // کد زیر کیبورد گوشی را برای ادیت تکست نمایش می دهد
+        notebookNameEditText.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Utilities.showSoftKeyboard(notebookNameEditText, context);
+            }
+        },100);
 
-            android.support.transition.TransitionManager.beginDelayedTransition(containerLinear, fade);
+        verifyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (notebookNameEditText.getText().length() == 0) {
+                    notebookNameEditText.setError(context.getString(R.string.no_name_has_been_entered));
+                    return;
+                }
 
-            imageButton.setVisibility(View.VISIBLE);
-        }else{
-            setPlayingImage(imageButton, isPlaying);
+                notebook.setNoteBookName(notebookNameEditText.getText().toString());
+                new NotebookOpenHelper(context).update(notebook);
+
+                ShowNoteBooksFragment.updateMeByBroadcast(context);
+                dialog.dismiss();
+            }
+        });
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            dialogContainer.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+
+                    Animator animator = ViewAnimationUtils.createCircularReveal(
+                            dialogContainer, dialogContainer.getWidth(), dialogContainer.getHeight(), 0,
+                            Math.max(dialogContainer.getWidth(), dialogContainer.getHeight()));
+                    dialogContainer.setVisibility(View.VISIBLE);
+                    animator.start();
+                }
+
+
+            }, 200);
+        } else {
+            dialogContainer.setVisibility(View.VISIBLE);
         }
-    }
 
-    private void setPlayingImage(ImageButton imageButton, boolean isPlaying) {
-        if(isPlaying){
-            imageButton.setImageResource(R.drawable.ic_action_pause);
-        }else{
-            imageButton.setImageResource(R.drawable.ic_action_play);
-        }
     }
 
     private void setFavoriteAnimation(LinearLayout containerLinear, ImageButton imageButton, boolean isFavorite) {
@@ -265,7 +304,7 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecycl
             case R.id.btn_favorite:
                 ToolTip.show(context,context.getString(R.string.adding_to_favorite),v);
                 break;
-            case R.id.btn_play:
+            case R.id.btn_edit:
                 ToolTip.show(context,context.getString(R.string.showing_in_app_widget),v);
                 break;
         }
@@ -278,7 +317,7 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecycl
         private TextView wordsCountTextView;
         private TextView bookmarkedCountTextView;
 
-        private ImageButton deleteButton, favoriteButton, playButton;
+        private ImageButton deleteButton, favoriteButton, editButton;
 
         private LinearLayout linearImages;
 
@@ -290,7 +329,7 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecycl
 
             deleteButton = (ImageButton) itemView.findViewById(R.id.btn_delete);
             favoriteButton = (ImageButton) itemView.findViewById(R.id.btn_favorite);
-            playButton = (ImageButton) itemView.findViewById(R.id.btn_play);
+            editButton = (ImageButton) itemView.findViewById(R.id.btn_edit);
 
             linearImages = (LinearLayout) itemView.findViewById(R.id.linear_imgs);
         }
@@ -301,7 +340,7 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecycl
 
         void onFavoriteClick(Notebook notebook);
 
-        void onPlayClick(Notebook notebook);
+        void onEditClick(Notebook notebook);
 
         void onRefreshInCurrentPosition(int position);
     }

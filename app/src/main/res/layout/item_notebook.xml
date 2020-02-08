@@ -69,12 +69,12 @@
 
             <!-- TODO modify below code  -->
             <ImageButton
-                android:id="@+id/btn_play"
+                android:id="@+id/btn_edit"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/standard_icon_size"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_action_play"
+                android:src="@drawable/ic_action_edit"
                 android:layout_weight="1"
                 android:tint="@color/icon_color"/>
 

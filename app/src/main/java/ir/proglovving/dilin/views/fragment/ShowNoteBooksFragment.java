@@ -294,7 +294,7 @@ public class ShowNoteBooksFragment extends Fragment implements NotebookRecyclerA
     }
 
     @Override
-    public void onPlayClick(Notebook notebook) {
+    public void onEditClick(Notebook notebook) {
 
     }
 

@@ -173,6 +173,7 @@ public class NotebookOpenHelper extends SQLiteOpenHelper {
         cv.put(COL_PLAYING, notebook.isPlaying()); saveInIsPlayings(notebook);
         cv.put(COL_CURRENT_PLAYING_ID,notebook.getCurrentPlayingNumber());
         sqLiteDatabase.update(NOTEBOOK_TABLE_NAME, cv, COL_ID + " = ?", new String[]{String.valueOf(notebook.getId())});
+        sqLiteDatabase.close();
     }
 
     public void returnNotebook(Notebook notebook) {
