@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -163,10 +164,10 @@ public class MainActivity extends AppCompatActivity{
                         AppIntroActivity.start(MainActivity.this,true);
                         break;
                     case R.id.rate:
-                        Toast.makeText(MainActivity.this, "rate was clicked", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse("myket://comment?id=ir.proglovving.dilin")));
                         break;
                     case R.id.other_apps:
-                        Toast.makeText(MainActivity.this, "other apps was clicked", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse("myket://developer/ir.proglovving.dilin")));
                         break;
                     case R.id.about:
                         startActivity(new Intent(MainActivity.this, ProgrammerAboutUsActivity.class), compat.toBundle());
