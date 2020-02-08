@@ -18,6 +18,7 @@ public class MyApplication extends Application {
      */
 
     // releasing process
+    // TODO: 2/8/20 modifying about us activity
     // TODO: 2/6/20 modifying search button in app
     // TODO: 9/7/19 releasing app in markets
 
