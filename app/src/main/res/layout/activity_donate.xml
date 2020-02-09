@@ -68,7 +68,7 @@
             <ir.proglovving.dilin.custom_views.CusTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/protect_us"
+                android:text="@string/support_programmer"
                 android:layout_gravity="right"
                 android:layout_marginRight="@dimen/standard_margin"
                 android:layout_marginLeft="@dimen/standard_margin_x2"

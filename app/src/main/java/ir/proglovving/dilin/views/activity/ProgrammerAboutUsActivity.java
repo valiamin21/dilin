@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.transition.Slide;
+import android.view.View;
 import android.view.animation.OvershootInterpolator;
+import android.widget.Button;
 
 import ir.proglovving.dilin.R;
 import ir.proglovving.dilin.Utilities;
@@ -14,6 +16,7 @@ import ir.proglovving.dilin.Utilities;
 public class ProgrammerAboutUsActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
+    private Button supportProgrammerButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,10 +26,18 @@ public class ProgrammerAboutUsActivity extends AppCompatActivity {
         initViews();
 
         setupEnterTransition();
+
+        supportProgrammerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DonateActivity.start(ProgrammerAboutUsActivity.this);
+            }
+        });
     }
 
     private void initViews() {
         setupToolbar();
+        supportProgrammerButton = findViewById(R.id.btn_support_programmer);
     }
 
     private void setupToolbar() {

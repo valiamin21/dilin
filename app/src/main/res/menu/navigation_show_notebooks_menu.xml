@@ -29,7 +29,7 @@
             <item
                 android:id="@+id/protect"
                 android:icon="@drawable/ic_action_protect"
-                android:title="@string/protect_us" />
+                android:title="@string/support_programmer" />
         </menu>
     </item>
 

@@ -18,6 +18,10 @@ public class DonateActivity extends AppCompatActivity {
     private Button coffeeButton;
     private String url = "https://idpay.ir/amin-vali";
 
+    public static void start(Context context){
+        context.startActivity(new Intent(context,DonateActivity.class));
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +64,4 @@ public class DonateActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public static void start(Context context, Bundle optionsCompat){
-        context.startActivity(new Intent(context, DonateActivity.class),optionsCompat);
-    }
 }
