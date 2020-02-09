@@ -103,15 +103,14 @@ public class ShowWordsListActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-//                refreshRecyclerView(s);
-//                showWordsFragment.searchRefresh(s);
+                showWordsFragment.searchRefresh(s);
                 searchView.clearFocus();
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
-//                showWordsFragment.searchRefresh(s);
+                showWordsFragment.searchRefresh(s);
                 return false;
             }
         });
