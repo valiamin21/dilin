@@ -23,7 +23,8 @@
         android:layout_height="0dp"
         android:orientation="vertical"
         android:gravity="center"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:paddingHorizontal="@dimen/standard_margin">
 
         <TextView
             android:id="@+id/appwidget_word"
