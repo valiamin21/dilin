@@ -7,12 +7,12 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -33,6 +33,7 @@ public class BookmarkedWordsFragment extends Fragment implements WordsRecyclerVi
     public static final int REFRESH_TYPE_END = -3;
 
     private RecyclerView recyclerView;
+    private NestedScrollView emptyMessageContainer;
 
     private BookmarksReceiver receiver;
 
@@ -71,8 +72,9 @@ public class BookmarkedWordsFragment extends Fragment implements WordsRecyclerVi
         recyclerView = view.findViewById(R.id.recycler_view_bookmarked_fragment);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
-        WordsRecyclerViewAdapter adapter = new WordsRecyclerViewAdapter(getContext(),WordsOpenHelper.getAllWords(getContext(),true),this);
-        recyclerView.setAdapter(adapter);
+        emptyMessageContainer = view.findViewById(R.id.nested_scroll_view_empty);
+
+        refreshRecyclerView(REFRESH_TYPE_SETUP);
         return view;
     }
 
@@ -97,24 +99,15 @@ public class BookmarkedWordsFragment extends Fragment implements WordsRecyclerVi
 
         List<Word> words = WordsOpenHelper.getAllWords(getContext(), true);
 
-        /*
-        if (new WordsOpenHelper(getContext(), notebookId).getRawsCount() == 0) { //  اگر هیچ کلمه ای اضافه نشده باشد
+        if (words.size() == 0) { // اگر کلمه ی نشان شده ای یافت نشد
             recyclerView.setVisibility(View.INVISIBLE);
-            emptyTextView.changeText(R.string.no_word_was_added);
-            emptyMessageNestedScrollView.setVisibility(View.VISIBLE);
+            emptyMessageContainer.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.INVISIBLE);
             return;
-        } else if (recyclerView.getVisibility() == View.INVISIBLE) {
-            recyclerView.setVisibility(View.VISIBLE);
-            emptyMessageNestedScrollView.setVisibility(View.INVISIBLE);
         }
 
-        if (words.size() == 0 && isBookmarkedMode) { // اگر کلمه ی نشان شده ای یافت نشد
-            recyclerView.setVisibility(View.INVISIBLE);
-            emptyTextView.changeText(R.string.no_bookmarked_word_was_found);
-            emptyMessageNestedScrollView.setVisibility(View.VISIBLE);
-            return;
-        }
-         */
+        emptyMessageContainer.setVisibility(View.INVISIBLE);
+        recyclerView.setVisibility(View.VISIBLE);
 
         WordsRecyclerViewAdapter adapter = new WordsRecyclerViewAdapter(getContext(), words, this);
 
@@ -127,25 +120,16 @@ public class BookmarkedWordsFragment extends Fragment implements WordsRecyclerVi
 
         List<Word> words = WordsOpenHelper.getAllWords(getContext(), true);
 
-        /*
-        if (new WordsOpenHelper(getContext(), notebookId).getRawsCount() == 0) { //  اگر هیچ کلمه ای اضافه نشده باشد
+        if (words.size() == 0) { // اگر کلمه ی نشان شده ای یافت نشد
             recyclerView.setVisibility(View.INVISIBLE);
-            emptyTextView.changeText(R.string.no_word_was_added);
-            emptyMessageNestedScrollView.setVisibility(View.VISIBLE);
-            return;
-        } else if (recyclerView.getVisibility() == View.INVISIBLE) {
-            recyclerView.setVisibility(View.VISIBLE);
-            emptyMessageNestedScrollView.setVisibility(View.INVISIBLE);
-        }
-
-        if (words.size() == 0 && isBookmarkedMode) { // اگر کلمه ی نشان شده ای یافت نشد
+            emptyMessageContainer.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.INVISIBLE);
-            emptyTextView.changeText(R.string.no_bookmarked_word_was_found);
-            emptyMessageNestedScrollView.setVisibility(View.VISIBLE);
             return;
         }
 
-         */
+        emptyMessageContainer.setVisibility(View.INVISIBLE);
+        recyclerView.setVisibility(View.VISIBLE);
+
         WordsRecyclerViewAdapter adapter = new WordsRecyclerViewAdapter(
                 getContext(), words, this
         );
