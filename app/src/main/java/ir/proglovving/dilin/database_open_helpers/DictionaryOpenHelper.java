@@ -134,7 +134,7 @@ public class DictionaryOpenHelper extends SQLiteOpenHelper {
         return dictionaryWordList;
     }
 
-    public List<DictionaryWord> getDictionaryWordList(String searchText) {
+    public List<DictionaryWord> getDictionaryWordList(String searchText, OnIterationListener onIterationListener) {
 
         List<DictionaryWord> dictionaryWordList = new ArrayList<>();
         DictionaryWord dictionaryWord;
@@ -149,6 +149,9 @@ public class DictionaryOpenHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             int counter = 0;
             do {
+                if(onIterationListener.onIterated()){
+                    return null;
+                }
                 if (cursor.getString(cursor.getColumnIndex(COL_EN)).contains(searchText)) {
                     dictionaryWord = new DictionaryWord();
                     dictionaryWord.setWord(
@@ -229,5 +232,9 @@ public class DictionaryOpenHelper extends SQLiteOpenHelper {
             e.printStackTrace();
         }
 
+    }
+
+    public interface OnIterationListener{
+        boolean onIterated();
     }
 }
