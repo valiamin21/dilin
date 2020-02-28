@@ -20,6 +20,7 @@ public class MyApplication extends Application {
     // releasing process
     // TODO: 2/24/20 modifyint about activity (adding application characteristics in it)
     // TODO: 2/24/20 modifying search implementation in dictionary fragment (auto search instead of pressing search button)
+    // TODO: 2/29/20 modifying adding to notebook dialog in searching fragment
     // TODO: 2/18/20 modifying lowercase or uppercase in dictionary search
     // TODO: 2/10/20 modifying favorite notebooks implementation in app
     // TODO: 2/19/20 converting English numbers to persian numbers
