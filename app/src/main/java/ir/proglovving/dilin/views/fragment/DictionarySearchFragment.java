@@ -21,6 +21,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import ir.proglovving.dilin.R;
+import ir.proglovving.dilin.Utilities;
 import ir.proglovving.dilin.adapters.DictionaryRecyclerAdapter;
 import ir.proglovving.dilin.custom_views.ToolTip;
 import ir.proglovving.dilin.data_model.DictionaryWord;
@@ -133,7 +134,7 @@ public class DictionarySearchFragment extends Fragment implements View.OnClickLi
                 searchEditText.setText("");
                 break;
             case R.id.btn_search:
-                performSearch();
+                Utilities.showSoftKeyboard(searchEditText,getContext());
                 break;
         }
     }
