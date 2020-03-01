@@ -32,8 +32,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import ir.proglovving.dilin.BuildConfig;
 import ir.proglovving.dilin.CustomDialogBuilder;
 import ir.proglovving.dilin.R;
 import ir.proglovving.dilin.Utilities;
@@ -188,6 +190,9 @@ public class MainActivity extends AppCompatActivity{
             }
         },1);
 
+        // the textView in navigation header for showing app name along with version
+        TextView appIntroductionTextView = navigationView.getHeaderView(0).findViewById(R.id.tv_app_introduction);
+        appIntroductionTextView.setText(getString(R.string.app_name) + "، " + getString(R.string.version) + " " + BuildConfig.VERSION_NAME);
 
         containerFrameLayout = (FrameLayout) findViewById(R.id.container_frame_layout);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
