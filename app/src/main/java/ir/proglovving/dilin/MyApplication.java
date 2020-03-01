@@ -19,6 +19,8 @@ public class MyApplication extends Application {
 
     // releasing process
     // TODO: 2/10/20 modifying favorite notebooks implementation in app
+    // TODO: 3/1/20 modifying fab showing while showing a toast message (in dictionary fragment)
+    // TODO: 3/1/20 prevent adding a word from dictionary to notebook if the word already existed in notebook
     // TODO: 9/7/19 releasing app in markets
 
 
