@@ -85,7 +85,11 @@ public class DictionaryRecyclerAdapter extends RecyclerView.Adapter<DictionaryRe
         mViewHolder.addToNotebookButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: 12/20/19 complete this code
+                if(new NotebookOpenHelper(context).getRawsCount() == 0){
+                    Toast.makeText(context, context.getString(R.string.no_notebook_has_been_made_yet), Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 Dialog dialog = new Dialog(context);
                 dialog.setContentView(R.layout.dialog_adding_dictoinary_word_to_notebook);
                 RecyclerView recyclerView = dialog.findViewById(R.id.recycler_view_dw_to_n);
