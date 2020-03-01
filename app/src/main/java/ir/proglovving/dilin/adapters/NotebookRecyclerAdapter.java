@@ -75,8 +75,8 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecycl
         final Notebook notebook = notebooks.get(position);
 
         mViewHolder.noteBookNameTextView.setText(notebook.getNoteBookName());
-        mViewHolder.wordsCountTextView.setText(context.getString(R.string.words_count)+ ": " + notebook.getWordsCount());
-        mViewHolder.bookmarkedCountTextView.setText(context.getString(R.string.bookmarked_count)+ ": " + notebook.getBookmarkedCount());
+        mViewHolder.wordsCountTextView.setText(context.getString(R.string.words_count)+ ": " + Utilities.convertNumberToPersian(notebook.getWordsCount()));
+        mViewHolder.bookmarkedCountTextView.setText(context.getString(R.string.bookmarked_count)+ ": " + Utilities.convertNumberToPersian(notebook.getBookmarkedCount()));
 
         setFavoriteImage(mViewHolder.favoriteButton,notebook.isFavorite()); // TODO: 2/5/19 اگر لیست دفتر های محبوب در حال نمایش بود و کاربر همانجا دکمه ی لغو محبوبیت را زد باید از آن لیست حذف شود. این مورد اصلاح شود.
 
