@@ -135,6 +135,7 @@ public class DictionaryOpenHelper extends SQLiteOpenHelper {
     }
 
     public List<DictionaryWord> getDictionaryWordList(String searchText, OnIterationListener onIterationListener) {
+        searchText = searchText.toLowerCase(); // for better searching regardless of uppercase and lowercase of words
 
         List<DictionaryWord> dictionaryWordList = new ArrayList<>();
         DictionaryWord dictionaryWord;
@@ -152,7 +153,7 @@ public class DictionaryOpenHelper extends SQLiteOpenHelper {
                 if(onIterationListener.onIterated()){
                     return null;
                 }
-                if (cursor.getString(cursor.getColumnIndex(COL_EN)).contains(searchText)) {
+                if (cursor.getString(cursor.getColumnIndex(COL_EN)).toLowerCase().contains(searchText)) {
                     dictionaryWord = new DictionaryWord();
                     dictionaryWord.setWord(
                             cursor.getString(cursor.getColumnIndex(COL_EN))
