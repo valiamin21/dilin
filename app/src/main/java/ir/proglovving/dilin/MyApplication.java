@@ -17,11 +17,7 @@ public class MyApplication extends Application {
         قرار دادن امکان انتشار دفترهای زبان توسط کاربران
      */
 
-    // releasing process
     // TODO: 3/1/20 prevent adding a word from dictionary to notebook if the word already existed in notebook
-    // TODO: 9/7/19 releasing app in markets
-
-
     // TODO: 9/7/19 replacing landscape images with abstract images
     // TODO: 7/20/19 bug fix: اصلاح بخش جست و جو. زمانی که کاربر در بین کلمات سرچ می کند و در همانجا کلمه ای را ویرایش می کند مشکل ایجاد می شود.
     // TODO: 8/2/19 modify motionable textView
