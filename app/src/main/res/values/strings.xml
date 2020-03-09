@@ -102,4 +102,6 @@
     <string name="adding_word_to_colon">اضافه کردن کلمه به:</string>
 
     <string name="version">نسخه</string>
+
+    <string name="show_only_favorite_notebooks">فقط دفترهای موردعلاقه</string>
 </resources>

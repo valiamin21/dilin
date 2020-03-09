@@ -1,29 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingLeft="@dimen/standard_margin_x2"/>
+    android:layout_height="match_parent">
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/nested_scroll_view_empty"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
+        android:layout_height="match_parent">
 
-        <ir.proglovving.dilin.custom_views.MotionableTextView
-            android:id="@+id/tv_empty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/no_notebook_has_been_made_yet"
-            android:textSize="@dimen/standard_font_size_very_large"
-            android:layout_marginTop="@dimen/show_empty_recycler_view_text_margin"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layoutDirection="rtl">
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/switch_favorite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/show_only_favorite_notebooks"
+                    android:layout_marginBottom="0dp"
+                    android:layout_marginTop="@dimen/standard_margin"
+                    android:layout_marginHorizontal="@dimen/standard_margin_x2"
+                    android:textSize="@dimen/standard_font_size_large"
+                    android:textColor="@color/primary_text"/>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ir.proglovving.dilin.custom_views.MotionableTextView
+                        android:id="@+id/tv_empty"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="@string/no_notebook_has_been_made_yet"
+                        android:textSize="@dimen/standard_font_size_very_large"
+                        android:layout_marginTop="@dimen/show_empty_recycler_view_text_margin"/>
+
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingLeft="@dimen/standard_margin_x2"/>
+                </FrameLayout>
+
+            </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
 

@@ -18,11 +18,13 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -45,8 +47,8 @@ public class ShowNoteBooksFragment extends Fragment implements NotebookRecyclerA
 
     private boolean isFavoriteMode;
     private RecyclerView recyclerView;
-    private NestedScrollView emptyMessageNestedScrollView;
     private MotionableTextView emptyTextView;
+    private SwitchCompat favoriteSwitchButton;
     private int refreshType = REFRESH_TYPE_CURRENT;
     private FloatingActionButton fabAddNotebook;
     private CoordinatorLayout coordinatorLayout;
@@ -100,8 +102,15 @@ public class ShowNoteBooksFragment extends Fragment implements NotebookRecyclerA
         });
 
 
-        emptyMessageNestedScrollView = (NestedScrollView) view.findViewById(R.id.nested_scroll_view_empty);
         emptyTextView = (MotionableTextView)view.findViewById(R.id.tv_empty);
+        favoriteSwitchButton = view.findViewById(R.id.switch_favorite);
+        favoriteSwitchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                isFavoriteMode = b;
+                refreshRecyclerView(refreshType);
+            }
+        });
 
         refreshRecyclerView(refreshType);
 
@@ -159,25 +168,25 @@ public class ShowNoteBooksFragment extends Fragment implements NotebookRecyclerA
         if(new NotebookOpenHelper(getContext()).getRawsCount() == 0){ // اگر هیچ دفتری ساخته نشده بود!
             recyclerView.setVisibility(View.INVISIBLE);
             emptyTextView.changeText(R.string.no_notebook_has_been_made_yet);
-            emptyMessageNestedScrollView.setVisibility(View.VISIBLE);
+            emptyTextView.setVisibility(View.VISIBLE);
             return;
         }else if(isFavoriteMode && notebooks.size() == 0){ // اگر در حالت مورد علاقه بود و دفتر موردعلاقه ای یافت نشد!
             recyclerView.setVisibility(View.INVISIBLE);
             emptyTextView.changeText(R.string.no_favorite_notebook_was_found);
-            emptyMessageNestedScrollView.setVisibility(View.VISIBLE);
+            emptyTextView.setVisibility(View.VISIBLE);
             return;
         }else{
             recyclerView.setVisibility(View.VISIBLE);
-            emptyMessageNestedScrollView.setVisibility(View.INVISIBLE);
+            emptyTextView.setVisibility(View.INVISIBLE);
         }
 
         if (notebooks.size() == 0) { //  if no notebook was made then
             recyclerView.setVisibility(View.INVISIBLE);
-            emptyMessageNestedScrollView.setVisibility(View.VISIBLE);
+            emptyTextView.setVisibility(View.VISIBLE);
             return;
         }else if (recyclerView.getVisibility() == View.INVISIBLE) { // اگر دفتری موجود بود و پیام دفتری موجود نیست در حال نمایش بود
             recyclerView.setVisibility(View.VISIBLE);
-            emptyMessageNestedScrollView.setVisibility(View.INVISIBLE);
+            emptyTextView.setVisibility(View.INVISIBLE);
         }
 
         NotebookRecyclerAdapter adapter = new NotebookRecyclerAdapter(
