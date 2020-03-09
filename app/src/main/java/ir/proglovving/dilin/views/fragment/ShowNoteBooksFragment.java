@@ -130,10 +130,6 @@ public class ShowNoteBooksFragment extends Fragment implements NotebookRecyclerA
         getContext().unregisterReceiver(updateNotebooksReceiver);
     }
 
-    public void showLastRecyclerViewState(){
-        Toast.makeText(getContext(), "lastState = " + lastRecyclerScrollState, Toast.LENGTH_SHORT).show();
-    }
-
     private void refreshRecyclerViewInCurrentPosition(int currentPosition) {
 //        List<Notebook> notebooks = getSuitableNotebooksList(isFavoriteMode);
 //
@@ -162,6 +158,8 @@ public class ShowNoteBooksFragment extends Fragment implements NotebookRecyclerA
     }
 
     public void refreshRecyclerView(int refreshType) {
+        // for saving fabAddNotebook showing status because it will be shown or hidden while recyclerview is scrolling
+        boolean fabShowingStatus = fabAddNotebook.isShown();
 
         List<Notebook> notebooks = getSuitableNotebooksList(isFavoriteMode);
 
@@ -204,6 +202,12 @@ public class ShowNoteBooksFragment extends Fragment implements NotebookRecyclerA
             recyclerView.scrollBy(0,lastRecyclerScrollState);
             lastRecyclerScrollState /= 2;
         }
+
+        // for applying saved fabAddNotebook showing status because it will be shown or hidden while recyclerview is scrolling
+        if(fabShowingStatus)
+            fabAddNotebook.show();
+        else
+            fabAddNotebook.hide();
 
     }
 
