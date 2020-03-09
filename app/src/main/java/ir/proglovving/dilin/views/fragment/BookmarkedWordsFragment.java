@@ -23,8 +23,6 @@ import ir.proglovving.dilin.database_open_helpers.WordsOpenHelper;
 
 public class BookmarkedWordsFragment extends Fragment implements WordsRecyclerViewAdapter.EventOfWordMeaningRecyclerView {
 
-    private static final String TAG = "BookmarkedWordsFragment";
-
     private static final String ARGS_REFRESH_NEEDED = "refresh_needed";
     private static final String ARGS_CURRENT_POSITION = "current_position";
 
@@ -42,9 +40,7 @@ public class BookmarkedWordsFragment extends Fragment implements WordsRecyclerVi
     }
 
     public static BookmarkedWordsFragment newInstance() {
-        BookmarkedWordsFragment fragment = new BookmarkedWordsFragment();
-
-        return fragment;
+        return new BookmarkedWordsFragment();
     }
 
     public static void updateMebyBroadcast(Context context){

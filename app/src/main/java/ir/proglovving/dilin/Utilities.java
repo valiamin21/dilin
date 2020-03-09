@@ -41,9 +41,9 @@ public class Utilities {
                 .replace('9', '۹');
     }
 
-    public static boolean existsInArray(String[] ss,String input){
-        for(String s : ss){
-            if(s.equals(input)){
+    public static boolean existsInArray(String[] ss, String input) {
+        for (String s : ss) {
+            if (s.equals(input)) {
                 return true;
             }
         }
@@ -51,18 +51,12 @@ public class Utilities {
         return false;
     }
 
-    public static void applyFontForAView(View view,Activity context){
-        if(view instanceof ViewGroup){
-            applyFontForAViewGroup((ViewGroup)view,context);
-        }else if(view instanceof TextView){
-            ((TextView)view).setTypeface(getAppTypeFace(context));
+    public static void applyFontForAView(View view, Activity context) {
+        if (view instanceof ViewGroup) {
+            applyFontForAViewGroup((ViewGroup) view, context);
+        } else if (view instanceof TextView) {
+            ((TextView) view).setTypeface(getAppTypeFace(context));
         }
-    }
-
-    public static void applyFontForCollapsingToolbarLayou(CollapsingToolbarLayout collapsingToolbarLayout, Activity context) {
-        collapsingToolbarLayout.setCollapsedTitleTypeface(getAppTypeFace(context));
-        collapsingToolbarLayout.setExpandedTitleTypeface(getAppTypeFace(context));
-
     }
 
     public static void applyPaddintBottomForToolbarSubtitle(Context context, Toolbar toolbar) {
@@ -72,7 +66,7 @@ public class Utilities {
             if (view instanceof TextView) {
                 if (((TextView) view).getText().equals(toolbar.getSubtitle())) {
                     view.setPadding(view.getPaddingLeft(), view.getPaddingTop(), view.getPaddingRight(),
-                            view.getPaddingBottom()+ (int)context.getResources().getDimension(R.dimen.app_toolbar_bottom_padding)
+                            view.getPaddingBottom() + (int) context.getResources().getDimension(R.dimen.app_toolbar_bottom_padding)
                     );
                 }
             }
@@ -112,7 +106,6 @@ public class Utilities {
         return (MyApplication) context.getApplicationContext();
     }
 
-
     public static void updateShowWordsWidget(Context context) {
         Intent intent = new Intent(context, ShowWordsWidget.class);
         intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
@@ -144,10 +137,6 @@ public class Utilities {
 
             activity.getWindow().setExitTransition(transition);
         }
-    }
-
-    public static void setupEnterTransition(Activity activity) {
-
     }
 
     public static Bundle getActivityCompatToBundle(Activity activity) {

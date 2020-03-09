@@ -8,27 +8,27 @@ public class Word {
     private String meaning;
     private boolean isBookmark;
 
-    public void setNotebookId(int notebookId){
+    public void setNotebookId(int notebookId) {
         this.notebookId = notebookId;
     }
 
-    public int getNotebookId(){
+    public int getNotebookId() {
         return notebookId;
     }
 
-    public void setId(int id){
+    public void setId(int id) {
         this.id = id;
     }
 
-    public int getId(){
+    public int getId() {
         return id;
     }
 
-    public void setWord(String word){
+    public void setWord(String word) {
         this.word = word;
     }
 
-    public String getWord(){
+    public String getWord() {
         return word;
     }
 

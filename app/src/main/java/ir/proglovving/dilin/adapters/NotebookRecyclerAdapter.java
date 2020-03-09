@@ -17,14 +17,12 @@ import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.DecelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -34,7 +32,7 @@ import ir.proglovving.dilin.Utilities;
 import ir.proglovving.dilin.custom_views.ToolTip;
 import ir.proglovving.dilin.data_model.Notebook;
 import ir.proglovving.dilin.database_open_helpers.NotebookOpenHelper;
-import ir.proglovving.dilin.views.activity.ShowWordsListActivity;
+import ir.proglovving.dilin.views.activity.WordsListActivity;
 import ir.proglovving.dilin.views.fragment.ShowNoteBooksFragment;
 
 public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecyclerAdapter.NotebookViewHolder> implements View.OnLongClickListener {
@@ -71,14 +69,14 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecycl
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final NotebookViewHolder mViewHolder, final int position) {
+    public void onBindViewHolder(@NonNull final NotebookViewHolder mViewHolder, int position) {
         final Notebook notebook = notebooks.get(position);
 
         mViewHolder.noteBookNameTextView.setText(notebook.getNoteBookName());
-        mViewHolder.wordsCountTextView.setText(context.getString(R.string.words_count)+ ": " + Utilities.convertNumberToPersian(notebook.getWordsCount()));
-        mViewHolder.bookmarkedCountTextView.setText(context.getString(R.string.bookmarked_count)+ ": " + Utilities.convertNumberToPersian(notebook.getBookmarkedCount()));
+        mViewHolder.wordsCountTextView.setText(context.getString(R.string.words_count) + ": " + Utilities.convertNumberToPersian(notebook.getWordsCount()));
+        mViewHolder.bookmarkedCountTextView.setText(context.getString(R.string.bookmarked_count) + ": " + Utilities.convertNumberToPersian(notebook.getBookmarkedCount()));
 
-        setFavoriteImage(mViewHolder.favoriteButton,notebook.isFavorite()); // TODO: 2/5/19 اگر لیست دفتر های محبوب در حال نمایش بود و کاربر همانجا دکمه ی لغو محبوبیت را زد باید از آن لیست حذف شود. این مورد اصلاح شود.
+        setFavoriteImage(mViewHolder.favoriteButton, notebook.isFavorite()); // TODO: 2/5/19 اگر لیست دفتر های محبوب در حال نمایش بود و کاربر همانجا دکمه ی لغو محبوبیت را زد باید از آن لیست حذف شود. این مورد اصلاح شود.
 
         mViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,7 +85,7 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecycl
 //                ActivityOptionsCompat compat =
 //                        ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context,((Activity)context).findViewById(R.id.fab_add),context.getString(R.string.fab_transition_name));
 
-                ShowWordsListActivity.start(context,notebook.getId(),notebook.getNoteBookName());
+                WordsListActivity.start(context, notebook.getId(), notebook.getNoteBookName());
 
             }
         });
@@ -103,7 +101,7 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecycl
                             public void onClick(View v) {
                                 final NotebookOpenHelper notebookOpenHelper = new NotebookOpenHelper(context);
                                 notebookOpenHelper.deleteNotebook(notebook.getId());
-                                event.onRefreshInCurrentPosition(position);
+                                event.onRefreshInCurrentPosition(mViewHolder.getAdapterPosition());
 
                                 final boolean[] isReturned = {false};
                                 Snackbar.make(coordinatorLayout, R.string.was_deleted, Snackbar.LENGTH_LONG)
@@ -112,12 +110,12 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecycl
                                             public void onClick(View v) {
                                                 isReturned[0] = true;
                                                 notebookOpenHelper.returnNotebook(notebook);
-                                                event.onRefreshInCurrentPosition(position);
+                                                event.onRefreshInCurrentPosition(mViewHolder.getAdapterPosition());
                                             }
                                         })
                                         .show();
 
-                                new CountDownTimer(4000,4000){
+                                new CountDownTimer(4000, 4000) {
 
                                     @Override
                                     public void onTick(long millisUntilFinished) {
@@ -126,7 +124,7 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecycl
 
                                     @Override
                                     public void onFinish() {
-                                        if(!isReturned[0]){
+                                        if (!isReturned[0]) {
                                             notebookOpenHelper.deleteDatabase(notebook.getNoteBookName());
                                         }
                                     }
@@ -139,7 +137,7 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecycl
                     }
                 }).create().show();
 
-                event.onDeleteClick(notebook, position);
+                event.onDeleteClick(notebook, mViewHolder.getAdapterPosition());
             }
         });
 
@@ -169,7 +167,7 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecycl
 //        setAnimation(mViewHolder.itemView);
     }
 
-    public void showEditNoteBookDialog(final Notebook notebook) {
+    private void showEditNoteBookDialog(final Notebook notebook) {
         final Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.dialog_add_notebook);
         final LinearLayout dialogContainer = dialog.findViewById(R.id.ll_dialog_add_notebook);
@@ -184,7 +182,7 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecycl
             public void run() {
                 Utilities.showSoftKeyboard(notebookNameEditText, context);
             }
-        },100);
+        }, 100);
 
         verifyButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -264,18 +262,18 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecycl
     }
 
     // returns suitable color for imageButton in mode favorite or non-favorite
-    private int getFavoriteImageButtonColorTint(boolean isFavorite){
-        if(isFavorite){
+    private int getFavoriteImageButtonColorTint(boolean isFavorite) {
+        if (isFavorite) {
 
-            if(favoriteColorTint == VALUELESS){
-                favoriteColorTint = ContextCompat.getColor(context,R.color.heart_icon_color);
+            if (favoriteColorTint == VALUELESS) {
+                favoriteColorTint = ContextCompat.getColor(context, R.color.heart_icon_color);
             }
             return favoriteColorTint;
 
-        }else{
+        } else {
 
-            if(non_FavoriteColorTint == VALUELESS){
-                non_FavoriteColorTint = ContextCompat.getColor(context,R.color.icon_color);
+            if (non_FavoriteColorTint == VALUELESS) {
+                non_FavoriteColorTint = ContextCompat.getColor(context, R.color.icon_color);
             }
             return non_FavoriteColorTint;
         }
@@ -297,21 +295,21 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecycl
 
     @Override
     public boolean onLongClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_delete:
-                ToolTip.show(context,context.getString(R.string.delete_notebook),v);
+                ToolTip.show(context, context.getString(R.string.delete_notebook), v);
                 break;
             case R.id.btn_favorite:
-                ToolTip.show(context,context.getString(R.string.adding_to_favorite),v);
+                ToolTip.show(context, context.getString(R.string.adding_to_favorite), v);
                 break;
             case R.id.btn_edit:
-                ToolTip.show(context,context.getString(R.string.showing_in_app_widget),v);
+                ToolTip.show(context, context.getString(R.string.showing_in_app_widget), v);
                 break;
         }
         return true;
     }
 
-    public class NotebookViewHolder extends RecyclerView.ViewHolder {
+    static class NotebookViewHolder extends RecyclerView.ViewHolder {
 
         private TextView noteBookNameTextView;
         private TextView wordsCountTextView;
@@ -323,15 +321,15 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecycl
 
         public NotebookViewHolder(@NonNull View itemView) {
             super(itemView);
-            noteBookNameTextView = (TextView) itemView.findViewById(R.id.txt_notebook_name);
-            wordsCountTextView = (TextView) itemView.findViewById(R.id.txt_words_count);
-            bookmarkedCountTextView = (TextView) itemView.findViewById(R.id.txt_bookmarked_count);
+            noteBookNameTextView = itemView.findViewById(R.id.txt_notebook_name);
+            wordsCountTextView = itemView.findViewById(R.id.txt_words_count);
+            bookmarkedCountTextView = itemView.findViewById(R.id.txt_bookmarked_count);
 
-            deleteButton = (ImageButton) itemView.findViewById(R.id.btn_delete);
-            favoriteButton = (ImageButton) itemView.findViewById(R.id.btn_favorite);
-            editButton = (ImageButton) itemView.findViewById(R.id.btn_edit);
+            deleteButton = itemView.findViewById(R.id.btn_delete);
+            favoriteButton = itemView.findViewById(R.id.btn_favorite);
+            editButton = itemView.findViewById(R.id.btn_edit);
 
-            linearImages = (LinearLayout) itemView.findViewById(R.id.linear_imgs);
+            linearImages = itemView.findViewById(R.id.linear_imgs);
         }
     }
 

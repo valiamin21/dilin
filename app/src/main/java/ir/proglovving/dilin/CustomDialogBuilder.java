@@ -8,10 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class CustomDialogBuilder {
-
-
     // TODO: 7/24/19 add cancel button in your customDialog
-
     private String title;
     private String message;
     private String positiveText;
@@ -78,7 +75,7 @@ public class CustomDialogBuilder {
         // TODO: 7/24/19 modify onclick events for positive and negative button. current code is so hopeless D:
 
         ((Button) dialog.findViewById(R.id.btn_cusDialog_positive)).setText(positiveText);
-        ((Button) dialog.findViewById(R.id.btn_cusDialog_positive)).setOnClickListener(new View.OnClickListener() {
+        dialog.findViewById(R.id.btn_cusDialog_positive).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
@@ -87,7 +84,7 @@ public class CustomDialogBuilder {
         });
 
         ((Button) dialog.findViewById(R.id.btn_cusDialog_negative)).setText(negativeText);
-        ((Button) dialog.findViewById(R.id.btn_cusDialog_negative)).setOnClickListener(new View.OnClickListener() {
+        dialog.findViewById(R.id.btn_cusDialog_negative).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
@@ -96,6 +93,5 @@ public class CustomDialogBuilder {
         });
 
         return dialog;
-
     }
 }

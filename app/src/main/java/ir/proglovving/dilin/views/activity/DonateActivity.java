@@ -14,12 +14,13 @@ import ir.proglovving.dilin.R;
 
 public class DonateActivity extends AppCompatActivity {
 
+    private static final String DONATE_URL = "https://idpay.ir/amin-vali";
+
     private FloatingActionButton coffeeFAB;
     private Button coffeeButton;
-    private String url = "https://idpay.ir/amin-vali";
 
-    public static void start(Context context){
-        context.startActivity(new Intent(context,DonateActivity.class));
+    public static void start(Context context) {
+        context.startActivity(new Intent(context, DonateActivity.class));
     }
 
     @Override
@@ -28,7 +29,6 @@ public class DonateActivity extends AppCompatActivity {
         setContentView(R.layout.activity_donate);
 
         initViews();
-
 
 
         coffeeFAB.setOnClickListener(new View.OnClickListener() {
@@ -54,13 +54,13 @@ public class DonateActivity extends AppCompatActivity {
     }
 
     private void initViews() {
-        coffeeFAB = (FloatingActionButton)findViewById(R.id.coffee_image);
-        coffeeButton = (Button)findViewById(R.id.coffee_button);
+        coffeeFAB = findViewById(R.id.coffee_image);
+        coffeeButton = findViewById(R.id.coffee_button);
     }
 
-    private void donateCoffee(){
+    private void donateCoffee() {
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setData(Uri.parse(url));
+        intent.setData(Uri.parse(DONATE_URL));
         startActivity(intent);
     }
 

@@ -1,7 +1,6 @@
 package ir.proglovving.dilin.views.fragment;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -48,11 +47,11 @@ public class ShowWordsFragment extends Fragment implements WordsRecyclerViewAdap
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_show_words, container, false);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
-        emptyMessageNestedScrollView = (NestedScrollView) view.findViewById(R.id.nested_scroll_view_empty);
-        emptyTextView = (MotionableTextView) view.findViewById(R.id.tv_empty);
+        emptyMessageNestedScrollView = view.findViewById(R.id.nested_scroll_view_empty);
+        emptyTextView = view.findViewById(R.id.tv_empty);
 
         refreshRecyclerView(refreshType);
 
@@ -61,12 +60,8 @@ public class ShowWordsFragment extends Fragment implements WordsRecyclerViewAdap
         return view;
     }
 
-    public boolean isBookmarkedMode() {
-        return isBookmarkedMode;
-    }
-
     public void refreshRecyclerViewInCurrentPosition(int currentPosition) {
-        List<Word> words = getSuitableNotebooksList(isBookmarkedMode);
+        List<Word> words = getSuitableWordList(isBookmarkedMode);
 
         if (new WordsOpenHelper(getContext(), notebookId).getRawsCount() == 0) { //  اگر هیچ کلمه ای اضافه نشده باشد
             recyclerView.setVisibility(View.INVISIBLE);
@@ -94,7 +89,7 @@ public class ShowWordsFragment extends Fragment implements WordsRecyclerViewAdap
     }
 
     public void refreshRecyclerView(int refreshType) {
-        List<Word> words = getSuitableNotebooksList(isBookmarkedMode);
+        List<Word> words = getSuitableWordList(isBookmarkedMode);
 
         if (new WordsOpenHelper(getContext(), notebookId).getRawsCount() == 0) { //  اگر هیچ کلمه ای اضافه نشده باشد
             recyclerView.setVisibility(View.INVISIBLE);
@@ -137,12 +132,7 @@ public class ShowWordsFragment extends Fragment implements WordsRecyclerViewAdap
             return;
         }
 
-//        if(search.length() == 0){
-//            refreshRecyclerView(REFRESH_TYPE_SETUP);
-//            return;
-//        }
-
-        List<Word> words = getSuitableNotebooksList(isBookmarkedMode, search);
+        List<Word> words = getSuitableWordList(isBookmarkedMode, search);
 
         if (words.size() == 0) { // اگر کلمه ای یافت نشد
             recyclerView.setVisibility(View.INVISIBLE);
@@ -160,11 +150,11 @@ public class ShowWordsFragment extends Fragment implements WordsRecyclerViewAdap
         recyclerView.setAdapter(adapter);
     }
 
-    private List<Word> getSuitableNotebooksList(boolean isBookmarkedMode) {
+    private List<Word> getSuitableWordList(boolean isBookmarkedMode) {
         return new WordsOpenHelper(getContext(), notebookId).getWordList(isBookmarkedMode);
     }
 
-    private List<Word> getSuitableNotebooksList(boolean isBookmarkedMode, String search) {
+    private List<Word> getSuitableWordList(boolean isBookmarkedMode, String search) {
         List<Word> result = new ArrayList<>();
 
         List<Word> words = new WordsOpenHelper(getContext(), notebookId).getWordList(isBookmarkedMode);

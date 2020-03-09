@@ -86,7 +86,7 @@ public class ExportDatabaseCSVTask extends AsyncTask<String, Integer, Boolean> {
                     recordValues[2] = "";
                 }
                 csvWriter.writeNext(recordValues);
-                publishProgress((i+1)*100/ words.size());
+                publishProgress((i + 1) * 100 / words.size());
             }
 
             csvWriter.close();

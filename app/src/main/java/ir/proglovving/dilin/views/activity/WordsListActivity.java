@@ -1,7 +1,6 @@
 package ir.proglovving.dilin.views.activity;
 
 import android.animation.Animator;
-import android.app.Activity;
 import android.app.Dialog;
 import android.app.SearchManager;
 import android.content.Context;
@@ -10,7 +9,6 @@ import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.view.MenuItemCompat;
@@ -35,12 +33,11 @@ import ir.proglovving.dilin.database_open_helpers.WordsOpenHelper;
 import ir.proglovving.dilin.views.fragment.ShowNoteBooksFragment;
 import ir.proglovving.dilin.views.fragment.ShowWordsFragment;
 
-public class ShowWordsListActivity extends AppCompatActivity {
+public class WordsListActivity extends AppCompatActivity {
 
     public static final String KEY_NOTEBOOK_ID = "notebook_id";
     public static final String KEY_NOTEBOOK_NAME = "notebook_name";
 
-    private Toolbar toolbar;
     private FloatingActionButton addFab;
     private ActionBarDrawerToggle drawerToggle;
     private FrameLayout containerFrameLayout;
@@ -89,10 +86,6 @@ public class ShowWordsListActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.toolbar_main_menu, menu);
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.search));
         setupSearchView(searchView);
-//        // Retrieve the SearchView and plug it into SearchManager
-//        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
-//        SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
-//        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         return true;
     }
 
@@ -124,7 +117,7 @@ public class ShowWordsListActivity extends AppCompatActivity {
         wordEditText.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Utilities.showSoftKeyboard(wordEditText, ShowWordsListActivity.this);
+                Utilities.showSoftKeyboard(wordEditText, WordsListActivity.this);
             }
         }, 100);
 
@@ -136,18 +129,18 @@ public class ShowWordsListActivity extends AppCompatActivity {
                     wordEditText.setError(getString(R.string.no_word_was_entered_text));
                     return;
                 } // TODO: 1/29/19 خط زیر اصلاح شود زیرا تکراری است(در پایین تر تکرار شده است)
-                else if (new WordsOpenHelper(ShowWordsListActivity.this, notebookId).
+                else if (new WordsOpenHelper(WordsListActivity.this, notebookId).
                         isThereWord(wordEditText.getText().toString())) {
                     wordEditText.setError(getString(R.string.word_is_repeated));
                     return;
                 }
 
-                WordsOpenHelper openHelper = new WordsOpenHelper(ShowWordsListActivity.this, notebookId);
+                WordsOpenHelper openHelper = new WordsOpenHelper(WordsListActivity.this, notebookId);
                 Word word = new Word();
                 word.setWord(wordEditText.getText().toString());
                 word.setMeaning(meaningEditText.getText().toString());
                 openHelper.addWord(word);
-                ShowNoteBooksFragment.updateMeByBroadcast(ShowWordsListActivity.this);
+                ShowNoteBooksFragment.updateMeByBroadcast(WordsListActivity.this);
 
 
                 showWordsFragment.refreshRecyclerView(ShowWordsFragment.REFRESH_TYPE_END);
@@ -202,15 +195,15 @@ public class ShowWordsListActivity extends AppCompatActivity {
             addAndEditWordDialog = new Dialog(this);
             addAndEditWordDialog.setContentView(R.layout.dialog_add_word);
             addAndEditWordDialog.setTitle(R.string.adding_word_text);
-            dialogContainer = (LinearLayout) addAndEditWordDialog.findViewById(R.id.ll_dialog_add_word);
+            dialogContainer = addAndEditWordDialog.findViewById(R.id.ll_dialog_add_word);
             dialogContainer.setVisibility(View.INVISIBLE);
 
-            wordEditText = (EditText) addAndEditWordDialog.findViewById(R.id.et_word);
-            meaningEditText = (EditText) addAndEditWordDialog.findViewById(R.id.et_meaning);
-            wordTextInputLayout = (TextInputLayout) addAndEditWordDialog.findViewById(R.id.text_input_word);
-            meaningTextInputLayout = (TextInputLayout) addAndEditWordDialog.findViewById(R.id.text_input_meaning);
-            verifyButton = (Button) addAndEditWordDialog.findViewById(R.id.btn_verify);
-            cancelButton = (Button) addAndEditWordDialog.findViewById(R.id.btn_cancel);
+            wordEditText = addAndEditWordDialog.findViewById(R.id.et_word);
+            meaningEditText = addAndEditWordDialog.findViewById(R.id.et_meaning);
+            wordTextInputLayout = addAndEditWordDialog.findViewById(R.id.text_input_word);
+            meaningTextInputLayout = addAndEditWordDialog.findViewById(R.id.text_input_meaning);
+            verifyButton = addAndEditWordDialog.findViewById(R.id.btn_verify);
+            cancelButton = addAndEditWordDialog.findViewById(R.id.btn_cancel);
         } else {
             wordEditText.setText("");
             meaningEditText.setText("");
@@ -218,9 +211,7 @@ public class ShowWordsListActivity extends AppCompatActivity {
     }
 
     private void setupViews() {
-        CoordinatorLayout coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator);
-
-        addFab = (FloatingActionButton) findViewById(R.id.fab_add);
+        addFab = findViewById(R.id.fab_add);
         addFab.setTag(View.VISIBLE); //  در این جا از تگ ویوی addFab به عنوان نشانه ای برای تشخیص ویزیبل بودن یا نبودن آن استفاده می شود.
         addFab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -231,18 +222,18 @@ public class ShowWordsListActivity extends AppCompatActivity {
         addFab.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                ToolTip.show(ShowWordsListActivity.this,getString(R.string.adding_word_text),v);
+                ToolTip.show(WordsListActivity.this, getString(R.string.adding_word_text), v);
                 return true;
             }
         });
 
         setupToolbar();
 
-        containerFrameLayout = (FrameLayout) findViewById(R.id.container_frame_layout);
+        containerFrameLayout = findViewById(R.id.container_frame_layout);
     }
 
     private void setupToolbar() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(noteBookName);
         toolbar.setSubtitle(R.string.all_words);
         Utilities.applyFontForAViewGroup(toolbar, this);
@@ -268,7 +259,7 @@ public class ShowWordsListActivity extends AppCompatActivity {
     }
 
     public static void start(Context context, int notebookId, String noteBookName) {
-        Intent starter = new Intent(context, ShowWordsListActivity.class);
+        Intent starter = new Intent(context, WordsListActivity.class);
         starter.putExtra(KEY_NOTEBOOK_ID, notebookId);
         starter.putExtra(KEY_NOTEBOOK_NAME, noteBookName);
         context.startActivity(starter);
@@ -290,55 +281,4 @@ public class ShowWordsListActivity extends AppCompatActivity {
                     }
                 };
     }
-
-
-//    private void refreshInCurrentPosition(int position) {
-//        allVocsFragment = new ShowWordsFragment(
-//                coordinatorLayout,false,ShowWordsFragment.REFRESH_TYPE_CURRENT,getOnScrollListener(),noteBookName
-//        );
-//        getSupportFragmentManager().beginTransaction()
-//                .replace(containerFrameLayout.getId(),allVocsFragment)
-//                .commit();
-//        allVocsFragment.refreshRecyclerViewInCurrentPosition(position);
-//    }
-//
-//    private void refresh(String s){ // برای جست و جو
-//
-//    }
-//
-//    private void refresh(int refreshPosition){
-//
-//    }
-
-//    private void setupRecyclerView() {
-//        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-//
-//        openHelper = new WordsOpenHelper(this, noteBookName);
-//        refreshRecyclerView(REFRESH_TYPE_SETUP);
-//    }
-//
-//    private void refreshRecyclerView(int refreshPosition) {
-//        WordsRecyclerViewAdapter adapter = new WordsRecyclerViewAdapter(this, openHelper.getWordList(), this);
-//        recyclerView.setAdapter(adapter);
-//        if (refreshPosition == REFRESH_TYPE_END) {
-//            recyclerView.scrollToPosition(recyclerView.getAdapter().getItemCount() - 1);
-//        }
-//
-//    }
-//
-//    private void refreshRecyclerView(int refreshPosition, int position) {
-//        if (refreshPosition == REFRESH_TYPE_CURRENT) {
-//            WordsRecyclerViewAdapter adapter = new WordsRecyclerViewAdapter(this, openHelper.getWordList(), this);
-//            recyclerView.setAdapter(adapter);
-//            recyclerView.scrollToPosition(position);
-//        }
-//    }
-//
-//    private void refreshRecyclerView(String search) {
-//        recyclerView.setAdapter(
-//                new WordsRecyclerViewAdapter(this, openHelper.getSearchedWordList(search), this)
-//        );
-//    }
-
 }

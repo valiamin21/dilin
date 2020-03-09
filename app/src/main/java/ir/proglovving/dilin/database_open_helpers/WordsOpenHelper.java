@@ -36,7 +36,6 @@ public class WordsOpenHelper extends SQLiteOpenHelper {
             );
         }
 
-
         return detailedWords;
     }
 
@@ -257,23 +256,6 @@ public class WordsOpenHelper extends SQLiteOpenHelper {
         database.close();
         return result;
     }
-
-//    public int getNextId(int id) {
-//        int result = id;
-//
-//        SQLiteDatabase database = getReadableDatabase();
-//        Cursor cursor = database.
-//                rawQuery("SELECT * FROM " + words_table_name + " WHERE " + COL_ID + " > ?"
-//                        , new String[]{String.valueOf(id)});
-//
-//        if(cursor.moveToFirst()){
-//            result = cursor.getInt(cursor.getColumnIndex(COL_ID));
-//        }
-//
-//        cursor.close();
-//        database.close();
-//        return result;
-//    }
 
     // وظیفه ی این تابع بستن دیتابیس(sqliteDatabase) و کورسور(cursor) بعد از خواندن اطّلاعات است(به دلیل استفاده ی زیاد این دو خط کد)
     private void closeSqlAndCursor(SQLiteDatabase sql, Cursor cursor) {

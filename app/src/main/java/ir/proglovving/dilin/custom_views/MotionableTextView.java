@@ -6,7 +6,6 @@ import android.os.CountDownTimer;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
-import android.widget.Toast;
 
 import ir.proglovving.dilin.R;
 
@@ -68,9 +67,7 @@ public class MotionableTextView extends MagicTextView {
     }
 
     public void changeText(@StringRes int resid) {
-        this.text = getContext().getString(resid);
-        currentCharPosition = 0;
-        refreshText();
+        changeText(getContext().getString(resid));
     }
 
     private void refreshText() {
@@ -103,28 +100,6 @@ public class MotionableTextView extends MagicTextView {
         int color = colors[colorCounter];
         colorCounter++;
         return color;
-
-//        colorCounter++;
-//        if (colorCounter == 5) {
-//            colorCounter = 1;
-//        }
-//
-//        switch (colorCounter) {
-//            case 1:
-//                return Color.parseColor("#FFAB22");
-//
-//            case 2:
-//                return Color.RED;
-//
-//            case 3:
-//                return Color.parseColor("#FF198D");
-//
-//            case 4:
-//                return Color.BLUE;
-//
-//            default:
-//                return Color.BLACK;
-//        }
     }
 
 }

@@ -27,7 +27,7 @@ public class AddingDictionaryWordToNotebookRecyclerAdapter extends RecyclerView.
     private Word word;
     private Dialog dialog;
 
-    public AddingDictionaryWordToNotebookRecyclerAdapter(Context context, DictionaryWord dictionaryWord, Dialog dialog){
+    public AddingDictionaryWordToNotebookRecyclerAdapter(Context context, DictionaryWord dictionaryWord, Dialog dialog) {
         this.notebookList = new NotebookOpenHelper(context).getNotebookList();
         this.context = context;
 
@@ -42,19 +42,19 @@ public class AddingDictionaryWordToNotebookRecyclerAdapter extends RecyclerView.
     @NonNull
     @Override
     public AddingDictionaryWordToNotebookViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_adding_dictionary_word_to_notebook,viewGroup,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_adding_dictionary_word_to_notebook, viewGroup, false);
 
         return new AddingDictionaryWordToNotebookViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AddingDictionaryWordToNotebookViewHolder holder, final int i) {
+    public void onBindViewHolder(@NonNull final AddingDictionaryWordToNotebookViewHolder holder, int i) {
         holder.notebookNameTextView.setText(notebookList.get(i).getNoteBookName());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new WordsOpenHelper(context,notebookList.get(i).getId()).addWord(word);
-                Toast.makeText(context, "کلمه‌ی مورد نظر با موفقیت به " + notebookList.get(i).getNoteBookName() + " اضافه شد!", Toast.LENGTH_SHORT).show();
+                new WordsOpenHelper(context, notebookList.get(holder.getAdapterPosition()).getId()).addWord(word);
+                Toast.makeText(context, "کلمه‌ی مورد نظر با موفقیت به " + notebookList.get(holder.getAdapterPosition()).getNoteBookName() + " اضافه شد!", Toast.LENGTH_SHORT).show();
                 ShowNoteBooksFragment.updateMeByBroadcast(context);
                 dialog.hide();
             }
@@ -67,11 +67,11 @@ public class AddingDictionaryWordToNotebookRecyclerAdapter extends RecyclerView.
     }
 
 
-    public class AddingDictionaryWordToNotebookViewHolder extends RecyclerView.ViewHolder{
+    static class AddingDictionaryWordToNotebookViewHolder extends RecyclerView.ViewHolder {
         private TextView notebookNameTextView;
+
         public AddingDictionaryWordToNotebookViewHolder(@NonNull View itemView) {
             super(itemView);
-
             notebookNameTextView = itemView.findViewById(R.id.tv_notebook_name);
 
         }

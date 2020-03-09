@@ -16,7 +16,6 @@
         android:theme="@style/AppTheme">
         <activity android:name=".views.activity.AppIntroActivity"></activity>
         <activity android:name=".views.activity.DevTestActivity" />
-        <activity android:name=".views.activity.DictionarySearchActivity" />
         <activity
             android:name=".views.activity.DonateActivity"
             android:screenOrientation="portrait" />
@@ -31,13 +30,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".views.activity.ShowWordsListActivity"
+            android:name=".views.activity.WordsListActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".views.activity.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.activity.ProgrammerAboutUsActivity"
+            android:name=".views.activity.AboutProgrammerActivity"
             android:screenOrientation="portrait" />
 
         <receiver android:name=".widgets.ShowWordsWidget">

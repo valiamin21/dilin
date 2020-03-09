@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layoutDirection="rtl"
-    tools:context="ir.proglovving.dilin.views.activity.ShowWordsListActivity">
+    tools:context="ir.proglovving.dilin.views.activity.WordsListActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"

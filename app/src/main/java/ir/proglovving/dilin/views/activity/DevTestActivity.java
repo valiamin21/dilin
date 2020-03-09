@@ -34,10 +34,9 @@ import ir.proglovving.dilin.database_open_helpers.WordsOpenHelper;
 
 public class DevTestActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private static final String TAG = "DevTestActivity";
     private static final int REQUEST_CODE_PERMISSION_WRITE_EXTERNAL_STORAGE = 1;
     private static final int REQUEST_CODE_PERMISSION_READ_EXTERNAL_STORAGE = 2;
-    private Button csvBackupButton, txtBackupButton, retrieveTxtButton,openMainPageButton;
+    private Button csvBackupButton, txtBackupButton, retrieveTxtButton, openMainPageButton;
     private TextView tv;
 
     @Override
@@ -54,11 +53,11 @@ public class DevTestActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void initViews() {
-        csvBackupButton = (Button) findViewById(R.id.btn_csv_backup);
-        txtBackupButton = (Button) findViewById(R.id.btn_txt_backup);
-        retrieveTxtButton = (Button) findViewById(R.id.btn_txt_retrieve);
-        tv = (TextView) findViewById(R.id.tv);
-        openMainPageButton = (Button)findViewById(R.id.btn_open_main_page);
+        csvBackupButton = findViewById(R.id.btn_csv_backup);
+        txtBackupButton = findViewById(R.id.btn_txt_backup);
+        retrieveTxtButton = findViewById(R.id.btn_txt_retrieve);
+        tv = findViewById(R.id.tv);
+        openMainPageButton = findViewById(R.id.btn_open_main_page);
     }
 
 
@@ -173,14 +172,13 @@ public class DevTestActivity extends AppCompatActivity implements View.OnClickLi
         Notebook notebook = new Notebook();
 
         File[] files = root.listFiles();
-        for(File f : files){
-            notebook.setNoteBookName(f.getName().replace(".txt",""));
+        for (File f : files) {
+            notebook.setNoteBookName(f.getName().replace(".txt", ""));
             notebook.setFavorite(false);
-            notebook.setPlaying(false);
             new NotebookOpenHelper(this).addNotebook(notebook);
 
             // TODO: 7/20/19 make a function WordsOpenHelper namely findNotebookIdByName
-            new WordsOpenHelper(this,new NotebookOpenHelper(this).getLastID()).addWords(
+            new WordsOpenHelper(this, new NotebookOpenHelper(this).getLastID()).addWords(
                     getWordList(f)
             );
         }
@@ -316,7 +314,7 @@ public class DevTestActivity extends AppCompatActivity implements View.OnClickLi
 
     }
 
-    public static void start(Context context){
+    public static void start(Context context) {
         context.startActivity(new Intent(context, DevTestActivity.class));
     }
 

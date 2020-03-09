@@ -9,7 +9,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-import ir.proglovving.dilin.RandomPlayingWord;
 import ir.proglovving.dilin.data_model.Notebook;
 
 public class NotebookOpenHelper extends SQLiteOpenHelper {
@@ -20,16 +19,12 @@ public class NotebookOpenHelper extends SQLiteOpenHelper {
     private static final String COL_ID = "_id";
     private static final String COL_NOTEBOOK_NAME = "notebook_name";
     private static final String COL_FAVORITE = "favorite";
-    private static final String COL_PLAYING = "playing";
-    private static final String COL_CURRENT_PLAYING_ID = "current_playing_id";
 
     private static final String COMMAND_CREATE_NOTEBOOK_TABLE =
             "CREATE TABLE " + NOTEBOOK_TABLE_NAME + "(" +
                     COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                     COL_NOTEBOOK_NAME + " TEXT," +
-                    COL_FAVORITE + " INTEGER," +
-                    COL_PLAYING + " INTEGER," +
-                    COL_CURRENT_PLAYING_ID + " INTEGER);";
+                    COL_FAVORITE + " INTEGER);";
     private Context context;
 
     public NotebookOpenHelper(Context context) {
@@ -50,21 +45,11 @@ public class NotebookOpenHelper extends SQLiteOpenHelper {
     public void addNotebook(Notebook notebook) {
         SQLiteDatabase writableSqLiteDatabase = getWritableDatabase();
         ContentValues cv = new ContentValues();
-
         cv.put(COL_NOTEBOOK_NAME, notebook.getNoteBookName());
         cv.put(COL_FAVORITE, notebook.isFavorite());
-        cv.put(COL_PLAYING, notebook.isPlaying()); saveInIsPlayings(notebook);
-        cv.put(COL_CURRENT_PLAYING_ID, 0);
 
         writableSqLiteDatabase.insert(NOTEBOOK_TABLE_NAME, null, cv);
-
         writableSqLiteDatabase.close();
-    }
-
-    private void saveInIsPlayings(Notebook notebook) {
-        if(notebook.isPlaying()){
-            new ShowWordsWidgetOpenHelper(context).saveNotebookInList(notebook.getNoteBookName());
-        }
     }
 
     public List<Notebook> getNotebookList() {
@@ -73,38 +58,22 @@ public class NotebookOpenHelper extends SQLiteOpenHelper {
         SQLiteDatabase readableSqLiteDatabase = getReadableDatabase();
         Cursor cursor = readableSqLiteDatabase.rawQuery("SELECT * FROM " + NOTEBOOK_TABLE_NAME, null);
 
-
         if (cursor.moveToFirst()) {
-
             do {
                 Notebook notebook = new Notebook();
                 notebook.setId(cursor.getInt(cursor.getColumnIndex(COL_ID)));
                 notebook.setNoteBookName(cursor.getString(cursor.getColumnIndex(COL_NOTEBOOK_NAME)));
 
-                WordsOpenHelper wordsOpenHelper = new WordsOpenHelper(context,notebook.getId());
+                WordsOpenHelper wordsOpenHelper = new WordsOpenHelper(context, notebook.getId());
 
                 notebook.setWordsCount(wordsOpenHelper.getRawsCount());
                 notebook.setBookmarkedCount(wordsOpenHelper.getBookmarkRawsCount());
-
-                // TODO: 2/5/19 بعد یه فکری به حال خط زیر بکن. هیچ کاربردی نداره
-                notebook.setCurrentNumber(cursor.getInt(cursor.getColumnIndex(COL_CURRENT_PLAYING_ID)));
 
                 if (cursor.getInt(cursor.getColumnIndex(COL_FAVORITE)) == 0) {
                     notebook.setFavorite(false);
                 } else {
                     notebook.setFavorite(true);
                 }
-
-                if (cursor.getInt(cursor.getColumnIndex(COL_PLAYING)) == 0) {
-                    notebook.setPlaying(false);
-                } else {
-                    notebook.setPlaying(true);
-                }
-
-//                VocabularyOpenHelper wordsOpenHelper = new VocabularyOpenHelper(context,notebook.getNoteBookName());
-//                notebook.setWordsCount(wordsOpenHelper.getRawsCount());
-//                notebook.setBookmarkedCount(wordsOpenHelper.getBookmarkRawsCount());
-
 
                 notebooks.add(notebook);
             } while (cursor.moveToNext());
@@ -117,7 +86,7 @@ public class NotebookOpenHelper extends SQLiteOpenHelper {
     }
 
     // TODO: 1/16/19 این تابع بعدا به صورت استاندارد پیاده سازی شود
-    public List<Notebook> getFavoriteNotebookList() { // بعدا این تابع به روش استاندارد پیاده سازی شود.
+    public List<Notebook> getFavoriteNotebookList() {
         List<Notebook> resultNotebooks = new ArrayList<>();
 
         List<Notebook> notebooks = getNotebookList();
@@ -130,38 +99,14 @@ public class NotebookOpenHelper extends SQLiteOpenHelper {
         return resultNotebooks;
     }
 
-    // TODO: 1/16/19 این تابع بعدا به صورت استاندارد پیاده سازی شود
-    public List<Notebook> getIsPlayingNotebooks() {
-        List<Notebook> resultNotebooks = new ArrayList<>();
-
-        List<Notebook> notebooks = getNotebookList();
-        for (int i = 0; i < notebooks.size(); i++) {
-            if (notebooks.get(i).isPlaying()) {
-                resultNotebooks.add(notebooks.get(i));
-            }
-        }
-
-        return resultNotebooks;
-    }
-
     public void deleteNotebook(int id) {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
-
-
-//        if(cursor.moveToFirst()){ //  اگر دفتری با این آیدی موجود بود
-//            // TODO: 2/4/19 خط زیر اصلاح شود زیرا یک بار هم در کلاس VocabularyOpenHelper نوشته شده است.
-//            String notebookName = cursor.getString(cursor.getColumnIndex(COL_NOTEBOOK_NAME)).replace(" ","_");
-//
-////            context.deleteDatabase(notebookName);
-//            sqLiteDatabase.delete(NOTEBOOK_TABLE_NAME, COL_ID + " = ?", new String[]{String.valueOf(id)});
-//        }
-
-        sqLiteDatabase.delete(NOTEBOOK_TABLE_NAME,COL_ID +  " = ?",new String[]{String.valueOf(id)});
+        sqLiteDatabase.delete(NOTEBOOK_TABLE_NAME, COL_ID + " = ?", new String[]{String.valueOf(id)});
 
         sqLiteDatabase.close();
     }
 
-    public void deleteDatabase(String notebookName){
+    public void deleteDatabase(String notebookName) {
         context.deleteDatabase(notebookName);
     }
 
@@ -170,8 +115,6 @@ public class NotebookOpenHelper extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
         cv.put(COL_NOTEBOOK_NAME, notebook.getNoteBookName());
         cv.put(COL_FAVORITE, notebook.isFavorite());
-        cv.put(COL_PLAYING, notebook.isPlaying()); saveInIsPlayings(notebook);
-        cv.put(COL_CURRENT_PLAYING_ID,notebook.getCurrentPlayingNumber());
         sqLiteDatabase.update(NOTEBOOK_TABLE_NAME, cv, COL_ID + " = ?", new String[]{String.valueOf(notebook.getId())});
         sqLiteDatabase.close();
     }
@@ -184,8 +127,6 @@ public class NotebookOpenHelper extends SQLiteOpenHelper {
 
         cv.put(COL_NOTEBOOK_NAME, notebook.getNoteBookName());
         cv.put(COL_FAVORITE, notebook.isFavorite());
-        cv.put(COL_PLAYING, notebook.isPlaying()); saveInIsPlayings(notebook);
-        cv.put(COL_CURRENT_PLAYING_ID, notebook.getCurrentPlayingNumber());
 
         sqLiteDatabase.insert(NOTEBOOK_TABLE_NAME, null, cv);
 
@@ -201,60 +142,36 @@ public class NotebookOpenHelper extends SQLiteOpenHelper {
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + NOTEBOOK_TABLE_NAME, null);
         cursor.moveToLast();
 
-        return cursor.getInt(cursor.getColumnIndex(COL_ID));
+        int result = cursor.getInt(cursor.getColumnIndex(COL_ID));
+        cursor.close();
+        return result;
     }
 
-    public int getRawsCount(){
-        return getReadableDatabase().rawQuery("SELECT * FROM "+NOTEBOOK_TABLE_NAME,null).getCount();
+    public int getRawsCount() {
+        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM " + NOTEBOOK_TABLE_NAME, null);
+        int result = cursor.getCount();
+        cursor.close();
+        return result;
     }
 
 
-    public boolean isThereNotebook(String name){
+    public boolean isThereNotebook(String name) {
         boolean result = false;
 
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM "+NOTEBOOK_TABLE_NAME,null);
-        if(cursor.moveToFirst()){
-            do{
-                if(cursor.getString(cursor.getColumnIndex(COL_NOTEBOOK_NAME)).equals(name)){
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + NOTEBOOK_TABLE_NAME, null);
+        if (cursor.moveToFirst()) {
+            do {
+                if (cursor.getString(cursor.getColumnIndex(COL_NOTEBOOK_NAME)).equals(name)) {
                     result = true;
                     break;
                 }
-            }while (cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
 
         cursor.close();
         sqLiteDatabase.close();
 
         return result;
-    }
-
-    public Notebook getRandomIsPlayingNotebook(){
-        List<Notebook> notebooks = getIsPlayingNotebooks();
-
-        List<Notebook> valuableNotebooks = new ArrayList<>();
-        for (int i = 0; i < notebooks.size(); i++) {
-            if(new WordsOpenHelper(context,notebooks.get(i).getId()).getRawsCount()>0){
-                valuableNotebooks.add(notebooks.get(i));
-            }
-        }
-
-        if(valuableNotebooks.size() == 0){
-            return null;
-        }
-
-        return valuableNotebooks.get(RandomPlayingWord.randInt(0,valuableNotebooks.size()-1));
-    }
-
-
-    public List<String> getNotebooksNames(){
-        List<String> notebooksNames = new ArrayList<>();
-
-        List<Notebook> notebooks = getNotebookList();
-        for (int i = 0; i < notebooks.size(); i++) {
-            notebooksNames.add(notebooks.get(i).getNoteBookName());
-        }
-
-        return notebooksNames;
     }
 }

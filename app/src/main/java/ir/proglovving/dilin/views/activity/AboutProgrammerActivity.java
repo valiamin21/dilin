@@ -13,9 +13,8 @@ import android.widget.Button;
 import ir.proglovving.dilin.R;
 import ir.proglovving.dilin.Utilities;
 
-public class ProgrammerAboutUsActivity extends AppCompatActivity {
+public class AboutProgrammerActivity extends AppCompatActivity {
 
-    private Toolbar toolbar;
     private Button supportProgrammerButton;
 
     @Override
@@ -30,7 +29,7 @@ public class ProgrammerAboutUsActivity extends AppCompatActivity {
         supportProgrammerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DonateActivity.start(ProgrammerAboutUsActivity.this);
+                DonateActivity.start(AboutProgrammerActivity.this);
             }
         });
     }
@@ -41,7 +40,7 @@ public class ProgrammerAboutUsActivity extends AppCompatActivity {
     }
 
     private void setupToolbar() {
-        toolbar = findViewById(R.id.toolbar_about_us);
+        Toolbar toolbar = findViewById(R.id.toolbar_about_us);
         Utilities.applyFontForToolbar(toolbar,this);
         setSupportActionBar(toolbar);
     }
@@ -57,6 +56,6 @@ public class ProgrammerAboutUsActivity extends AppCompatActivity {
     }
 
     public static void start(Context context,Bundle optionsCompat){
-        context.startActivity(new Intent(context, ProgrammerAboutUsActivity.class),optionsCompat);
+        context.startActivity(new Intent(context, AboutProgrammerActivity.class),optionsCompat);
     }
 }

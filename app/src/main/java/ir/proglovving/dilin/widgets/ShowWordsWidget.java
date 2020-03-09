@@ -9,9 +9,6 @@ import ir.proglovving.dilin.R;
 import ir.proglovving.dilin.RandomPlayingWord;
 import ir.proglovving.dilin.data_model.Word;
 
-/**
- * Implementation of App Widget functionality.
- */
 public class ShowWordsWidget extends AppWidgetProvider {
 
 
@@ -21,15 +18,11 @@ public class ShowWordsWidget extends AppWidgetProvider {
 
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.show_words_widget);
-//        views.setTextViewText(R.id.appwidget_text, widgetText);
         views.setTextViewText(R.id.appwidget_word, word.getWord() + " :");
         views.setTextViewText(R.id.appwidget_meaning, word.getMeaning());
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
-
-
-//        RemoteViews views = new RemoteViews(context.getPackageName(),R.layout.widget_show_words);
     }
 
     @Override
@@ -41,16 +34,6 @@ public class ShowWordsWidget extends AppWidgetProvider {
                 updateAppWidget(context, appWidgetManager, appWidgetId, word);
             }
         }
-    }
-
-    @Override
-    public void onEnabled(Context context) {
-        // Enter relevant functionality for when the first widget is created
-    }
-
-    @Override
-    public void onDisabled(Context context) {
-        // Enter relevant functionality for when the last widget is disabled
     }
 }
 

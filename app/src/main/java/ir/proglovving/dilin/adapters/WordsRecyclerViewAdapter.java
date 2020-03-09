@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Build;
-import android.speech.tts.TextToSpeech;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
@@ -20,7 +19,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -41,30 +39,16 @@ public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecycler
 
     private int lastPosition = -1;
 
-    private static TextToSpeech textToSpeech;
-    private static boolean isTTSReady = false;
-
     private Dialog addAndEditWordDialog;
-    Button verifyButton, cancelButton;
-    EditText wordEditText, meaningEditText;
-    TextInputLayout wordTextInputLayout, meaningTextInputLayout;
+    private Button verifyButton, cancelButton;
+    private EditText wordEditText, meaningEditText;
+    private TextInputLayout wordTextInputLayout;
     private LinearLayout dialogContainer;
 
     public WordsRecyclerViewAdapter(Context context, List<Word> words, EventOfWordMeaningRecyclerView event) {
         this.context = context;
         this.words = words;
         this.event = event;
-        textToSpeech = new TextToSpeech(context, new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                if (status == TextToSpeech.SUCCESS) {
-                    isTTSReady = true;
-                } else {
-                    isTTSReady = false;
-                    // TODO: 4/17/19 show an error text
-                }
-            }
-        });
     }
 
     @NonNull
@@ -76,7 +60,7 @@ public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecycler
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final WordMeaningViewHolder wordMeaningViewHolder, final int position) {
+    public void onBindViewHolder(@NonNull final WordMeaningViewHolder wordMeaningViewHolder, int position) {
 
         final Word word = words.get(position);
         wordMeaningViewHolder.wordTextView.setText(word.getWord() + " :");
@@ -96,7 +80,7 @@ public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecycler
         wordMeaningViewHolder.bookmarkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                event.onBookmarkClick(word, position);
+                event.onBookmarkClick(word, wordMeaningViewHolder.getAdapterPosition());
                 if (word.isBookmark()) {
                     word.setBookmark(false);
                     wordMeaningViewHolder.bookmarkButton.setImageResource(R.drawable.ic_action_bookmark_border);
@@ -114,7 +98,7 @@ public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecycler
         wordMeaningViewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteWord(word, position);
+                deleteWord(word, wordMeaningViewHolder.getAdapterPosition());
             }
         });
 
@@ -200,15 +184,14 @@ public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecycler
             addAndEditWordDialog = new Dialog(context);
             addAndEditWordDialog.setContentView(R.layout.dialog_add_word);
             addAndEditWordDialog.setTitle(R.string.adding_word_text);
-            dialogContainer = (LinearLayout) addAndEditWordDialog.findViewById(R.id.ll_dialog_add_word);
+            dialogContainer = addAndEditWordDialog.findViewById(R.id.ll_dialog_add_word);
             dialogContainer.setVisibility(View.INVISIBLE);
 
-            wordEditText = (EditText) addAndEditWordDialog.findViewById(R.id.et_word);
-            meaningEditText = (EditText) addAndEditWordDialog.findViewById(R.id.et_meaning);
-            wordTextInputLayout = (TextInputLayout) addAndEditWordDialog.findViewById(R.id.text_input_word);
-            meaningTextInputLayout = (TextInputLayout) addAndEditWordDialog.findViewById(R.id.text_input_meaning);
-            verifyButton = (Button) addAndEditWordDialog.findViewById(R.id.btn_verify);
-            cancelButton = (Button) addAndEditWordDialog.findViewById(R.id.btn_cancel);
+            wordEditText = addAndEditWordDialog.findViewById(R.id.et_word);
+            meaningEditText = addAndEditWordDialog.findViewById(R.id.et_meaning);
+            wordTextInputLayout = addAndEditWordDialog.findViewById(R.id.text_input_word);
+            verifyButton = addAndEditWordDialog.findViewById(R.id.btn_verify);
+            cancelButton = addAndEditWordDialog.findViewById(R.id.btn_cancel);
         } else {
             wordEditText.setText("");
             meaningEditText.setText("");
@@ -279,32 +262,30 @@ public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecycler
 
     @Override
     public boolean onLongClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_delete:
-                ToolTip.show(context,context.getString(R.string.delete_word_text),v);
+                ToolTip.show(context, context.getString(R.string.delete_word_text), v);
                 break;
             case R.id.btn_bookmark:
-                ToolTip.show(context,context.getString(R.string.bookmarking),v);
+                ToolTip.show(context, context.getString(R.string.bookmarking), v);
                 break;
             case R.id.btn_edit:
-                ToolTip.show(context,context.getString(R.string.edit),v);
+                ToolTip.show(context, context.getString(R.string.edit), v);
                 break;
             case R.id.img_speech_us:
-                ToolTip.show(context,context.getString(R.string.american_speech),v);
+                ToolTip.show(context, context.getString(R.string.american_speech), v);
                 break;
             case R.id.img_speech_uk:
-                ToolTip.show(context,context.getString(R.string.english_pronunciation),v);
+                ToolTip.show(context, context.getString(R.string.english_pronunciation), v);
                 break;
         }
         return true;
     }
 
-    class WordMeaningViewHolder extends RecyclerView.ViewHolder {
+    static class WordMeaningViewHolder extends RecyclerView.ViewHolder {
 
         private TextView wordTextView, meaningTextView;
         private ImageButton deleteButton, bookmarkButton, editButton, speechButtonUK, speechButtonUS;
-        private RelativeLayout relativeLayout;
-
 
         public WordMeaningViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -315,7 +296,6 @@ public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecycler
             editButton = itemView.findViewById(R.id.btn_edit);
             speechButtonUK = itemView.findViewById(R.id.img_speech_uk);
             speechButtonUS = itemView.findViewById(R.id.img_speech_us);
-            relativeLayout = itemView.findViewById(R.id.relative_layout);
         }
     }
 

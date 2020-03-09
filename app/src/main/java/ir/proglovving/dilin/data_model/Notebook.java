@@ -6,10 +6,7 @@ public class Notebook {
     private String noteBookName;
     private int wordsCount;
     private int bookmarkedCount;
-    private boolean isPlaying;
     private boolean isFavorite;
-    private int currentNumber;//آخرین شماره ی پخش شده(زمانی که در ویجت برنامه نمایش داده می شود)
-
 
     public int getId() {
         return id;
@@ -43,27 +40,11 @@ public class Notebook {
         this.bookmarkedCount = bookmarkedCount;
     }
 
-    public boolean isPlaying() {
-        return isPlaying;
-    }
-
-    public void setPlaying(boolean playing) {
-        isPlaying = playing;
-    }
-
     public boolean isFavorite() {
         return isFavorite;
     }
 
     public void setFavorite(boolean favorite) {
         isFavorite = favorite;
-    }
-
-    public int getCurrentPlayingNumber() {
-        return currentNumber;
-    }
-
-    public void setCurrentNumber(int currentNumber) {
-        this.currentNumber = currentNumber;
     }
 }

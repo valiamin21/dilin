@@ -19,7 +19,6 @@ import ir.proglovving.dilin.MyApplication;
 import ir.proglovving.dilin.R;
 import ir.proglovving.dilin.custom_views.ToolTip;
 import ir.proglovving.dilin.data_model.DictionaryWord;
-import ir.proglovving.dilin.data_model.Notebook;
 import ir.proglovving.dilin.database_open_helpers.NotebookOpenHelper;
 
 public class DictionaryRecyclerAdapter extends RecyclerView.Adapter<DictionaryRecyclerAdapter.DictionaryViewHolder> implements View.OnLongClickListener {
@@ -29,13 +28,11 @@ public class DictionaryRecyclerAdapter extends RecyclerView.Adapter<DictionaryRe
     private final Context context;
     private final List<DictionaryWord> dictionaryWordList;
     private int marginTop;
-    private RecyclerView recyclerView;
 
     public DictionaryRecyclerAdapter(Context context, List<DictionaryWord> dictionaryWordList, int marginTop) {
         this.context = context;
         this.dictionaryWordList = dictionaryWordList;
         this.marginTop = marginTop;
-        this.recyclerView = recyclerView;
     }
 
     @NonNull
@@ -85,7 +82,7 @@ public class DictionaryRecyclerAdapter extends RecyclerView.Adapter<DictionaryRe
         mViewHolder.addToNotebookButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(new NotebookOpenHelper(context).getRawsCount() == 0){
+                if (new NotebookOpenHelper(context).getRawsCount() == 0) {
                     Toast.makeText(context, context.getString(R.string.no_notebook_has_been_made_yet), Toast.LENGTH_LONG).show();
                     return;
                 }
@@ -93,8 +90,8 @@ public class DictionaryRecyclerAdapter extends RecyclerView.Adapter<DictionaryRe
                 Dialog dialog = new Dialog(context);
                 dialog.setContentView(R.layout.dialog_adding_dictoinary_word_to_notebook);
                 RecyclerView recyclerView = dialog.findViewById(R.id.recycler_view_dw_to_n);
-                recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));
-                AddingDictionaryWordToNotebookRecyclerAdapter adapter = new AddingDictionaryWordToNotebookRecyclerAdapter(context,dictionaryWord,dialog);
+                recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+                AddingDictionaryWordToNotebookRecyclerAdapter adapter = new AddingDictionaryWordToNotebookRecyclerAdapter(context, dictionaryWord, dialog);
                 recyclerView.setAdapter(adapter);
                 dialog.show();
             }
@@ -122,21 +119,21 @@ public class DictionaryRecyclerAdapter extends RecyclerView.Adapter<DictionaryRe
 
     @Override
     public boolean onLongClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.img_add_to_notebook:
-                ToolTip.show(context,context.getString(R.string.adding_to_notebook),v);
+                ToolTip.show(context, context.getString(R.string.adding_to_notebook), v);
                 break;
             case R.id.img_speech_us:
-                ToolTip.show(context,context.getString(R.string.american_pronunciation),v);
+                ToolTip.show(context, context.getString(R.string.american_pronunciation), v);
                 break;
             case R.id.img_speech_uk:
-                ToolTip.show(context,context.getString(R.string.english_pronunciation),v);
+                ToolTip.show(context, context.getString(R.string.english_pronunciation), v);
                 break;
         }
         return true;
     }
 
-    public static class DictionaryViewHolder extends RecyclerView.ViewHolder {
+    static class DictionaryViewHolder extends RecyclerView.ViewHolder {
         private TextView wordTextView, meaningTextView;
         private ImageButton speechButtonUK, speechButtonUS, addToNotebookButton;
 

@@ -20,7 +20,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.transition.Fade;
 import android.view.Gravity;
@@ -33,7 +32,6 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import ir.proglovving.dilin.BuildConfig;
 import ir.proglovving.dilin.CustomDialogBuilder;
@@ -46,12 +44,10 @@ import ir.proglovving.dilin.views.fragment.BookmarkedWordsFragment;
 import ir.proglovving.dilin.views.fragment.DictionarySearchFragment;
 import ir.proglovving.dilin.views.fragment.ShowNoteBooksFragment;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
-    private Toolbar toolbar;
-//        private CollapsingToolbarLayout collapsingToolbarLayout;
     private CoordinatorLayout coordinatorLayout;
     private NavigationView navigationView;
     private FloatingActionButton fabAddNotebook;
@@ -71,7 +67,7 @@ public class MainActivity extends AppCompatActivity{
 
         Utilities.setupExitTransition(this);
 
-        showNoteBooksFragment = new ShowNoteBooksFragment(coordinatorLayout, false, ShowNoteBooksFragment.REFRESH_TYPE_SETUP, (FloatingActionButton)findViewById(R.id.fab_add));
+        showNoteBooksFragment = new ShowNoteBooksFragment(coordinatorLayout, false, ShowNoteBooksFragment.REFRESH_TYPE_SETUP, (FloatingActionButton) findViewById(R.id.fab_add));
 
         getSupportFragmentManager().beginTransaction()
                 .add(containerFrameLayout.getId(), showNoteBooksFragment)
@@ -87,7 +83,7 @@ public class MainActivity extends AppCompatActivity{
     @Override
     public void onBackPressed() {
         // in below if statement we check if navigationView was opened, we'll close that first.
-        if(drawerLayout.isDrawerOpen(Gravity.START)){
+        if (drawerLayout.isDrawerOpen(Gravity.START)) {
             drawerLayout.closeDrawer(Gravity.START);
             return;
         }
@@ -103,25 +99,27 @@ public class MainActivity extends AppCompatActivity{
                 })
                 .setNegative(getString(R.string.no_text), new View.OnClickListener() {
                     @Override
-                    public void onClick(View v) {}})
+                    public void onClick(View v) {
+                    }
+                })
                 .create().show();
     }
 
     private void setupViews() {
-        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator);
+        coordinatorLayout = findViewById(R.id.coordinator);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar_show_note_activity);
+        Toolbar toolbar = findViewById(R.id.toolbar_show_note_activity);
         setSupportActionBar(toolbar);
         toolbar.setTitle(getString(R.string.notebooks));
-        Utilities.applyFontForToolbar(toolbar,this);
+        Utilities.applyFontForToolbar(toolbar, this);
 
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawable_layout);
+        drawerLayout = findViewById(R.id.drawable_layout);
         drawerToggle =
                 new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
 
-        navigationView = (NavigationView) findViewById(R.id.navigation_view);
+        navigationView = findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -131,48 +129,17 @@ public class MainActivity extends AppCompatActivity{
                 ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, null);
 
                 switch (menuItem.getItemId()) {
-                    /*
-                    case R.id.favorite:
-
-                        showNoteBooksFragment = new ShowNoteBooksFragment(
-                                coordinatorLayout, !showNoteBooksFragment.isFavoriteMode(), ShowNoteBooksFragment.REFRESH_TYPE_SETUP, getOnScrollListener()
-                        );
-                        getSupportFragmentManager().beginTransaction()
-                                .replace(containerFrameLayout.getId(), showNoteBooksFragment)
-                                .commit();
-
-                        if (showNoteBooksFragment.isFavoriteMode()) { // اگر در حال نمایش مورد علاقه بود
-                            menuItem.setTitle(R.string.all_notebooks);
-                            menuItem.setIcon(R.drawable.ic_action_all_books);
-//                            oolbarLayout.setTitle(getString(R.string.favorite_text));
-
-                            fabAddNotebook.hide();
-                            fabAddNotebook.setTag(View.INVISIBLE);
-                        } else { // اگر در حال نمایش همه ی دفتر ها بود
-
-                            menuItem.setTitle(R.string.favorite_text);
-                            menuItem.setIcon(R.drawable.ic_action_favorite);
-//                            collapsingToolbarLayout.setTitle(getString(R.string.all_notebooks));
-
-                            fabAddNotebook.show();
-                            fabAddNotebook.setTag(View.VISIBLE);
-                        }
-
-                        drawerLayout.closeDrawers();
-
-                        break;
-                        */
                     case R.id.guidencec:
-                        AppIntroActivity.start(MainActivity.this,true);
+                        AppIntroActivity.start(MainActivity.this, true);
                         break;
                     case R.id.rate:
-                        startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse("myket://comment?id=ir.proglovving.dilin")));
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("myket://comment?id=ir.proglovving.dilin")));
                         break;
                     case R.id.other_apps:
-                        startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse("myket://developer/ir.proglovving.dilin")));
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("myket://developer/ir.proglovving.dilin")));
                         break;
                     case R.id.about:
-                        startActivity(new Intent(MainActivity.this, ProgrammerAboutUsActivity.class), compat.toBundle());
+                        startActivity(new Intent(MainActivity.this, AboutProgrammerActivity.class), compat.toBundle());
                         break;
                     case R.id.protect:
                         startActivity(new Intent(MainActivity.this, DonateActivity.class), compat.toBundle());
@@ -188,61 +155,61 @@ public class MainActivity extends AppCompatActivity{
             public void run() {
                 Utilities.applyFontForAViewGroup(navigationView, MainActivity.this);
             }
-        },1);
+        }, 1);
 
         // the textView in navigation header for showing app name along with version
         TextView appIntroductionTextView = navigationView.getHeaderView(0).findViewById(R.id.tv_app_introduction);
         appIntroductionTextView.setText(getString(R.string.app_name) + "، " + getString(R.string.version) + " " + BuildConfig.VERSION_NAME);
 
-        containerFrameLayout = (FrameLayout) findViewById(R.id.container_frame_layout);
+        containerFrameLayout = findViewById(R.id.container_frame_layout);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.postDelayed(new Runnable() {
             @Override
             public void run() {
                 Utilities.applyFontForAViewGroup(bottomNavigationView, MainActivity.this);
             }
-        },1);
+        }, 1);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                if(menuItem.getItemId() != R.id.notebooks){
+                if (menuItem.getItemId() != R.id.notebooks) {
                     fabAddNotebook.hide();
                 }
 
-                hideAFragmentForBottomNavigation(dictionarySearchFragment,getSupportFragmentManager());
-                hideAFragmentForBottomNavigation(showNoteBooksFragment,getSupportFragmentManager());
-                hideAFragmentForBottomNavigation(bookmarkedWordsFragment,getSupportFragmentManager());
+                hideAFragmentForBottomNavigation(dictionarySearchFragment, getSupportFragmentManager());
+                hideAFragmentForBottomNavigation(showNoteBooksFragment, getSupportFragmentManager());
+                hideAFragmentForBottomNavigation(bookmarkedWordsFragment, getSupportFragmentManager());
 
-                switch (menuItem.getItemId()){
+                switch (menuItem.getItemId()) {
                     case R.id.notebooks:
                         getSupportFragmentManager().beginTransaction().show(showNoteBooksFragment).commit();
                         fabAddNotebook.show();
                         break;
                     case R.id.bookmark:
-                        if(bookmarkedWordsFragment == null){
+                        if (bookmarkedWordsFragment == null) {
                             bookmarkedWordsFragment = BookmarkedWordsFragment.newInstance();
-                            getSupportFragmentManager().beginTransaction().add(containerFrameLayout.getId(),bookmarkedWordsFragment).commit();
+                            getSupportFragmentManager().beginTransaction().add(containerFrameLayout.getId(), bookmarkedWordsFragment).commit();
                         }
                         getSupportFragmentManager().beginTransaction().show(bookmarkedWordsFragment).commit();
                         break;
                     case R.id.dictionary:
-                        if(dictionarySearchFragment == null){
-                            dictionarySearchFragment = new DictionarySearchFragment();
-                            getSupportFragmentManager().beginTransaction().add(containerFrameLayout.getId(),dictionarySearchFragment).commit();
+                        if (dictionarySearchFragment == null) {
+                            dictionarySearchFragment = DictionarySearchFragment.newInstance();
+                            getSupportFragmentManager().beginTransaction().add(containerFrameLayout.getId(), dictionarySearchFragment).commit();
                         }
                         getSupportFragmentManager().beginTransaction().show(dictionarySearchFragment).commit();
                         break;
                 }
 
-                if(bookmarkedWordsFragment != null){
+                if (bookmarkedWordsFragment != null) {
                     bookmarkedWordsFragment.refreshIfNeeded();
                 }
                 return true;
             }
         });
 
-        fabAddNotebook = (FloatingActionButton) findViewById(R.id.fab_add);
+        fabAddNotebook = findViewById(R.id.fab_add);
         fabAddNotebook.setTag(View.VISIBLE); // در این جا از تگ ویوی fabAddNotebook به عنوان نشانه ای برای تشخیص ویزیبل بودن یا نبودن آن استفاده می شود.
         fabAddNotebook.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -254,15 +221,15 @@ public class MainActivity extends AppCompatActivity{
         fabAddNotebook.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                ToolTip.show(MainActivity.this,getString(R.string.creating_notebook),v);
+                ToolTip.show(MainActivity.this, getString(R.string.creating_notebook), v);
                 return true;
             }
         });
 
     }
 
-    private void hideAFragmentForBottomNavigation(@Nullable Fragment fragment, FragmentManager fm){
-        if(fragment != null){
+    private void hideAFragmentForBottomNavigation(@Nullable Fragment fragment, FragmentManager fm) {
+        if (fragment != null) {
             fm.beginTransaction().hide(fragment).commit();
         }
     }
@@ -274,9 +241,8 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private void setActivityTransitions() {
-        Fade fade = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            fade = new Fade();
+            Fade fade = new Fade();
             fade.setDuration(1000);
             fade.setInterpolator(new DecelerateInterpolator());
             getWindow().setEnterTransition(fade);
@@ -297,7 +263,7 @@ public class MainActivity extends AppCompatActivity{
             public void run() {
                 Utilities.showSoftKeyboard(notebookNameEditText, MainActivity.this);
             }
-        },100);
+        }, 100);
 
         verifyButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -313,7 +279,6 @@ public class MainActivity extends AppCompatActivity{
                 Notebook notebook = new Notebook();
                 notebook.setNoteBookName(notebookNameEditText.getText().toString());
                 notebook.setFavorite(false);
-                notebook.setPlaying(false);
                 new NotebookOpenHelper(MainActivity.this).addNotebook(notebook);
 
                 showNoteBooksFragment.refreshRecyclerView(ShowNoteBooksFragment.REFRESH_TYPE_END);
@@ -351,10 +316,8 @@ public class MainActivity extends AppCompatActivity{
 
     }
 
-    public static void start(Context context){
+    public static void start(Context context) {
         Intent starter = new Intent(context, MainActivity.class);
-        // starter.putSomething!
-
         context.startActivity(starter);
     }
 

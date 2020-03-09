@@ -21,12 +21,8 @@ public class DictionaryOpenHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "dictionaryDB.db";
 
-    private static final String COL_ID = "_id";
     private static final String COL_EN = "en";
     private static final String COL_FA = "fa";
-    private static final String COL_LIKE = "like";
-    private static final String COL_WICH = "wich";
-
     private static final int LIMIT_COUNT = 140;
 
 
@@ -48,9 +44,6 @@ public class DictionaryOpenHelper extends SQLiteOpenHelper {
     private AssetManager assets;
     private String databaseDir;
 
-    private Cursor cursor;
-    private SQLiteDatabase sqLiteDatabase;
-    private DictionaryWord dictionaryWord;
 
     public DictionaryOpenHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -86,54 +79,6 @@ public class DictionaryOpenHelper extends SQLiteOpenHelper {
         return super.getReadableDatabase();
     }
 
-    // this method initializes cursor and sqliteDatabase fields
-    private void init(String tableName) {
-        if (sqLiteDatabase == null || !sqLiteDatabase.isOpen()) {
-            sqLiteDatabase = getReadableDatabase();
-        }
-        cursor = sqLiteDatabase.rawQuery(
-                "SELECT * FROM " + tableName
-//                        + " ORDER BY " + COL_EN
-                , null);
-    }
-
-    public void clear() {
-        cursor.close();
-        sqLiteDatabase.close();
-    }
-
-    public List<DictionaryWord> getWordList(String searchText) {
-        List<DictionaryWord> dictionaryWordList = new ArrayList<>();
-
-
-        String tableName = getSuitableTableName(searchText.substring(0, 1));
-        if (tableName == null) {
-            return dictionaryWordList;
-        }
-
-        init(tableName);
-
-        if (cursor != null && cursor.moveToFirst()) {
-            int counter = 1;
-            do {
-                if (cursor.getString(cursor.getColumnIndex(COL_EN)).contains(searchText)) {
-                    dictionaryWord = new DictionaryWord();
-                    dictionaryWord.setWord(cursor.getString(cursor.getColumnIndex(COL_EN)));
-                    dictionaryWord.setMeaning(cursor.getString(cursor.getColumnIndex(COL_FA))
-                            .replace("<BR>", "\n").replace("~", " "));
-                    dictionaryWordList.add(dictionaryWord);
-
-                    if (counter > LIMIT_COUNT) break;
-                    counter++;
-                }
-            } while (cursor.moveToNext());
-        }
-
-        cursor.close();
-        sqLiteDatabase.close();
-        return dictionaryWordList;
-    }
-
     public List<DictionaryWord> getDictionaryWordList(String searchText, OnIterationListener onIterationListener) {
         searchText = searchText.toLowerCase(); // for better searching regardless of uppercase and lowercase of words
 
@@ -144,13 +89,13 @@ public class DictionaryOpenHelper extends SQLiteOpenHelper {
         String tableName = getSuitableTableName(searchText.substring(0, 1));
         if (tableName == null) return dictionaryWordList;
 
-
         SQLiteDatabase readableSqlite = getReadableDatabase();
         Cursor cursor = readableSqlite.rawQuery("SELECT * FROM " + tableName, null);
+
         if (cursor.moveToFirst()) {
             int counter = 0;
             do {
-                if(onIterationListener.onIterated()){
+                if (onIterationListener.onIterated()) {
                     return null;
                 }
                 if (cursor.getString(cursor.getColumnIndex(COL_EN)).toLowerCase().contains(searchText)) {
@@ -170,6 +115,9 @@ public class DictionaryOpenHelper extends SQLiteOpenHelper {
                 }
             } while (cursor.moveToNext());
         }
+
+        cursor.close();
+        readableSqlite.close();
 
         return dictionaryWordList;
     }
@@ -235,7 +183,7 @@ public class DictionaryOpenHelper extends SQLiteOpenHelper {
 
     }
 
-    public interface OnIterationListener{
+    public interface OnIterationListener {
         boolean onIterated();
     }
 }

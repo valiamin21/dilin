@@ -14,7 +14,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,7 +26,6 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -48,7 +46,6 @@ public class ShowNoteBooksFragment extends Fragment implements NotebookRecyclerA
     private boolean isFavoriteMode;
     private RecyclerView recyclerView;
     private MotionableTextView emptyTextView;
-    private SwitchCompat favoriteSwitchButton;
     private int refreshType = REFRESH_TYPE_CURRENT;
     private FloatingActionButton fabAddNotebook;
     private CoordinatorLayout coordinatorLayout;
@@ -57,15 +54,8 @@ public class ShowNoteBooksFragment extends Fragment implements NotebookRecyclerA
 
     private UpdateNotebooksBroadcast updateNotebooksReceiver;
 
-    public static void updateMeByBroadcast(Context context){
+    public static void updateMeByBroadcast(Context context) {
         context.sendBroadcast(new Intent("ir.proglovving.dilin.updateNotebooksBroadcast"));
-    }
-
-
-    @SuppressLint("ValidFragment")
-    public ShowNoteBooksFragment(CoordinatorLayout coordinatorLayout, boolean favoriteMode) {
-        this.coordinatorLayout = coordinatorLayout;
-        this.isFavoriteMode = favoriteMode;
     }
 
     public ShowNoteBooksFragment(CoordinatorLayout coordinatorLayout, boolean favoriteMode,
@@ -80,7 +70,7 @@ public class ShowNoteBooksFragment extends Fragment implements NotebookRecyclerA
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         updateNotebooksReceiver = new UpdateNotebooksBroadcast();
-        getContext().registerReceiver(updateNotebooksReceiver,new IntentFilter("ir.proglovving.dilin.updateNotebooksBroadcast"));
+        getContext().registerReceiver(updateNotebooksReceiver, new IntentFilter("ir.proglovving.dilin.updateNotebooksBroadcast"));
 
         final View view = inflater.inflate(R.layout.fragment_show_notebooks, container, false);
         recyclerView = view.findViewById(R.id.recycler_view);
@@ -94,7 +84,7 @@ public class ShowNoteBooksFragment extends Fragment implements NotebookRecyclerA
                 if (dy > 0) {
                     fabAddNotebook.hide();
                 } else {
-                    if(((int) fabAddNotebook.getTag()) == View.VISIBLE){
+                    if (((int) fabAddNotebook.getTag()) == View.VISIBLE) {
                         fabAddNotebook.show();
                     }
                 }
@@ -102,8 +92,8 @@ public class ShowNoteBooksFragment extends Fragment implements NotebookRecyclerA
         });
 
 
-        emptyTextView = (MotionableTextView)view.findViewById(R.id.tv_empty);
-        favoriteSwitchButton = view.findViewById(R.id.switch_favorite);
+        emptyTextView = view.findViewById(R.id.tv_empty);
+        SwitchCompat favoriteSwitchButton = view.findViewById(R.id.switch_favorite);
         favoriteSwitchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -163,17 +153,17 @@ public class ShowNoteBooksFragment extends Fragment implements NotebookRecyclerA
 
         List<Notebook> notebooks = getSuitableNotebooksList(isFavoriteMode);
 
-        if(new NotebookOpenHelper(getContext()).getRawsCount() == 0){ // اگر هیچ دفتری ساخته نشده بود!
+        if (new NotebookOpenHelper(getContext()).getRawsCount() == 0) { // اگر هیچ دفتری ساخته نشده بود!
             recyclerView.setVisibility(View.INVISIBLE);
             emptyTextView.changeText(R.string.no_notebook_has_been_made_yet);
             emptyTextView.setVisibility(View.VISIBLE);
             return;
-        }else if(isFavoriteMode && notebooks.size() == 0){ // اگر در حالت مورد علاقه بود و دفتر موردعلاقه ای یافت نشد!
+        } else if (isFavoriteMode && notebooks.size() == 0) { // اگر در حالت مورد علاقه بود و دفتر موردعلاقه ای یافت نشد!
             recyclerView.setVisibility(View.INVISIBLE);
             emptyTextView.changeText(R.string.no_favorite_notebook_was_found);
             emptyTextView.setVisibility(View.VISIBLE);
             return;
-        }else{
+        } else {
             recyclerView.setVisibility(View.VISIBLE);
             emptyTextView.setVisibility(View.INVISIBLE);
         }
@@ -182,7 +172,7 @@ public class ShowNoteBooksFragment extends Fragment implements NotebookRecyclerA
             recyclerView.setVisibility(View.INVISIBLE);
             emptyTextView.setVisibility(View.VISIBLE);
             return;
-        }else if (recyclerView.getVisibility() == View.INVISIBLE) { // اگر دفتری موجود بود و پیام دفتری موجود نیست در حال نمایش بود
+        } else if (recyclerView.getVisibility() == View.INVISIBLE) { // اگر دفتری موجود بود و پیام دفتری موجود نیست در حال نمایش بود
             recyclerView.setVisibility(View.VISIBLE);
             emptyTextView.setVisibility(View.INVISIBLE);
         }
@@ -196,15 +186,12 @@ public class ShowNoteBooksFragment extends Fragment implements NotebookRecyclerA
         } else if (refreshType == REFRESH_TYPE_END) {
             recyclerView.scrollToPosition(recyclerView.getAdapter().getItemCount() - 1);
         } else if (refreshType == REFRESH_TYPE_CURRENT) {
-//            recyclerView.scrollTo(0,scrollState);
-//            recyclerView.scrollBy(0,scrollState);
-//            recyclerView.smoothScrollBy(0,50);
-            recyclerView.scrollBy(0,lastRecyclerScrollState);
+            recyclerView.scrollBy(0, lastRecyclerScrollState);
             lastRecyclerScrollState /= 2;
         }
 
         // for applying saved fabAddNotebook showing status because it will be shown or hidden while recyclerview is scrolling
-        if(fabShowingStatus)
+        if (fabShowingStatus)
             fabAddNotebook.show();
         else
             fabAddNotebook.hide();
@@ -236,7 +223,7 @@ public class ShowNoteBooksFragment extends Fragment implements NotebookRecyclerA
             public void run() {
                 Utilities.showSoftKeyboard(notebookNameEditText, getContext());
             }
-        },100);
+        }, 100);
 
         verifyButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -252,7 +239,6 @@ public class ShowNoteBooksFragment extends Fragment implements NotebookRecyclerA
                 Notebook notebook = new Notebook();
                 notebook.setNoteBookName(notebookNameEditText.getText().toString());
                 notebook.setFavorite(false);
-                notebook.setPlaying(false);
                 new NotebookOpenHelper(getContext()).addNotebook(notebook);
 
                 refreshRecyclerView(REFRESH_TYPE_END);
@@ -297,13 +283,6 @@ public class ShowNoteBooksFragment extends Fragment implements NotebookRecyclerA
 
     @Override
     public void onFavoriteClick(Notebook notebook) {
-//        if(notebook.isFavorite()){
-//            notebook.setFavorite(false);
-//        }else{
-//            notebook.setFavorite(true);
-//        }
-//
-//        new NotebookOpenHelper(getContext()).update(notebook);
     }
 
     @Override
@@ -318,7 +297,7 @@ public class ShowNoteBooksFragment extends Fragment implements NotebookRecyclerA
         refreshRecyclerViewInCurrentPosition(position);
     }
 
-    public class UpdateNotebooksBroadcast extends BroadcastReceiver{
+    public class UpdateNotebooksBroadcast extends BroadcastReceiver {
 
         @Override
         public void onReceive(Context context, Intent intent) {

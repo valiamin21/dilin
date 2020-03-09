@@ -102,8 +102,6 @@ public class MyApplication extends Application {
         }
     }
 
-
-    // TODO: 12/5/18 these typefaces code should be modified
     public Typeface getAppTypeface() {
         if (appTypeface == null) {
             appTypeface = Typeface.createFromAsset(getAssets(), "fonts/Vazir.ttf");
