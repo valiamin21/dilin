@@ -81,6 +81,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        if(bottomNavigationView.getSelectedItemId() == R.id.notebooks){
+            fabAddNotebook.show();
+        }else{
+            fabAddNotebook.hide();
+        }
+    }
+
+    @Override
     public void onBackPressed() {
         // in below if statement we check if navigationView was opened, we'll close that first.
         if (drawerLayout.isDrawerOpen(Gravity.START)) {
@@ -173,7 +183,9 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                if (menuItem.getItemId() != R.id.notebooks) {
+                if (menuItem.getItemId() == R.id.notebooks) {
+                    fabAddNotebook.show();
+                }else{
                     fabAddNotebook.hide();
                 }
 
@@ -184,7 +196,6 @@ public class MainActivity extends AppCompatActivity {
                 switch (menuItem.getItemId()) {
                     case R.id.notebooks:
                         getSupportFragmentManager().beginTransaction().show(showNoteBooksFragment).commit();
-                        fabAddNotebook.show();
                         break;
                     case R.id.bookmark:
                         if (bookmarkedWordsFragment == null) {
@@ -210,7 +221,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         fabAddNotebook = findViewById(R.id.fab_add);
-        fabAddNotebook.setTag(View.VISIBLE); // در این جا از تگ ویوی fabAddNotebook به عنوان نشانه ای برای تشخیص ویزیبل بودن یا نبودن آن استفاده می شود.
         fabAddNotebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

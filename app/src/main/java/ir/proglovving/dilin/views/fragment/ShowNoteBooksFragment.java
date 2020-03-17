@@ -84,7 +84,7 @@ public class ShowNoteBooksFragment extends Fragment implements NotebookRecyclerA
                 if (dy > 0) {
                     fabAddNotebook.hide();
                 } else {
-                    if (((int) fabAddNotebook.getTag()) == View.VISIBLE) {
+                    if (fabAddNotebook.getVisibility() == View.VISIBLE) {
                         fabAddNotebook.show();
                     }
                 }
