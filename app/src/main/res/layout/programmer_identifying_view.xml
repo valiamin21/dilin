@@ -25,27 +25,32 @@
             android:id="@+id/programmer_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/standard_margin"
             android:layout_marginTop="@dimen/standard_margin"
             android:text="@string/programmer_folani"
             android:layout_alignParentStart="true"
-            />
+            android:textSize="@dimen/standard_font_size_large"
+            android:textColor="@color/primary_text"/>
 
         <ir.proglovving.dilin.custom_views.CusTextView
             android:id="@+id/tv_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/standard_margin"
-            android:text="@string/email"
+            android:layout_marginTop="@dimen/standard_margin"
+            android:text="@string/email_colon"
             android:layout_alignParentStart="true"
-            android:layout_below="@id/programmer_name"/>
+            android:layout_below="@id/programmer_name"
+            android:textSize="@dimen/standard_font_size_normal"
+            android:textColor="@color/secondary_text"/>
 
         <ir.proglovving.dilin.custom_views.CusTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_below="@id/tv_email"
-            android:text="@string/programmer_email_address"/>
+            android:text="@string/programmer_email_address"
+            android:textSize="@dimen/standard_font_size_large"
+            android:textIsSelectable="true"
+            android:textColor="@color/selectable_email_text_color"/>
 
     </RelativeLayout>
 

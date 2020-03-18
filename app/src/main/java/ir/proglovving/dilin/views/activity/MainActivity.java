@@ -151,9 +151,6 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.about:
                         startActivity(new Intent(MainActivity.this, AboutProgrammerActivity.class), compat.toBundle());
                         break;
-                    case R.id.protect:
-                        startActivity(new Intent(MainActivity.this, DonateActivity.class), compat.toBundle());
-                        break;
                 }
                 return true;
             }

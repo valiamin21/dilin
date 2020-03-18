@@ -15,8 +15,6 @@ import ir.proglovving.dilin.Utilities;
 
 public class AboutProgrammerActivity extends AppCompatActivity {
 
-    private Button supportProgrammerButton;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,18 +23,10 @@ public class AboutProgrammerActivity extends AppCompatActivity {
         initViews();
 
         setupEnterTransition();
-
-        supportProgrammerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DonateActivity.start(AboutProgrammerActivity.this);
-            }
-        });
     }
 
     private void initViews() {
         setupToolbar();
-        supportProgrammerButton = findViewById(R.id.btn_support_programmer);
     }
 
     private void setupToolbar() {

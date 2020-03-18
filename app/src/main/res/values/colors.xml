@@ -43,4 +43,5 @@
     <color name="dialog_button_pressed_background">#D81B60</color>
 
     <color name="fab_ripple_color">#FFFFFF</color>
+    <color name="selectable_email_text_color">#FF4081</color>
 </resources>

@@ -37,6 +37,7 @@
     <string name="all_notebooks">همه دفترها</string>
     <string name="programmer_folani">برنامه نویس: امین والی</string>
     <string name="email">ایمیل</string>
+    <string name="email_colon">ایمیل:</string>
     <string name="programmer_email_address">valiamin21@gmail.com</string>
     <string name="notebooks">دفتر ها</string>
     <string name="deleted_from_favorite_list">از لیست علاقه مندی ها حذف شد</string>
