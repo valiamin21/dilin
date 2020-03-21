@@ -7,8 +7,10 @@ Download apk from https://myket.ir/app/ir.proglovving.dilin
 
 
 persian description:
+
 دیلین یک برنامه‌ی اندرویدیه که بهتون کمک می‌کنه دیکشنری خودتونو بسازید! دیلین داخل خودش دیکشنری داره ولی فراتر از یه دیکشنریه.
 توی این پروژه کدهای زیادی در رابطه با دیتابیس sqlite نوشتم که می‌تونه منبع خوبی برای یادگیری دیتابیس sqlite باشه.
 
 دیلین‌رو از مایکت دانلود کنید:
+
 https://myket.ir/app/ir.proglovving.dilin
