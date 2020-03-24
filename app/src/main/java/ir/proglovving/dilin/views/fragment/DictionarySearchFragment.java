@@ -32,7 +32,7 @@ public class DictionarySearchFragment extends Fragment implements View.OnClickLi
     private View toolbarView;
     private ImageButton eraseButton, searchButton;
     private EditText searchEditText;
-    private TextView guideTextView;
+    private View guideContainer;
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
 
@@ -80,7 +80,7 @@ public class DictionarySearchFragment extends Fragment implements View.OnClickLi
                 }else{
                     recyclerView.setVisibility(View.INVISIBLE);
                     progressBar.setVisibility(View.INVISIBLE);
-                    guideTextView.setVisibility(View.VISIBLE);
+                    guideContainer.setVisibility(View.VISIBLE);
                 }
 
             }
@@ -102,7 +102,7 @@ public class DictionarySearchFragment extends Fragment implements View.OnClickLi
         searchButton.setOnLongClickListener(this);
 
         searchEditText = view.findViewById(R.id.ed_search);
-        guideTextView = view.findViewById(R.id.tv_dictionary_guide);
+        guideContainer = view.findViewById(R.id.dictionary_guide_container);
         recyclerView = view.findViewById(R.id.recyclerView_dictionary);
         progressBar = view.findViewById(R.id.progressbar_dictionary);
 
@@ -140,7 +140,7 @@ public class DictionarySearchFragment extends Fragment implements View.OnClickLi
     }
 
     private void performSearch() {
-        guideTextView.setVisibility(View.INVISIBLE);
+        guideContainer.setVisibility(View.INVISIBLE);
         progressBar.setVisibility(View.VISIBLE);
         recyclerView.setVisibility(View.INVISIBLE);
 
@@ -200,9 +200,9 @@ public class DictionarySearchFragment extends Fragment implements View.OnClickLi
                 @Override
                 public void run() {
                     if (dictionaryWordList.size() != 0) {
-                        guideTextView.setVisibility(View.INVISIBLE);
+                        guideContainer.setVisibility(View.INVISIBLE);
                     } else {
-                        guideTextView.setVisibility(View.VISIBLE);
+                        guideContainer.setVisibility(View.VISIBLE);
                     }
                     recyclerView.setVisibility(View.VISIBLE);
                     recyclerView.setAdapter(adapter);

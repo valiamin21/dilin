@@ -76,7 +76,7 @@
     <string name="exit">خروج</string>
     <string name="exit_message">آیا می‌خواهید خارج شوید؟</string>
 
-    <string name="dictionary_guide_text">کلمه‌ی مورد نظررا تایپ کنید و سپس علامت ذرّه‌بین را لمس کنید.</string>
+    <string name="dictionary_guide_text">کلمه‌ای که دوست دارید در بالا تایپ کنید.</string>
     <string name="dictionary_search_box_hint">جستجوی کلمه</string>
 
     <string name="delete">حذف</string>

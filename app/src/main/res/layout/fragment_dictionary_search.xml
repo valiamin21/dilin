@@ -63,20 +63,40 @@
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 
-    <ir.proglovving.dilin.custom_views.CusTextView
-        android:id="@+id/tv_dictionary_guide"
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginLeft="@dimen/standard_table_distance"
-        android:layout_marginTop="@dimen/standard_margin_x2"
-        android:layout_marginRight="@dimen/standard_table_distance"
-        android:gravity="center"
-        android:text="@string/dictionary_guide_text"
-        android:textColor="@color/secondary_text"
-        android:textSize="@dimen/standard_font_size_large"
-        app:layout_constraintTop_toBottomOf="@id/card_toolbar"
-        tools:layout_editor_absoluteX="40dp" />
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/card_toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:id="@+id/dictionary_guide_container">
+
+            <ImageView
+                android:layout_width="@dimen/ic_dictionary_width"
+                android:layout_height="@dimen/ic_dictionary_width"
+                android:src="@drawable/ic_dictionary"
+                android:adjustViewBounds="true"
+                android:layout_marginVertical="@dimen/standard_margin_x2"/>
+
+            <ir.proglovving.dilin.custom_views.CusTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/dictionary_guide_text"
+                android:textColor="@color/secondary_text"
+                android:textSize="@dimen/standard_font_size_large"
+                android:layout_marginLeft="@dimen/standard_table_distance"
+                android:layout_marginRight="@dimen/standard_table_distance"/>
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
 
     <ProgressBar
         android:id="@+id/progressbar_dictionary"
