@@ -43,10 +43,6 @@ public class IntroFragment extends Fragment {
         return newInstance(context.getString(title),context.getString(description),imageDrawable);
     }
 
-    public static IntroFragment newInstance(Context context,@StringRes int description,@DrawableRes int imageDrawable){
-        return newInstance("",context.getString(description),imageDrawable);
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +58,7 @@ public class IntroFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_app_intro, container, false);
         TextView titleTextView = view.findViewById(R.id.intro_title);
-        TextView descriptionTextview = view.findViewById(R.id.intro_description);
+        TextView descriptionTextView = view.findViewById(R.id.intro_description);
         ImageView imageView = view.findViewById(R.id.intro_image_view);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             // deleting image outline for adjusting image radius defined in it's selector!
@@ -71,7 +67,7 @@ public class IntroFragment extends Fragment {
 
 
         titleTextView.setText(title);
-        descriptionTextview.setText(description);
+        descriptionTextView.setText(description);
         imageView.setImageDrawable(ContextCompat.getDrawable(getContext(), imageDrawable));
         return view;
     }

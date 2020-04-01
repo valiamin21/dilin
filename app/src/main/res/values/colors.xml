@@ -44,4 +44,7 @@
 
     <color name="fab_ripple_color">#FFFFFF</color>
     <color name="selectable_email_text_color">#FF4081</color>
+
+    <color name="intro_background_second_color">#E91E63</color>
+    <color name="intro_background_first_color">#FF5722</color>
 </resources>
