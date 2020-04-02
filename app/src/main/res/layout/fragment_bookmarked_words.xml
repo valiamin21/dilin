@@ -3,12 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".views.fragment.BookmarkedWordsFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_bookmarked_fragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        android:orientation="vertical"
+        app:reverseLayout="false"/>
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/nested_scroll_view_empty"

@@ -3,7 +3,6 @@ package ir.proglovving.dilin.adapters;
 import android.app.Dialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -90,7 +89,6 @@ public class DictionaryRecyclerAdapter extends RecyclerView.Adapter<DictionaryRe
                 Dialog dialog = new Dialog(context);
                 dialog.setContentView(R.layout.dialog_adding_dictoinary_word_to_notebook);
                 RecyclerView recyclerView = dialog.findViewById(R.id.recycler_view_dw_to_n);
-                recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
                 AddingDictionaryWordToNotebookRecyclerAdapter adapter = new AddingDictionaryWordToNotebookRecyclerAdapter(context, dictionaryWord, dialog);
                 recyclerView.setAdapter(adapter);
                 dialog.show();

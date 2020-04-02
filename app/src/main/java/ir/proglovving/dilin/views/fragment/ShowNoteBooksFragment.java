@@ -14,8 +14,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
@@ -74,7 +72,6 @@ public class ShowNoteBooksFragment extends Fragment implements NotebookRecyclerA
 
         final View view = inflater.inflate(R.layout.fragment_show_notebooks, container, false);
         recyclerView = view.findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2, LinearLayoutManager.VERTICAL, false));
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
