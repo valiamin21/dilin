@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.WindowManager;
 
 import com.github.paolorotolo.appintro.AppIntro;
 
@@ -24,6 +25,10 @@ public class AppIntroActivity extends AppIntro {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // making full screen
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setDoneText("فهمیدم");
 
         // hiding skipButton
