@@ -2,14 +2,17 @@ package ir.proglovving.dilin.views.fragment;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,36 +56,54 @@ public class ShowWordsFragment extends Fragment implements WordsRecyclerViewAdap
     }
 
     public void refreshRecyclerView() {
-        List<Word> words = getSuitableWordList(isBookmarkedMode);
+        List<Word> words = new WordsOpenHelper(getContext(), notebookId).getWordList(false);
 
-        if (new WordsOpenHelper(getContext(), notebookId).getRawsCount() == 0) { //  اگر هیچ کلمه ای اضافه نشده باشد
-            recyclerView.setVisibility(View.INVISIBLE);
-            emptyTextView.changeText(R.string.no_word_was_added);
-            emptyMessageNestedScrollView.setVisibility(View.VISIBLE);
-            return;
-        } else if (recyclerView.getVisibility() == View.INVISIBLE) {
-            recyclerView.setVisibility(View.VISIBLE);
-            emptyMessageNestedScrollView.setVisibility(View.INVISIBLE);
+        if (recyclerViewAdapter == null) {
+            recyclerViewAdapter = new WordsRecyclerViewAdapter(getContext(), words, this);
+            recyclerViewAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+                @Override
+                public void onItemRangeChanged(int positionStart, int itemCount) {
+                    super.onItemRangeChanged(positionStart, itemCount);
+                    Toast.makeText(getContext(), "item range changed " + itemCount, Toast.LENGTH_SHORT).show();
+                }
+
+
+                @Override
+                public void onItemRangeInserted(int positionStart, int itemCount) {
+                    super.onItemRangeInserted(positionStart, itemCount);
+                    checkWarningVisibilities(new WordsOpenHelper(getContext(),notebookId).getRawsCount());
+                }
+
+                @Override
+                public void onItemRangeRemoved(int positionStart, int itemCount) {
+                    super.onItemRangeRemoved(positionStart, itemCount);
+                    checkWarningVisibilities(new WordsOpenHelper(getContext(),notebookId).getRawsCount());
+                }
+
+            });
         }
 
-        if (words.size() == 0 && isBookmarkedMode) { // اگر کلمه ی نشان شده ای یافت نشد
-            recyclerView.setVisibility(View.INVISIBLE);
-            emptyTextView.changeText(R.string.no_bookmarked_word_was_found);
-            emptyMessageNestedScrollView.setVisibility(View.VISIBLE);
-            return;
-        }
+        checkWarningVisibilities(words.size());
 
-        if(recyclerViewAdapter == null){
-            recyclerViewAdapter = new WordsRecyclerViewAdapter(
-                    getContext(), words, this
-            );
+        if (recyclerView.getAdapter() == null) {
             recyclerView.setAdapter(recyclerViewAdapter);
-        }else{
+        } else {
             recyclerViewAdapter.setWordList(words);
         }
     }
 
-    public void addWord(Word word){
+    private void checkWarningVisibilities(int wordsCount) {
+        if (wordsCount == 0) { //  اگر هیچ کلمه ای اضافه نشده باشد
+            recyclerView.setVisibility(View.INVISIBLE);
+            emptyTextView.changeText(R.string.no_word_was_added);
+            emptyMessageNestedScrollView.setVisibility(View.VISIBLE);
+        } else if (recyclerView.getVisibility() == View.INVISIBLE) {
+            recyclerView.setVisibility(View.VISIBLE);
+            emptyMessageNestedScrollView.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    public void addWord(Word word) {
         recyclerViewAdapter.addWord(word);
     }
 
@@ -108,10 +129,6 @@ public class ShowWordsFragment extends Fragment implements WordsRecyclerViewAdap
         }
 
         recyclerViewAdapter.setWordList(words);
-    }
-
-    private List<Word> getSuitableWordList(boolean isBookmarkedMode) {
-        return new WordsOpenHelper(getContext(), notebookId).getWordList(isBookmarkedMode);
     }
 
     private List<Word> getSuitableWordList(boolean isBookmarkedMode, String search) {

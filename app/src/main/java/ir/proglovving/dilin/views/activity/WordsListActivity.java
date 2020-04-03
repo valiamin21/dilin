@@ -128,7 +128,7 @@ public class WordsListActivity extends AppCompatActivity {
                 if (wordEditText.getText().length() == 0) {
                     wordEditText.setError(getString(R.string.no_word_was_entered_text));
                     return;
-                } // TODO: 1/29/19 خط زیر اصلاح شود زیرا تکراری است(در پایین تر تکرار شده است)
+                }
                 else if (new WordsOpenHelper(WordsListActivity.this, notebookId).
                         isThereWord(wordEditText.getText().toString())) {
                     wordEditText.setError(getString(R.string.word_is_repeated));
