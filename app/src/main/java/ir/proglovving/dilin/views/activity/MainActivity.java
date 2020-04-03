@@ -1,19 +1,22 @@
 package ir.proglovving.dilin.views.activity;
 
-import android.animation.Animator;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
@@ -22,16 +25,12 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
 import android.transition.Fade;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewAnimationUtils;
 import android.view.animation.DecelerateInterpolator;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import ir.proglovving.dilin.BuildConfig;
@@ -39,7 +38,6 @@ import ir.proglovving.dilin.CustomDialogBuilder;
 import ir.proglovving.dilin.R;
 import ir.proglovving.dilin.Utilities;
 import ir.proglovving.dilin.custom_views.ToolTip;
-import ir.proglovving.dilin.data_model.Notebook;
 import ir.proglovving.dilin.database_open_helpers.NotebookOpenHelper;
 import ir.proglovving.dilin.views.fragment.BookmarkedWordsFragment;
 import ir.proglovving.dilin.views.fragment.DictionarySearchFragment;
@@ -59,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
     private DictionarySearchFragment dictionarySearchFragment;
     private BookmarkedWordsFragment bookmarkedWordsFragment;
 
+    private NotebookOpenHelper notebookOpenHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +68,8 @@ public class MainActivity extends AppCompatActivity {
 
         Utilities.setupExitTransition(this);
 
-        showNoteBooksFragment = new ShowNoteBooksFragment(coordinatorLayout, false, ShowNoteBooksFragment.REFRESH_TYPE_SETUP, (FloatingActionButton) findViewById(R.id.fab_add));
+        notebookOpenHelper = new NotebookOpenHelper(this);
+        showNoteBooksFragment = new ShowNoteBooksFragment(notebookOpenHelper, coordinatorLayout, (FloatingActionButton) findViewById(R.id.fab_add));
 
         getSupportFragmentManager().beginTransaction()
                 .add(containerFrameLayout.getId(), showNoteBooksFragment)
@@ -84,9 +85,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(bottomNavigationView.getSelectedItemId() == R.id.notebooks){
+        if (bottomNavigationView.getSelectedItemId() == R.id.notebooks) {
             fabAddNotebook.show();
-        }else{
+        } else {
             fabAddNotebook.hide();
         }
     }
@@ -183,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 if (menuItem.getItemId() == R.id.notebooks) {
                     fabAddNotebook.show();
-                }else{
+                } else {
                     fabAddNotebook.hide();
                 }
 
@@ -219,12 +220,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         fabAddNotebook = findViewById(R.id.fab_add);
-        fabAddNotebook.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showAddNoteBookDialog();
-            }
-        });
+
 
         fabAddNotebook.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -254,72 +250,6 @@ public class MainActivity extends AppCompatActivity {
             fade.setDuration(1000);
             fade.setInterpolator(new DecelerateInterpolator());
             getWindow().setEnterTransition(fade);
-        }
-
-    }
-
-    private void showAddNoteBookDialog() {
-        final Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.dialog_add_notebook);
-        final LinearLayout dialogContainer = dialog.findViewById(R.id.ll_dialog_add_notebook);
-        final EditText notebookNameEditText = dialog.findViewById(R.id.et_notebook);
-        Button verifyButton = dialog.findViewById(R.id.btn_verify), cancelButton = dialog.findViewById(R.id.btn_cancel);
-
-        // کد زیر کیبورد گوشی را برای ادیت تکست نمایش می دهد
-        notebookNameEditText.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Utilities.showSoftKeyboard(notebookNameEditText, MainActivity.this);
-            }
-        }, 100);
-
-        verifyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (notebookNameEditText.getText().length() == 0) {
-                    notebookNameEditText.setError(getString(R.string.no_name_has_been_entered));
-                    return;
-                } else if (new NotebookOpenHelper(MainActivity.this).
-                        isThereNotebook(notebookNameEditText.getText().toString())) {
-                    notebookNameEditText.setError(getString(R.string.notebook_is_repeated));
-                    return;
-                }
-                Notebook notebook = new Notebook();
-                notebook.setNoteBookName(notebookNameEditText.getText().toString());
-                notebook.setFavorite(false);
-                new NotebookOpenHelper(MainActivity.this).addNotebook(notebook);
-
-                showNoteBooksFragment.refreshRecyclerView(ShowNoteBooksFragment.REFRESH_TYPE_END);
-                dialog.dismiss();
-            }
-        });
-
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-
-        dialog.show();
-
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            dialogContainer.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-
-                    Animator animator = ViewAnimationUtils.createCircularReveal(
-                            dialogContainer, dialogContainer.getWidth(), dialogContainer.getHeight(), 0,
-                            Math.max(dialogContainer.getWidth(), dialogContainer.getHeight()));
-                    dialogContainer.setVisibility(View.VISIBLE);
-                    animator.start();
-                }
-
-
-            }, 200);
-        } else {
-            dialogContainer.setVisibility(View.VISIBLE);
         }
 
     }

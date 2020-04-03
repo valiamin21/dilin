@@ -5,12 +5,16 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Build;
 import android.os.CountDownTimer;
+
 import androidx.annotation.NonNull;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+
 import com.google.android.material.snackbar.Snackbar;
+
 import androidx.transition.Fade;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
@@ -33,13 +37,12 @@ import ir.proglovving.dilin.custom_views.ToolTip;
 import ir.proglovving.dilin.data_model.Notebook;
 import ir.proglovving.dilin.database_open_helpers.NotebookOpenHelper;
 import ir.proglovving.dilin.views.activity.WordsListActivity;
-import ir.proglovving.dilin.views.fragment.ShowNoteBooksFragment;
 
 public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecyclerAdapter.NotebookViewHolder> implements View.OnLongClickListener {
     private Context context;
-    private List<Notebook> notebooks;
+    private List<Notebook> notebookList;
     private CoordinatorLayout coordinatorLayout;
-    private EventOfNotebookRecyclerAdapter event;
+    private NotebookOpenHelper notebookOpenHelper;
 
     private static final int VALUELESS = -23;
     private static int favoriteColorTint = VALUELESS;
@@ -49,14 +52,14 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecycl
 
     public NotebookRecyclerAdapter(
             Context context,
-            List<Notebook> notebooks,
+            List<Notebook> notebookList,
             CoordinatorLayout coordinatorLayout,
-            EventOfNotebookRecyclerAdapter event) {
+            NotebookOpenHelper notebookOpenHelper) {
 
         this.context = context;
-        this.notebooks = notebooks;
+        this.notebookList = notebookList;
         this.coordinatorLayout = coordinatorLayout;
-        this.event = event;
+        this.notebookOpenHelper = notebookOpenHelper;
     }
 
     @NonNull
@@ -70,7 +73,7 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecycl
 
     @Override
     public void onBindViewHolder(@NonNull final NotebookViewHolder mViewHolder, int position) {
-        final Notebook notebook = notebooks.get(position);
+        final Notebook notebook = notebookList.get(position);
 
         mViewHolder.noteBookNameTextView.setText(notebook.getNoteBookName());
         mViewHolder.wordsCountTextView.setText(context.getString(R.string.words_count) + ": " + Utilities.convertNumberToPersian(notebook.getWordsCount()));
@@ -81,10 +84,6 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecycl
         mViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-//                ActivityOptionsCompat compat =
-//                        ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context,((Activity)context).findViewById(R.id.fab_add),context.getString(R.string.fab_transition_name));
-
                 WordsListActivity.start(context, notebook.getId(), notebook.getNoteBookName());
 
             }
@@ -99,9 +98,11 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecycl
                         .setPositive(R.string.yes_text, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                final NotebookOpenHelper notebookOpenHelper = new NotebookOpenHelper(context);
+                                final int currentPosition = mViewHolder.getAdapterPosition();
+
                                 notebookOpenHelper.deleteNotebook(notebook.getId());
-                                event.onRefreshInCurrentPosition(mViewHolder.getAdapterPosition());
+                                notebookList.remove(currentPosition);
+                                notifyItemRemoved(currentPosition);
 
                                 final boolean[] isReturned = {false};
                                 Snackbar.make(coordinatorLayout, R.string.was_deleted, Snackbar.LENGTH_LONG)
@@ -110,7 +111,8 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecycl
                                             public void onClick(View v) {
                                                 isReturned[0] = true;
                                                 notebookOpenHelper.returnNotebook(notebook);
-                                                event.onRefreshInCurrentPosition(mViewHolder.getAdapterPosition());
+                                                notebookList.add(currentPosition, notebook);
+                                                notifyItemInserted(currentPosition);
                                             }
                                         })
                                         .show();
@@ -136,8 +138,6 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecycl
 
                     }
                 }).create().show();
-
-                event.onDeleteClick(notebook, mViewHolder.getAdapterPosition());
             }
         });
 
@@ -146,16 +146,14 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecycl
             public void onClick(View v) {
                 setFavoriteAnimation(mViewHolder.linearImages, mViewHolder.favoriteButton, !notebook.isFavorite());
                 notebook.setFavorite(!notebook.isFavorite());
-                new NotebookOpenHelper(context).update(notebook);
-                event.onFavoriteClick(notebook);
+               notebookOpenHelper.update(notebook);
             }
         });
 
         mViewHolder.editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showEditNoteBookDialog(notebook);
-                event.onEditClick(notebook);
+                showEditNoteBookDialog(notebook, mViewHolder.getAdapterPosition());
             }
         });
 
@@ -163,17 +161,15 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecycl
         mViewHolder.favoriteButton.setOnLongClickListener(this);
         mViewHolder.editButton.setOnLongClickListener(this);
 
-        // TODO: 4/21/19 یه فکری برا این انیمیشنا بکن
-//        setAnimation(mViewHolder.itemView);
+        setAnimation(mViewHolder.itemView, position);
     }
 
-    private void showEditNoteBookDialog(final Notebook notebook) {
+    private void showEditNoteBookDialog(final Notebook notebook, final int position) {
         final Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.dialog_add_notebook);
         final LinearLayout dialogContainer = dialog.findViewById(R.id.ll_dialog_add_notebook);
         final EditText notebookNameEditText = dialog.findViewById(R.id.et_notebook);
         Button verifyButton = dialog.findViewById(R.id.btn_verify), cancelButton = dialog.findViewById(R.id.btn_cancel);
-
         notebookNameEditText.setText(notebook.getNoteBookName());
 
         // کد زیر کیبورد گوشی را برای ادیت تکست نمایش می دهد
@@ -193,9 +189,9 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecycl
                 }
 
                 notebook.setNoteBookName(notebookNameEditText.getText().toString());
-                new NotebookOpenHelper(context).update(notebook);
+                notebookOpenHelper.update(notebook);
+                notifyItemChanged(position);
 
-                ShowNoteBooksFragment.updateMeByBroadcast(context);
                 dialog.dismiss();
             }
         });
@@ -279,18 +275,30 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecycl
         }
     }
 
-    private void setAnimation(View viewToAnimation) {
-//        if(position > lastPosition){
-        Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.fade_in);
-        animation.setDuration(4000);
-        animation.setInterpolator(new OvershootInterpolator());
-        viewToAnimation.startAnimation(animation);
-//        }
+    private void setAnimation(View viewToAnimation, int position) {
+        if (position > lastPosition) {
+            Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.fade_in);
+            animation.setDuration(4000);
+            animation.setInterpolator(new OvershootInterpolator());
+            viewToAnimation.startAnimation(animation);
+            lastPosition = position;
+        }
+    }
+
+    public void addNotebook(Notebook notebook) {
+        notebookOpenHelper.addNotebook(notebook);
+        notebookList.add(notebook);
+        notifyItemRangeInserted(notebookList.size() - 2, 1);
+    }
+
+    public void setNotebookList(List<Notebook> notebookList) {
+        this.notebookList = notebookList;
+        notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return notebooks.size();
+        return notebookList.size();
     }
 
     @Override
@@ -331,15 +339,5 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecycl
 
             linearImages = itemView.findViewById(R.id.linear_imgs);
         }
-    }
-
-    public interface EventOfNotebookRecyclerAdapter {
-        void onDeleteClick(Notebook notebook, int position);
-
-        void onFavoriteClick(Notebook notebook);
-
-        void onEditClick(Notebook notebook);
-
-        void onRefreshInCurrentPosition(int position);
     }
 }

@@ -1,61 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/nested_scroll_view_empty"
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switch_favorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginHorizontal="@dimen/standard_margin_x2"
+        android:layout_marginTop="@dimen/standard_margin"
+        android:layout_marginBottom="@dimen/standard_margin"
+        android:text="@string/show_only_favorite_notebooks"
+        android:textColor="@color/primary_text"
+        android:textSize="@dimen/standard_font_size_large" />
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/switch_favorite">
+
+        <ir.proglovving.dilin.custom_views.MotionableTextView
+            android:id="@+id/tv_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/show_empty_recycler_view_text_margin"
+            android:text="@string/no_notebook_has_been_made_yet"
+            android:textSize="@dimen/standard_font_size_very_large" />
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layoutDirection="rtl">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/standard_margin_x2"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:reverseLayout="false"
+            app:spanCount="2" />
 
-                <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/switch_favorite"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/show_only_favorite_notebooks"
-                    android:layout_marginBottom="0dp"
-                    android:layout_marginTop="@dimen/standard_margin"
-                    android:layout_marginHorizontal="@dimen/standard_margin_x2"
-                    android:textSize="@dimen/standard_font_size_large"
-                    android:textColor="@color/primary_text"/>
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <ir.proglovving.dilin.custom_views.MotionableTextView
-                        android:id="@+id/tv_empty"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:text="@string/no_notebook_has_been_made_yet"
-                        android:textSize="@dimen/standard_font_size_very_large"
-                        android:layout_marginTop="@dimen/show_empty_recycler_view_text_margin"/>
-
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recycler_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:paddingLeft="@dimen/standard_margin_x2"
-                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                        app:spanCount="2"
-                        android:orientation="vertical"
-                        app:reverseLayout="false"/>
-
-                </FrameLayout>
-
-            </LinearLayout>
-
-    </androidx.core.widget.NestedScrollView>
+    </FrameLayout>
 
 
 </RelativeLayout>
