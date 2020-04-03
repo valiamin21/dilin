@@ -39,11 +39,15 @@ import ir.proglovving.dilin.database_open_helpers.NotebookOpenHelper;
 import ir.proglovving.dilin.views.activity.WordsListActivity;
 import ir.proglovving.dilin.views.fragment.BookmarkedWordsFragment;
 
-public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecyclerAdapter.NotebookViewHolder> implements View.OnLongClickListener {
+public class NotebookRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnLongClickListener {
+    private static final int VIEW_TYPE_FAVORITE_PICKER = 0;
+    private static final int VIEW_TYPE_ITEMS = 1;
+
     private Context context;
     private List<Notebook> notebookList;
     private CoordinatorLayout coordinatorLayout;
     private NotebookOpenHelper notebookOpenHelper;
+    private View favoritePickerView;
 
     private static final int VALUELESS = -23;
     private static int favoriteColorTint = VALUELESS;
@@ -55,32 +59,42 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecycl
             Context context,
             List<Notebook> notebookList,
             CoordinatorLayout coordinatorLayout,
-            NotebookOpenHelper notebookOpenHelper) {
+            NotebookOpenHelper notebookOpenHelper,
+            View favoritePickerView) {
 
         this.context = context;
         this.notebookList = notebookList;
         this.coordinatorLayout = coordinatorLayout;
         this.notebookOpenHelper = notebookOpenHelper;
+        this.favoritePickerView = favoritePickerView;
     }
+
 
     @NonNull
     @Override
-    public NotebookViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        return
-                new NotebookViewHolder(
-                        LayoutInflater.from(context).inflate(R.layout.item_notebook, viewGroup, false)
-                );
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        if (viewType == VIEW_TYPE_FAVORITE_PICKER) {
+            return new FavoritePickerViewHolder(favoritePickerView);
+        } else {
+            return new NotebookViewHolder(
+                    LayoutInflater.from(context).inflate(R.layout.item_notebook, parent, false)
+            );
+        }
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final NotebookViewHolder mViewHolder, int position) {
-        final Notebook notebook = notebookList.get(position);
+    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder mViewHolder, int position) {
+        if (position == 0)
+            return;
 
-        mViewHolder.noteBookNameTextView.setText(notebook.getNoteBookName());
-        mViewHolder.wordsCountTextView.setText(context.getString(R.string.words_count) + ": " + Utilities.convertNumberToPersian(notebook.getWordsCount()));
-        mViewHolder.bookmarkedCountTextView.setText(context.getString(R.string.bookmarked_count) + ": " + Utilities.convertNumberToPersian(notebook.getBookmarkedCount()));
+        final NotebookViewHolder notebookViewHolder = (NotebookViewHolder) mViewHolder;
+        final Notebook notebook = notebookList.get(position-1);
 
-        setFavoriteImage(mViewHolder.favoriteButton, notebook.isFavorite()); // TODO: 2/5/19 اگر لیست دفتر های محبوب در حال نمایش بود و کاربر همانجا دکمه ی لغو محبوبیت را زد باید از آن لیست حذف شود. این مورد اصلاح شود.
+        notebookViewHolder.noteBookNameTextView.setText(notebook.getNoteBookName());
+        notebookViewHolder.wordsCountTextView.setText(context.getString(R.string.words_count) + ": " + Utilities.convertNumberToPersian(notebook.getWordsCount()));
+        notebookViewHolder.bookmarkedCountTextView.setText(context.getString(R.string.bookmarked_count) + ": " + Utilities.convertNumberToPersian(notebook.getBookmarkedCount()));
+
+        setFavoriteImage(notebookViewHolder.favoriteButton, notebook.isFavorite());
 
         mViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,7 +104,7 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecycl
             }
         });
 
-        mViewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
+        notebookViewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new CustomDialogBuilder(context)
@@ -102,7 +116,7 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecycl
                                 final int currentPosition = mViewHolder.getAdapterPosition();
 
                                 notebookOpenHelper.deleteNotebook(notebook.getId());
-                                notebookList.remove(currentPosition);
+                                notebookList.remove(currentPosition - 1);
                                 notifyItemRemoved(currentPosition);
 
                                 final boolean[] isReturned = {false};
@@ -112,7 +126,7 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecycl
                                             public void onClick(View v) {
                                                 isReturned[0] = true;
                                                 notebookOpenHelper.returnNotebook(notebook);
-                                                notebookList.add(currentPosition, notebook);
+                                                notebookList.add(currentPosition - 1, notebook);
                                                 notifyItemInserted(currentPosition);
                                             }
                                         })
@@ -143,27 +157,36 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecycl
             }
         });
 
-        mViewHolder.favoriteButton.setOnClickListener(new View.OnClickListener() {
+        notebookViewHolder.favoriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setFavoriteAnimation(mViewHolder.linearImages, mViewHolder.favoriteButton, !notebook.isFavorite());
+                setFavoriteAnimation(notebookViewHolder.linearImages, notebookViewHolder.favoriteButton, !notebook.isFavorite());
                 notebook.setFavorite(!notebook.isFavorite());
-               notebookOpenHelper.update(notebook);
+                notebookOpenHelper.update(notebook);
             }
         });
 
-        mViewHolder.editButton.setOnClickListener(new View.OnClickListener() {
+        notebookViewHolder.editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showEditNoteBookDialog(notebook, mViewHolder.getAdapterPosition());
             }
         });
 
-        mViewHolder.deleteButton.setOnLongClickListener(this);
-        mViewHolder.favoriteButton.setOnLongClickListener(this);
-        mViewHolder.editButton.setOnLongClickListener(this);
+        notebookViewHolder.deleteButton.setOnLongClickListener(this);
+        notebookViewHolder.favoriteButton.setOnLongClickListener(this);
+        notebookViewHolder.editButton.setOnLongClickListener(this);
 
         setAnimation(mViewHolder.itemView, position);
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position == 0) {
+            return VIEW_TYPE_FAVORITE_PICKER;
+        } else {
+            return VIEW_TYPE_ITEMS;
+        }
     }
 
     private void showEditNoteBookDialog(final Notebook notebook, final int position) {
@@ -289,7 +312,7 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecycl
 
     public void addNotebook(Notebook notebook) {
         notebookList.add(notebook);
-        notifyItemInserted(notebookList.size() - 1);
+        notifyItemInserted(notebookList.size());
     }
 
     public void setNotebookList(List<Notebook> notebookList) {
@@ -299,7 +322,7 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecycl
 
     @Override
     public int getItemCount() {
-        return notebookList.size();
+        return notebookList.size() + 1;
     }
 
     @Override
@@ -339,6 +362,13 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecycl
             editButton = itemView.findViewById(R.id.btn_edit);
 
             linearImages = itemView.findViewById(R.id.linear_imgs);
+        }
+    }
+
+    static class FavoritePickerViewHolder extends RecyclerView.ViewHolder {
+
+        public FavoritePickerViewHolder(@NonNull View itemView) {
+            super(itemView);
         }
     }
 }

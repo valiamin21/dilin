@@ -17,6 +17,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.SwitchCompat;
 
@@ -45,6 +46,8 @@ public class ShowNoteBooksFragment extends Fragment {
     private MotionableTextView emptyTextView;
     private FloatingActionButton fabAddNotebook;
     private CoordinatorLayout coordinatorLayout;
+
+    View favoritePickerView;
     private SwitchCompat favoriteSwitchButton;
 
     private NotebookOpenHelper notebookOpenHelper;
@@ -85,7 +88,8 @@ public class ShowNoteBooksFragment extends Fragment {
 
 
         emptyTextView = view.findViewById(R.id.tv_empty);
-        favoriteSwitchButton = view.findViewById(R.id.switch_favorite);
+        favoritePickerView = inflater.inflate(R.layout.item_notebook_favorite_switch_button, null, false);
+        favoriteSwitchButton = favoritePickerView.findViewById(R.id.switch_favorite);
         favoriteSwitchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -147,8 +151,20 @@ public class ShowNoteBooksFragment extends Fragment {
         }
 
         recyclerAdapter = new NotebookRecyclerAdapter(
-                getContext(), notebooks, coordinatorLayout, notebookOpenHelper
+                getContext(), notebooks, coordinatorLayout, notebookOpenHelper, favoritePickerView
         );
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
+        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                if (position == 0) {
+                    return 2;
+                } else {
+                    return 1;
+                }
+            }
+        });
+        recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(recyclerAdapter);
 
     }

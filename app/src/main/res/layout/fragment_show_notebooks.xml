@@ -1,47 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/switch_favorite"
+    <ir.proglovving.dilin.custom_views.MotionableTextView
+        android:id="@+id/tv_empty"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/show_empty_recycler_view_text_margin"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginHorizontal="@dimen/standard_margin_x2"
-        android:layout_marginTop="@dimen/standard_margin"
-        android:layout_marginBottom="@dimen/standard_margin"
-        android:text="@string/show_only_favorite_notebooks"
-        android:textColor="@color/primary_text"
-        android:textSize="@dimen/standard_font_size_large" />
+        android:text="@string/no_notebook_has_been_made_yet"
+        android:textSize="@dimen/standard_font_size_very_large" />
 
-    <FrameLayout
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/switch_favorite">
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/standard_margin_x2"
+        app:reverseLayout="false"
+        app:spanCount="2" />
 
-        <ir.proglovving.dilin.custom_views.MotionableTextView
-            android:id="@+id/tv_empty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/show_empty_recycler_view_text_margin"
-            android:text="@string/no_notebook_has_been_made_yet"
-            android:textSize="@dimen/standard_font_size_very_large" />
-
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingLeft="@dimen/standard_margin_x2"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:reverseLayout="false"
-            app:spanCount="2" />
-
-    </FrameLayout>
-
-
-</RelativeLayout>
+</FrameLayout>
