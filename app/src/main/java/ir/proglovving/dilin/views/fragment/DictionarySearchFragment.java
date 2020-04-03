@@ -2,10 +2,12 @@ package ir.proglovving.dilin.views.fragment;
 
 
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -38,6 +40,7 @@ public class DictionarySearchFragment extends Fragment implements View.OnClickLi
 
     private Thread searchingThread;
     private DictionaryOpenHelper dictionaryOpenHelper;
+    private DictionaryRecyclerAdapter recyclerAdapter;
     private List<DictionaryWord> dictionaryWordList;
 
     private int recyclerViewPaddingTop;
@@ -47,13 +50,13 @@ public class DictionarySearchFragment extends Fragment implements View.OnClickLi
     }
 
     public static DictionarySearchFragment newInstance() {
-        DictionarySearchFragment fragment = new DictionarySearchFragment();
-        return fragment;
+        return new DictionarySearchFragment();
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        dictionaryOpenHelper = new DictionaryOpenHelper(getContext());
     }
 
     @Override
@@ -75,9 +78,9 @@ public class DictionarySearchFragment extends Fragment implements View.OnClickLi
 
             @Override
             public void afterTextChanged(final Editable s) {
-                if(s.length() != 0){
+                if (s.length() != 0) {
                     performSearch();
-                }else{
+                } else {
                     recyclerView.setVisibility(View.INVISIBLE);
                     progressBar.setVisibility(View.INVISIBLE);
                     guideContainer.setVisibility(View.VISIBLE);
@@ -134,7 +137,7 @@ public class DictionarySearchFragment extends Fragment implements View.OnClickLi
                 searchEditText.setText("");
                 break;
             case R.id.btn_search:
-                Utilities.showSoftKeyboard(searchEditText,getContext());
+                Utilities.showSoftKeyboard(searchEditText, getContext());
                 break;
         }
     }
@@ -174,27 +177,31 @@ public class DictionarySearchFragment extends Fragment implements View.OnClickLi
 
         private boolean isInterrupted = false;
 
-        public void interrupt(){
+        private DictionaryOpenHelper.OnIterationListener onIterationListener =
+                new DictionaryOpenHelper.OnIterationListener() {
+                    @Override
+                    public boolean onIterated() {
+                        return isInterrupted;
+                    }
+                };
+
+        public void interrupt() {
             isInterrupted = true;
         }
 
         @Override
         public void run() {
-            dictionaryOpenHelper = new DictionaryOpenHelper(getContext());
-            dictionaryWordList = dictionaryOpenHelper.getDictionaryWordList(searchEditText.getText().toString(), new DictionaryOpenHelper.OnIterationListener() {
-                @Override
-                public boolean onIterated() { // in every iterate for searching for finding a word in loop this method is called and if true was returned, the loop is broken (search flow is started)
-                    return isInterrupted;
-                }
-            });
+            dictionaryWordList = dictionaryOpenHelper.getDictionaryWordList(searchEditText.getText().toString(), onIterationListener);
 
-            if(isInterrupted) return;
+            if (isInterrupted) return;
 
-            final RecyclerView.Adapter adapter = new DictionaryRecyclerAdapter(
-                    getContext(),
-                    dictionaryWordList,
-                    recyclerViewPaddingTop
-            );
+            if (recyclerAdapter == null) {
+                recyclerAdapter = new DictionaryRecyclerAdapter(
+                        getContext(),
+                        dictionaryWordList,
+                        recyclerViewPaddingTop
+                );
+            }
 
             getActivity().runOnUiThread(new Runnable() {
                 @Override
@@ -205,7 +212,11 @@ public class DictionarySearchFragment extends Fragment implements View.OnClickLi
                         guideContainer.setVisibility(View.VISIBLE);
                     }
                     recyclerView.setVisibility(View.VISIBLE);
-                    recyclerView.setAdapter(adapter);
+                    if (recyclerView.getAdapter() == null) {
+                        recyclerView.setAdapter(recyclerAdapter);
+                    } else {
+                        recyclerAdapter.setDictionaryWordList(dictionaryWordList);
+                    }
                     progressBar.setVisibility(View.INVISIBLE);
                 }
             });

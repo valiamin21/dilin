@@ -2,8 +2,10 @@ package ir.proglovving.dilin.adapters;
 
 import android.app.Dialog;
 import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,14 +26,14 @@ public class DictionaryRecyclerAdapter extends RecyclerView.Adapter<DictionaryRe
 
     private static final int VIEW_TYPE_FIRST_ITEM = 0, VIEW_TYPE_DEFAULT = 1;
 
-    private final Context context;
-    private final List<DictionaryWord> dictionaryWordList;
+    private Context context;
+    private List<DictionaryWord> dictionaryWordList;
     private int marginTop;
 
     public DictionaryRecyclerAdapter(Context context, List<DictionaryWord> dictionaryWordList, int marginTop) {
         this.context = context;
-        this.dictionaryWordList = dictionaryWordList;
         this.marginTop = marginTop;
+        this.dictionaryWordList = dictionaryWordList;
     }
 
     @NonNull
@@ -54,6 +56,11 @@ public class DictionaryRecyclerAdapter extends RecyclerView.Adapter<DictionaryRe
                 return null;
         }
 
+    }
+
+    public void setDictionaryWordList(List<DictionaryWord> dictionaryWordList) {
+        this.dictionaryWordList = dictionaryWordList;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -89,8 +96,8 @@ public class DictionaryRecyclerAdapter extends RecyclerView.Adapter<DictionaryRe
                 Dialog dialog = new Dialog(context);
                 dialog.setContentView(R.layout.dialog_adding_dictoinary_word_to_notebook);
                 RecyclerView recyclerView = dialog.findViewById(R.id.recycler_view_dw_to_n);
-                AddingDictionaryWordToNotebookRecyclerAdapter adapter = new AddingDictionaryWordToNotebookRecyclerAdapter(context, dictionaryWord, dialog);
-                recyclerView.setAdapter(adapter);
+                AddingDictionaryWordToNotebookRecyclerAdapter recyclerAdapter = new AddingDictionaryWordToNotebookRecyclerAdapter(context, dictionaryWord, dialog);
+                recyclerView.setAdapter(recyclerAdapter);
                 dialog.show();
             }
         });
