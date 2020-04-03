@@ -8,9 +8,9 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v7.widget.Toolbar;
+
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.appcompat.widget.Toolbar;
 import android.transition.Fade;
 import android.transition.Slide;
 import android.transition.Transition;

@@ -3,12 +3,10 @@ package ir.proglovving.dilin.views.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.transition.Slide;
-import android.view.View;
 import android.view.animation.OvershootInterpolator;
-import android.widget.Button;
 
 import ir.proglovving.dilin.R;
 import ir.proglovving.dilin.Utilities;

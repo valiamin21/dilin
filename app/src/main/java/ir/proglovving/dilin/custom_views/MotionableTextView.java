@@ -3,8 +3,8 @@ package ir.proglovving.dilin.custom_views;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.CountDownTimer;
-import android.support.annotation.StringRes;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.StringRes;
+import androidx.core.content.ContextCompat;
 import android.util.AttributeSet;
 
 import ir.proglovving.dilin.R;

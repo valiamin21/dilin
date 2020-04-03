@@ -5,7 +5,7 @@ import android.util.AttributeSet;
 
 import ir.proglovving.dilin.Utilities;
 
-public class CusTextView extends android.support.v7.widget.AppCompatTextView {
+public class CusTextView extends androidx.appcompat.widget.AppCompatTextView {
 
 
     public CusTextView(Context context) {
