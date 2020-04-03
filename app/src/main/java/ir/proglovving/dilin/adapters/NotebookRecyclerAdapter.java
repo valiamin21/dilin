@@ -37,6 +37,7 @@ import ir.proglovving.dilin.custom_views.ToolTip;
 import ir.proglovving.dilin.data_model.Notebook;
 import ir.proglovving.dilin.database_open_helpers.NotebookOpenHelper;
 import ir.proglovving.dilin.views.activity.WordsListActivity;
+import ir.proglovving.dilin.views.fragment.BookmarkedWordsFragment;
 
 public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecyclerAdapter.NotebookViewHolder> implements View.OnLongClickListener {
     private Context context;
@@ -128,6 +129,7 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecycl
                                     public void onFinish() {
                                         if (!isReturned[0]) {
                                             notebookOpenHelper.deleteDatabase(notebook.getNoteBookName());
+                                            BookmarkedWordsFragment.updateMebyBroadcast(context);
                                         }
                                     }
                                 }.start();
