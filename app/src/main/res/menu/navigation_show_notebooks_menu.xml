@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <item
+        android:id="@+id/guidance"
+        android:icon="@drawable/ic_action_guidance"
+        android:title="@string/guidance" />
+
     <item android:title="@string/apps_text">
-        <item
-            android:id="@+id/guidencec"
-            android:icon="@drawable/ic_action_guidance"
-            android:title="@string/guidence" />
         <menu>
             <item
                 android:id="@+id/rate"

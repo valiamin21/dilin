@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
                 ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, null);
 
                 switch (menuItem.getItemId()) {
-                    case R.id.guidencec:
+                    case R.id.guidance:
                         AppIntroActivity.start(MainActivity.this, true);
                         break;
                     case R.id.rate:
