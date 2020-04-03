@@ -9,8 +9,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-import ir.proglovving.dilin.RandomPlayingWord;
-
 import ir.proglovving.dilin.data_model.Notebook;
 import ir.proglovving.dilin.data_model.Word;
 
@@ -26,13 +24,13 @@ public class WordsOpenHelper extends SQLiteOpenHelper {
     private String words_table_name;
     private int notebookId;
 
-    public static List<Word> getAllWords(Context context, boolean isBookmarked) {
+    public static List<Word> getAllWords(Context context, NotebookOpenHelper notebookOpenHelper, boolean isBookmarked) {
         List<Word> detailedWords = new ArrayList<>();
 
-        List<Notebook> notebookList = new NotebookOpenHelper(context).getNotebookList();
+        List<Notebook> notebookList = notebookOpenHelper.getNotebookList();
         for (Notebook notebook : notebookList) {
             detailedWords.addAll(
-                    new WordsOpenHelper(context,notebook.getId()).getWordList(isBookmarked)
+                    new WordsOpenHelper(context, notebook.getId()).getWordList(isBookmarked)
             );
         }
 
@@ -155,11 +153,11 @@ public class WordsOpenHelper extends SQLiteOpenHelper {
                 Word word = new Word();
                 setValuesOfCursorInWord(cursor, word);
 
-                if(isBookmarked){
-                    if(word.isBookmark()){
+                if (isBookmarked) {
+                    if (word.isBookmark()) {
                         wordList.add(word);
                     }
-                }else{
+                } else {
                     wordList.add(word);
                 }
 
@@ -254,6 +252,16 @@ public class WordsOpenHelper extends SQLiteOpenHelper {
 
         cursor.close();
         database.close();
+        return result;
+    }
+
+    public int getLastID() {
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT " + COL_ID + " FROM " + words_table_name, null);
+        cursor.moveToLast();
+
+        int result = cursor.getInt(cursor.getColumnIndex(COL_ID));
+        cursor.close();
         return result;
     }
 

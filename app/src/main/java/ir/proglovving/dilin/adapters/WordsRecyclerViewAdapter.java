@@ -34,8 +34,7 @@ import ir.proglovving.dilin.database_open_helpers.WordsOpenHelper;
 public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecyclerViewAdapter.WordMeaningViewHolder> implements View.OnLongClickListener {
 
     private Context context;
-    private List<Word> words;
-    private EventOfWordMeaningRecyclerView event;
+    private List<Word> wordList;
 
     private int lastPosition = -1;
 
@@ -45,10 +44,12 @@ public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecycler
     private TextInputLayout wordTextInputLayout;
     private LinearLayout dialogContainer;
 
-    public WordsRecyclerViewAdapter(Context context, List<Word> words, EventOfWordMeaningRecyclerView event) {
+    private WordsRecyclerViewEvent mEvent;
+
+    public WordsRecyclerViewAdapter(Context context, List<Word> wordList,WordsRecyclerViewEvent event) {
         this.context = context;
-        this.words = words;
-        this.event = event;
+        this.wordList = wordList;
+        this.mEvent = event;
     }
 
     @NonNull
@@ -62,7 +63,7 @@ public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecycler
     @Override
     public void onBindViewHolder(@NonNull final WordMeaningViewHolder wordMeaningViewHolder, int position) {
 
-        final Word word = words.get(position);
+        final Word word = wordList.get(position);
         wordMeaningViewHolder.wordTextView.setText(word.getWord() + " :");
         if (word.getMeaning().equals("")) { // اگر معنایی وارد نشده بود
             wordMeaningViewHolder.meaningTextView.setText(R.string.no_meaning_has_been_entered_text);
@@ -80,7 +81,6 @@ public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecycler
         wordMeaningViewHolder.bookmarkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                event.onBookmarkClick(word, wordMeaningViewHolder.getAdapterPosition());
                 if (word.isBookmark()) {
                     word.setBookmark(false);
                     wordMeaningViewHolder.bookmarkButton.setImageResource(R.drawable.ic_action_bookmark_border);
@@ -90,7 +90,7 @@ public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecycler
                 }
                 new WordsOpenHelper(context, word.getNotebookId()).update(word, word.getId());
 
-
+                mEvent.onBookmarked();
             }
         });
 
@@ -105,7 +105,7 @@ public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecycler
         wordMeaningViewHolder.editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showBrowseEditWordDialog(word.getNotebookId(), word.getId(), lastPosition);
+                showBrowseEditWordDialog(word, wordMeaningViewHolder.getAdapterPosition());
             }
         });
 
@@ -146,7 +146,7 @@ public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecycler
 
     @Override
     public int getItemCount() {
-        return words.size();
+        return wordList.size();
     }
 
     private void dialogContainerRevealEffectShow() {
@@ -198,10 +198,8 @@ public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecycler
         }
     }
 
-    private void showBrowseEditWordDialog(int notebookId, final int id, final int position) {
+    private void showBrowseEditWordDialog(final Word word, final int position) {
         setupDialog();
-
-        final Word word = new WordsOpenHelper(context, notebookId).getWord(id);
         wordEditText.setText(word.getWord());
         meaningEditText.setText(word.getMeaning());
 
@@ -210,7 +208,6 @@ public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecycler
             public void onClick(View v) {
 
                 if (wordEditText.getText().length() == 0) {
-//                    wordEditText.setError(getString(R.string.no_word_was_entered_text));
                     wordTextInputLayout.setError(context.getString(R.string.no_word_was_entered_text));
                     return;
                 }
@@ -218,12 +215,11 @@ public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecycler
                 word.setWord(wordEditText.getText().toString());
                 word.setMeaning(meaningEditText.getText().toString());
 
-                new WordsOpenHelper(context, word.getNotebookId()).update(word, id);
-
-                event.onWordEdited(position);
+                new WordsOpenHelper(context,word.getNotebookId()).update(word, word.getId());
+                notifyItemChanged(position);
+                mEvent.onWordEdited();
 
                 addAndEditWordDialog.dismiss();
-
             }
         });
 
@@ -247,10 +243,11 @@ public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecycler
                 .setPositive(R.string.yes_text, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
                         new WordsOpenHelper(context, word.getNotebookId()).deleteWord(word.getId());
-//                        refreshRecyclerView(REFRESH_TYPE_CURRENT, position - 1);
-//                        refreshInCurrentPosition(position - 1);
-                        event.onDeleted(position);
+                        wordList.remove(position);
+                        notifyItemRemoved(position);
+                        mEvent.onDeleted();
                     }
                 }).setNegative(R.string.no_text, new View.OnClickListener() {
             @Override
@@ -258,6 +255,16 @@ public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecycler
 
             }
         }).create().show();
+    }
+
+    public void setWordList(List<Word> wordList){
+        this.wordList = wordList;
+        notifyDataSetChanged();
+    }
+
+    public void addWord(Word word){
+        wordList.add(word);
+        notifyItemInserted(wordList.size() - 1);
     }
 
     @Override
@@ -299,11 +306,9 @@ public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecycler
         }
     }
 
-    public interface EventOfWordMeaningRecyclerView {
-        void onDeleted(int position);
-
-        void onBookmarkClick(Word word, int position);
-
-        void onWordEdited(int position);
+    public interface WordsRecyclerViewEvent{
+        void onBookmarked();
+        void onDeleted();
+        void onWordEdited();
     }
 }

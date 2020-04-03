@@ -21,23 +21,18 @@ import ir.proglovving.dilin.data_model.Word;
 import ir.proglovving.dilin.database_open_helpers.WordsOpenHelper;
 
 @SuppressLint("ValidFragment")
-public class ShowWordsFragment extends Fragment implements WordsRecyclerViewAdapter.EventOfWordMeaningRecyclerView {
-
-    public static final int REFRESH_TYPE_SETUP = -1;
-    public static final int REFRESH_TYPE_CURRENT = -2;
-    public static final int REFRESH_TYPE_END = -3;
+public class ShowWordsFragment extends Fragment implements WordsRecyclerViewAdapter.WordsRecyclerViewEvent {
 
     private RecyclerView recyclerView;
     private NestedScrollView emptyMessageNestedScrollView;
     private MotionableTextView emptyTextView;
     private boolean isBookmarkedMode;
-    private int refreshType = REFRESH_TYPE_CURRENT;
     private RecyclerView.OnScrollListener onScrollListener;
     private int notebookId;
+    private WordsRecyclerViewAdapter recyclerViewAdapter;
 
-    public ShowWordsFragment(boolean bookmarkedMode, int refreshType, RecyclerView.OnScrollListener onScrollListener, int notebookId) {
+    public ShowWordsFragment(boolean bookmarkedMode, RecyclerView.OnScrollListener onScrollListener, int notebookId) {
         this.isBookmarkedMode = bookmarkedMode;
-        this.refreshType = refreshType;
         this.onScrollListener = onScrollListener;
         this.notebookId = notebookId;
     }
@@ -50,14 +45,14 @@ public class ShowWordsFragment extends Fragment implements WordsRecyclerViewAdap
         emptyMessageNestedScrollView = view.findViewById(R.id.nested_scroll_view_empty);
         emptyTextView = view.findViewById(R.id.tv_empty);
 
-        refreshRecyclerView(refreshType);
+        refreshRecyclerView();
 
         recyclerView.addOnScrollListener(onScrollListener);
 
         return view;
     }
 
-    public void refreshRecyclerViewInCurrentPosition(int currentPosition) {
+    public void refreshRecyclerView() {
         List<Word> words = getSuitableWordList(isBookmarkedMode);
 
         if (new WordsOpenHelper(getContext(), notebookId).getRawsCount() == 0) { //  اگر هیچ کلمه ای اضافه نشده باشد
@@ -77,47 +72,18 @@ public class ShowWordsFragment extends Fragment implements WordsRecyclerViewAdap
             return;
         }
 
-        WordsRecyclerViewAdapter adapter = new WordsRecyclerViewAdapter(
-                getContext(), words, this
-        );
-
-        recyclerView.setAdapter(adapter);
-        recyclerView.scrollToPosition(currentPosition);
+        if(recyclerViewAdapter == null){
+            recyclerViewAdapter = new WordsRecyclerViewAdapter(
+                    getContext(), words, this
+            );
+            recyclerView.setAdapter(recyclerViewAdapter);
+        }else{
+            recyclerViewAdapter.setWordList(words);
+        }
     }
 
-    public void refreshRecyclerView(int refreshType) {
-        List<Word> words = getSuitableWordList(isBookmarkedMode);
-
-        if (new WordsOpenHelper(getContext(), notebookId).getRawsCount() == 0) { //  اگر هیچ کلمه ای اضافه نشده باشد
-            recyclerView.setVisibility(View.INVISIBLE);
-            emptyTextView.changeText(R.string.no_word_was_added);
-            emptyMessageNestedScrollView.setVisibility(View.VISIBLE);
-            return;
-        } else if (recyclerView.getVisibility() == View.INVISIBLE) {
-            recyclerView.setVisibility(View.VISIBLE);
-            emptyMessageNestedScrollView.setVisibility(View.INVISIBLE);
-        }
-
-        if (words.size() == 0 && isBookmarkedMode) { // اگر کلمه ی نشان شده ای یافت نشد
-            recyclerView.setVisibility(View.INVISIBLE);
-            emptyTextView.changeText(R.string.no_bookmarked_word_was_found);
-            emptyMessageNestedScrollView.setVisibility(View.VISIBLE);
-            return;
-        }
-
-        WordsRecyclerViewAdapter adapter = new WordsRecyclerViewAdapter(
-                getContext(), words, this
-        );
-
-        recyclerView.setAdapter(adapter);
-        if (refreshType == REFRESH_TYPE_SETUP) {
-
-        } else if (refreshType == REFRESH_TYPE_END) {
-            recyclerView.scrollToPosition(recyclerView.getAdapter().getItemCount() - 1);
-        } else if (refreshType == REFRESH_TYPE_CURRENT) {
-            // TODO: 12/18/19 complete this section of code
-        }
-
+    public void addWord(Word word){
+        recyclerViewAdapter.addWord(word);
     }
 
     public void searchRefresh(String search) {
@@ -140,11 +106,8 @@ public class ShowWordsFragment extends Fragment implements WordsRecyclerViewAdap
             recyclerView.setVisibility(View.VISIBLE);
             emptyMessageNestedScrollView.setVisibility(View.INVISIBLE);
         }
-        WordsRecyclerViewAdapter adapter = new WordsRecyclerViewAdapter(
-                getContext(), words, this
-        );
 
-        recyclerView.setAdapter(adapter);
+        recyclerViewAdapter.setWordList(words);
     }
 
     private List<Word> getSuitableWordList(boolean isBookmarkedMode) {
@@ -166,31 +129,26 @@ public class ShowWordsFragment extends Fragment implements WordsRecyclerViewAdap
     }
 
     @Override
-    public void onDeleted(int position) {
-        refreshRecyclerViewInCurrentPosition(position - 1);
+    public void onBookmarked() {
+        // sending broadcast for refreshing notebooks fragment
+        ShowNoteBooksFragment.updateMeByBroadcast(getContext());
 
         // sending broadcast for refreshing bookmarkedWordFragment
-        ShowNoteBooksFragment.updateMeByBroadcast(getContext());
         BookmarkedWordsFragment.updateMebyBroadcast(getContext());
     }
 
     @Override
-    public void onBookmarkClick(Word word, int position) {
-        // TODO: 12/20/18  نمایش متن <<به لیست علاقه مندی ها افزوده شد>> و << از لیست علاقه مندی ها حذف شد>> اضافه شود
+    public void onDeleted() {
+        // sending broadcast for refreshing notebooks fragment
+        ShowNoteBooksFragment.updateMeByBroadcast(getContext());
 
         // sending broadcast for refreshing bookmarkedWordFragment
-        ShowNoteBooksFragment.updateMeByBroadcast(getContext());
         BookmarkedWordsFragment.updateMebyBroadcast(getContext());
     }
 
     @Override
-    public void onWordEdited(int position) {
-        refreshRecyclerViewInCurrentPosition(position);
-
+    public void onWordEdited() {
         // sending broadcast for refreshing bookmarkedWordFragment
         BookmarkedWordsFragment.updateMebyBroadcast(getContext());
-
     }
-
-
 }

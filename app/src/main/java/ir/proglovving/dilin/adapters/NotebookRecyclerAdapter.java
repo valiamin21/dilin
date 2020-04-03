@@ -286,9 +286,8 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<NotebookRecycl
     }
 
     public void addNotebook(Notebook notebook) {
-        notebookOpenHelper.addNotebook(notebook);
         notebookList.add(notebook);
-        notifyItemRangeInserted(notebookList.size() - 2, 1);
+        notifyItemInserted(notebookList.size() - 1);
     }
 
     public void setNotebookList(List<Notebook> notebookList) {

@@ -213,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 if (bookmarkedWordsFragment != null) {
-                    bookmarkedWordsFragment.refreshIfNeeded();
+                    bookmarkedWordsFragment.refreshIfRequired();
                 }
                 return true;
             }

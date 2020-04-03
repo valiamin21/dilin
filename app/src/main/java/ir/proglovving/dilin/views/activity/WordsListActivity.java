@@ -67,7 +67,7 @@ public class WordsListActivity extends AppCompatActivity {
         setupViews();
 
         showWordsFragment = new ShowWordsFragment(
-                false, ShowWordsFragment.REFRESH_TYPE_SETUP, getOnScrollListener(), notebookId
+                false, getOnScrollListener(), notebookId
         );
 
         getSupportFragmentManager().beginTransaction()
@@ -140,10 +140,13 @@ public class WordsListActivity extends AppCompatActivity {
                 word.setWord(wordEditText.getText().toString());
                 word.setMeaning(meaningEditText.getText().toString());
                 openHelper.addWord(word);
+
+                word.setId(openHelper.getLastID());
+                word.setNotebookId(notebookId);
+                showWordsFragment.addWord(word);
+
                 ShowNoteBooksFragment.updateMeByBroadcast(WordsListActivity.this);
 
-
-                showWordsFragment.refreshRecyclerView(ShowWordsFragment.REFRESH_TYPE_END);
                 addAndEditWordDialog.dismiss();
             }
         });

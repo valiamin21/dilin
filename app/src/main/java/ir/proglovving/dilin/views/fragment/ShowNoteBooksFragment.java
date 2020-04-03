@@ -112,6 +112,8 @@ public class ShowNoteBooksFragment extends Fragment {
     }
 
     public void addNotebook(Notebook notebook) {
+        notebookOpenHelper.addNotebook(notebook);
+        notebook.setId(notebookOpenHelper.getLastID());
         recyclerAdapter.addNotebook(notebook);
         recyclerView.smoothScrollToPosition(recyclerAdapter.getItemCount() - 1);
     }
