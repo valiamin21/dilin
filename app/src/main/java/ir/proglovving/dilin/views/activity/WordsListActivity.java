@@ -2,28 +2,35 @@ package ir.proglovving.dilin.views.activity;
 
 import android.animation.Animator;
 import android.app.Dialog;
-import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
-import androidx.core.view.MenuItemCompat;
+
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import ir.proglovving.dilin.R;
 import ir.proglovving.dilin.Utilities;
@@ -38,6 +45,9 @@ public class WordsListActivity extends AppCompatActivity {
     public static final String KEY_NOTEBOOK_ID = "notebook_id";
     public static final String KEY_NOTEBOOK_NAME = "notebook_name";
 
+    private Toolbar toolbar;
+    private ViewGroup searchBoxContainer;
+    private EditText searchEditText;
     private FloatingActionButton addFab;
     private ActionBarDrawerToggle drawerToggle;
     private FrameLayout containerFrameLayout;
@@ -84,31 +94,50 @@ public class WordsListActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_main_menu, menu);
-        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.search));
-        setupSearchView(searchView);
         return true;
     }
 
-    private void setupSearchView(final SearchView searchView) {
-        SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.search) {
+            showSearchBox();
+        }
+        return true;
+    }
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                showWordsFragment.searchRefresh(s);
-                searchView.clearFocus();
-                return true;
-            }
+    private void showSearchBox() {
+        toolbar.setVisibility(View.INVISIBLE);
 
-            @Override
-            public boolean onQueryTextChange(String s) {
-                showWordsFragment.searchRefresh(s);
-                return false;
-            }
-        });
-        searchView.setQueryHint("جست و جو کنید...");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Animator animator = ViewAnimationUtils.createCircularReveal(searchBoxContainer,
+                    searchBoxContainer.getWidth(), searchBoxContainer.getHeight(), 0,
+                    (float) Math.hypot(searchBoxContainer.getWidth(), searchBoxContainer.getHeight()));
+            animator.setDuration(550);
+            searchBoxContainer.setVisibility(View.VISIBLE);
+            animator.start();
+        } else {
+            searchBoxContainer.setVisibility(View.VISIBLE);
+        }
 
+        Utilities.showSoftKeyboard(searchEditText, this);
+    }
+
+    private void hideSearchBox() {
+        searchEditText.setText("");
+        searchBoxContainer.setVisibility(View.INVISIBLE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Animator animator = ViewAnimationUtils.createCircularReveal(toolbar,
+                    toolbar.getWidth(), toolbar.getHeight(), 0,
+                    (float) Math.hypot(toolbar.getWidth(), toolbar.getHeight()));
+            animator.setDuration(400);
+            toolbar.setVisibility(View.VISIBLE);
+            animator.start();
+        } else {
+            toolbar.setVisibility(View.VISIBLE);
+        }
+
+        Utilities.hideSoftKeyboard(searchEditText, this);
     }
 
     private void showBrowseAddWordDialog() {
@@ -128,8 +157,7 @@ public class WordsListActivity extends AppCompatActivity {
                 if (wordEditText.getText().length() == 0) {
                     wordEditText.setError(getString(R.string.no_word_was_entered_text));
                     return;
-                }
-                else if (new WordsOpenHelper(WordsListActivity.this, notebookId).
+                } else if (new WordsOpenHelper(WordsListActivity.this, notebookId).
                         isThereWord(wordEditText.getText().toString())) {
                     wordEditText.setError(getString(R.string.word_is_repeated));
                     return;
@@ -231,12 +259,43 @@ public class WordsListActivity extends AppCompatActivity {
         });
 
         setupToolbar();
+        setupSearchBox();
 
         containerFrameLayout = findViewById(R.id.container_frame_layout);
     }
 
+    private void setupSearchBox() {
+        searchBoxContainer = findViewById(R.id.search_box_container);
+        searchEditText = findViewById(R.id.ed_search);
+        ImageButton closeSearchBoxButton = findViewById(R.id.btn_search_close);
+
+        closeSearchBoxButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hideSearchBox();
+            }
+        });
+
+        searchEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                showWordsFragment.searchRefresh(editable.toString());
+            }
+        });
+    }
+
     private void setupToolbar() {
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(noteBookName);
         toolbar.setSubtitle(R.string.all_words);
         Utilities.applyFontForAViewGroup(toolbar, this);

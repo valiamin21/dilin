@@ -11,17 +11,54 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="#00000000">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:paddingBottom="@dimen/app_toolbar_bottom_padding"
             app:layout_scrollFlags="enterAlways|scroll">
 
-        </androidx.appcompat.widget.Toolbar>
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:paddingBottom="@dimen/app_toolbar_bottom_padding"
+                >
+
+            </androidx.appcompat.widget.Toolbar>
+
+            <LinearLayout
+                android:id="@+id/search_box_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/standard_margin"
+                android:gravity="center"
+                android:visibility="invisible">
+
+                <ImageButton
+                    android:id="@+id/btn_search_close"
+                    android:layout_width="@dimen/standard_icon_size"
+                    android:layout_height="@dimen/standard_icon_size"
+                    android:layout_marginStart="@dimen/standard_margin"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_action_close" />
+
+                <ir.proglovving.dilin.custom_views.CusEditText
+                    android:id="@+id/ed_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/standard_margin"
+                    android:background="@drawable/selector_toolbar_search_box_edit_text"
+                    android:hint="@string/search_word" />
+            </LinearLayout>
+
+        </FrameLayout>
+
 
     </com.google.android.material.appbar.AppBarLayout>
 
