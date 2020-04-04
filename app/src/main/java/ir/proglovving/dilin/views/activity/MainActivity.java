@@ -109,7 +109,13 @@ public class MainActivity extends AppCompatActivity {
                         MainActivity.super.onBackPressed();
                     }
                 })
-                .setNegative(getString(R.string.no_text), new View.OnClickListener() {
+                .setNegative(R.string.rate, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        rate();
+                    }
+                })
+                .setCancel(getString(R.string.no_text), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                     }
@@ -145,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
                         AppIntroActivity.start(MainActivity.this, true);
                         break;
                     case R.id.rate:
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("myket://comment?id=ir.proglovving.dilin")));
+                        rate();
                         break;
                     case R.id.other_apps:
                         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("myket://developer/ir.proglovving.dilin")));
@@ -230,6 +236,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void rate() {
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("myket://comment?id=ir.proglovving.dilin")));
     }
 
     private void hideAFragmentForBottomNavigation(@Nullable Fragment fragment, FragmentManager fm) {

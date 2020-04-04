@@ -8,90 +8,107 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class CustomDialogBuilder {
-    // TODO: 7/24/19 add cancel button in your customDialog
-    private String title;
-    private String message;
-    private String positiveText;
-    private String negativeText;
+
+    private Dialog dialog;
+
+    private TextView titleTextView;
+    private TextView messageTextView;
+    private Button positiveButton, cancelButton, negativeButton;
+
     private Context context;
-    private View.OnClickListener onPositiveClickListener;
-    private View.OnClickListener onNegativeClickListener;
 
     public CustomDialogBuilder(Context context) {
         this.context = context;
+        dialog = new Dialog(context);
+        dialog.setContentView(R.layout.custom_app_dialog);
+
+        titleTextView = dialog.findViewById(R.id.tv_cusDialog_title);
+        messageTextView = dialog.findViewById(R.id.tv_cusDialog_message);
+        positiveButton = dialog.findViewById(R.id.btn_cusDialog_positive);
+        cancelButton = dialog.findViewById(R.id.btn_cusDialog_cancel);
+        negativeButton = dialog.findViewById(R.id.btn_cusDialog_negative);
+
+        positiveButton.setVisibility(View.GONE);
+        cancelButton.setVisibility(View.GONE);
+        negativeButton.setVisibility(View.GONE);
     }
 
     public CustomDialogBuilder setTitle(String title) {
-        this.title = title;
+        titleTextView.setText(title);
         return this;
     }
 
     public CustomDialogBuilder setMessage(String message) {
-        this.message = message;
+        messageTextView.setText(message);
         return this;
     }
 
-    public CustomDialogBuilder setPositive(String positiveText, View.OnClickListener onPositiveClickListener) {
-        this.positiveText = positiveText;
-        this.onPositiveClickListener = onPositiveClickListener;
+    public CustomDialogBuilder setPositive(String positiveText, final View.OnClickListener onPositiveClickListener) {
+        positiveButton.setText(positiveText);
+        positiveButton.setVisibility(View.VISIBLE);
+        positiveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                onPositiveClickListener.onClick(view);
+            }
+        });
         return this;
     }
 
-    public CustomDialogBuilder setNegative(String negativeText, View.OnClickListener onNegativeClickListener) {
-        this.negativeText = negativeText;
-        this.onNegativeClickListener = onNegativeClickListener;
+    public CustomDialogBuilder setCancel(String cancelText, final View.OnClickListener onCancelClickListener){
+        cancelButton.setText(cancelText);
+        cancelButton.setVisibility(View.VISIBLE);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                onCancelClickListener.onClick(view);
+            }
+        });
+        return this;
+    }
+
+    public CustomDialogBuilder setNegative(String negativeText, final View.OnClickListener onNegativeClickListener) {
+        negativeButton.setText(negativeText);
+        negativeButton.setVisibility(View.VISIBLE);
+        negativeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                onNegativeClickListener.onClick(view);
+            }
+        });
         return this;
     }
 
 
     public CustomDialogBuilder setTitle(@StringRes int titleId) {
-        this.title = context.getString(titleId);
+        titleTextView.setText(context.getString(titleId));
         return this;
     }
 
     public CustomDialogBuilder setMessage(@StringRes int messageId) {
-        this.message = context.getString(messageId);
+        messageTextView.setText(context.getString(messageId));
         return this;
     }
 
     public CustomDialogBuilder setPositive(@StringRes int positiveTextId, View.OnClickListener onPositiveClickListener) {
-        this.positiveText = context.getString(positiveTextId);
-        this.onPositiveClickListener = onPositiveClickListener;
+        setPositive(context.getString(positiveTextId),onPositiveClickListener);
+        return this;
+    }
+
+    public CustomDialogBuilder setCancel(@StringRes int cancelTextId, View.OnClickListener onClickListener){
+        setCancel(context.getString(cancelTextId),onClickListener);
         return this;
     }
 
     public CustomDialogBuilder setNegative(@StringRes int negativeTextId, View.OnClickListener onNegativeClickListener) {
-        this.negativeText = context.getString(negativeTextId);
-        this.onNegativeClickListener = onNegativeClickListener;
+        setNegative(context.getString(negativeTextId),onNegativeClickListener);
         return this;
     }
 
     public Dialog create() {
-        final Dialog dialog = new Dialog(context);
-        dialog.setContentView(R.layout.custom_app_dialog);
-        ((TextView) dialog.findViewById(R.id.tv_cusDialog_title)).setText(title);
-        ((TextView) dialog.findViewById(R.id.tv_cusDialog_message)).setText(message);
-
-        // TODO: 7/24/19 modify onclick events for positive and negative button. current code is so hopeless D:
-
-        ((Button) dialog.findViewById(R.id.btn_cusDialog_positive)).setText(positiveText);
-        dialog.findViewById(R.id.btn_cusDialog_positive).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-                onPositiveClickListener.onClick(v);
-            }
-        });
-
-        ((Button) dialog.findViewById(R.id.btn_cusDialog_negative)).setText(negativeText);
-        dialog.findViewById(R.id.btn_cusDialog_negative).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-                onNegativeClickListener.onClick(v);
-            }
-        });
-
         return dialog;
     }
 }

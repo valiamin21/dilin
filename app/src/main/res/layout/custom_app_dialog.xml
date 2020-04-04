@@ -32,29 +32,40 @@
         android:layoutDirection="rtl"
         android:orientation="horizontal"
         android:layout_marginTop="@dimen/standard_margin_x2"
-        android:paddingLeft="@dimen/standard_margin_x3">
+        android:paddingLeft="@dimen/standard_margin">
 
         <ir.proglovving.dilin.custom_views.CusButton
             android:id="@+id/btn_cusDialog_positive"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/standard_margin_x3"
+            android:layout_marginRight="@dimen/standard_margin"
             android:layout_weight="1"
             android:background="?attr/selectableItemBackground"
             android:textSize="@dimen/standard_font_size_small"
             tools:text="@string/verify_text"
-            android:textColor="@color/colorAccent"/>
+            android:textColor="@color/colorAccent" />
+
+        <ir.proglovving.dilin.custom_views.CusButton
+            android:id="@+id/btn_cusDialog_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/standard_margin"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackground"
+            android:textSize="@dimen/standard_font_size_small"
+            tools:text="@string/cancel_text"
+            android:textColor="@color/colorAccent" />
 
         <ir.proglovving.dilin.custom_views.CusButton
             android:id="@+id/btn_cusDialog_negative"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/standard_margin_x3"
+            android:layout_marginRight="@dimen/standard_margin"
             android:layout_weight="1"
             android:background="?attr/selectableItemBackground"
             android:textSize="@dimen/standard_font_size_small"
             tools:text="@string/cancel_text"
-            android:textColor="@color/colorAccent"/>
+            android:textColor="@color/colorAccent" />
 
     </LinearLayout>
 
