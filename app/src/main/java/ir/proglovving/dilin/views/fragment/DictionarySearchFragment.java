@@ -56,7 +56,7 @@ public class DictionarySearchFragment extends Fragment implements View.OnClickLi
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dictionaryOpenHelper = new DictionaryOpenHelper(getContext());
+        dictionaryOpenHelper = DictionaryOpenHelper.getInstance(getContext());
     }
 
     @Override

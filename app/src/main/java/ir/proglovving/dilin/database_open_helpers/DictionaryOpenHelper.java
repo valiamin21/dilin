@@ -5,6 +5,7 @@ import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -41,18 +42,45 @@ public class DictionaryOpenHelper extends SQLiteOpenHelper {
     private static final String[] f5TableLetters = new String[]{"ک", "گ", "ل", "م"};
     private static final String[] f6TableLetters = new String[]{"ن", "و", "ه", "ی"};
 
-    private AssetManager assets;
-    private String databaseDir;
+    private static DictionaryOpenHelper instance;
 
+    public static DictionaryOpenHelper getInstance(Context context){
+        if(instance == null){
+            if(!checkDatabase(context)){
+                try {
+                    copyDatabase(context);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Toast.makeText(context, "problem in copying dictionary database!", Toast.LENGTH_SHORT).show();
+                }
+            }
 
-    public DictionaryOpenHelper(Context context) {
+            instance = new DictionaryOpenHelper(context);
+        }
+        return instance;
+    }
+
+    private static boolean checkDatabase(Context context) {
+        return context.getDatabasePath(DATABASE_NAME).exists();
+    }
+
+    private static void copyDatabase(Context context) throws IOException {
+        InputStream inputStream = context.getAssets().open("databases/" + DATABASE_NAME);
+        FileOutputStream outputStream = new FileOutputStream(context.getDatabasePath(DATABASE_NAME));
+
+        byte[] buffer = new byte[8 * 1024];
+        int readed;
+        while ((readed = inputStream.read(buffer)) != -1) {
+            outputStream.write(buffer, 0, readed);
+        }
+
+        outputStream.flush();
+        outputStream.close();
+        inputStream.close();
+    }
+
+    private DictionaryOpenHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-
-        assets = context.getAssets();
-        databaseDir = context.getApplicationInfo().dataDir + "/databases/";
-
-        File file = new File(databaseDir);
-        if (!file.exists()) file.mkdir();
     }
 
     @Override
@@ -62,21 +90,7 @@ public class DictionaryOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        copyDatabase();
-    }
 
-    @Override
-    public SQLiteDatabase getWritableDatabase() {
-        if (!isDatabaseExist())
-            copyDatabase();
-        return super.getWritableDatabase();
-    }
-
-    @Override
-    public SQLiteDatabase getReadableDatabase() {
-        if (!isDatabaseExist())
-            copyDatabase();
-        return super.getReadableDatabase();
     }
 
     public List<DictionaryWord> getDictionaryWordList(String searchText, OnIterationListener onIterationListener) {
@@ -153,34 +167,6 @@ public class DictionaryOpenHelper extends SQLiteOpenHelper {
         }
 
         return null;
-    }
-
-    private boolean isDatabaseExist() {
-        return new File(databaseDir + DATABASE_NAME).exists();
-    }
-
-    private void copyDatabase() {
-        try {
-            InputStream inputStream = assets.open("databases/" + DATABASE_NAME);
-
-            FileOutputStream outputStream = new FileOutputStream(databaseDir + DATABASE_NAME);
-
-            byte[] buffer = new byte[8 * 1024];
-
-            int readed;
-            while ((readed = inputStream.read(buffer)) != -1) {
-                outputStream.write(buffer, 0, readed);
-            }
-
-            outputStream.flush();
-
-            outputStream.close();
-            inputStream.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
     }
 
     public interface OnIterationListener {
