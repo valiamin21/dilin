@@ -123,18 +123,18 @@ public class BookmarkedWordsFragment extends Fragment implements WordsRecyclerVi
 
     @Override
     public void onBookmarked() {
-        ShowNoteBooksFragment.updateMeByBroadcast(getContext());
+        NotebookListFragment.updateMeByBroadcast(getContext());
         setRefreshRequirement(true);
     }
 
     @Override
     public void onDeleted() {
-        ShowNoteBooksFragment.updateMeByBroadcast(getContext());
+        NotebookListFragment.updateMeByBroadcast(getContext());
     }
 
     @Override
     public void onWordEdited() {
-        ShowNoteBooksFragment.updateMeByBroadcast(getContext());
+        NotebookListFragment.updateMeByBroadcast(getContext());
     }
 
     public class BookmarksReceiver extends BroadcastReceiver {

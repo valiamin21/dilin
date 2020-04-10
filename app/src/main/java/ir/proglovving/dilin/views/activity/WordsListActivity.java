@@ -36,8 +36,8 @@ import ir.proglovving.dilin.Utilities;
 import ir.proglovving.dilin.custom_views.ToolTip;
 import ir.proglovving.dilin.data_model.Word;
 import ir.proglovving.dilin.database_open_helpers.WordsOpenHelper;
-import ir.proglovving.dilin.views.fragment.ShowNoteBooksFragment;
-import ir.proglovving.dilin.views.fragment.ShowWordsFragment;
+import ir.proglovving.dilin.views.fragment.NotebookListFragment;
+import ir.proglovving.dilin.views.fragment.WordListFragment;
 
 public class WordsListActivity extends AppCompatActivity {
 
@@ -51,7 +51,7 @@ public class WordsListActivity extends AppCompatActivity {
     private ActionBarDrawerToggle drawerToggle;
     private FrameLayout containerFrameLayout;
 
-    private ShowWordsFragment showWordsFragment;
+    private WordListFragment wordListFragment;
 
     private Dialog addAndEditWordDialog;
     Button verifyButton, cancelButton;
@@ -66,7 +66,7 @@ public class WordsListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_words_list);
+        setContentView(R.layout.activity_words_list);
 
         Intent intent = getIntent();
         noteBookName = intent.getStringExtra(KEY_NOTEBOOK_NAME);
@@ -75,12 +75,12 @@ public class WordsListActivity extends AppCompatActivity {
 
         setupViews();
 
-        showWordsFragment = new ShowWordsFragment(
+        wordListFragment = new WordListFragment(
                 false, getOnScrollListener(), notebookId
         );
 
         getSupportFragmentManager().beginTransaction()
-                .add(containerFrameLayout.getId(), showWordsFragment)
+                .add(containerFrameLayout.getId(), wordListFragment)
                 .commit();
     }
 
@@ -170,9 +170,9 @@ public class WordsListActivity extends AppCompatActivity {
 
                 word.setId(openHelper.getLastID());
                 word.setNotebookId(notebookId);
-                showWordsFragment.addWord(word);
+                wordListFragment.addWord(word);
 
-                ShowNoteBooksFragment.updateMeByBroadcast(WordsListActivity.this);
+                NotebookListFragment.updateMeByBroadcast(WordsListActivity.this);
 
                 addAndEditWordDialog.dismiss();
             }
@@ -288,7 +288,7 @@ public class WordsListActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                showWordsFragment.searchRefresh(editable.toString());
+                wordListFragment.searchRefresh(editable.toString());
             }
         });
     }

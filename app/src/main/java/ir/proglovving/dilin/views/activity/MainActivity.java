@@ -34,14 +34,14 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import ir.proglovving.dilin.BuildConfig;
-import ir.proglovving.dilin.CustomDialogBuilder;
+import ir.proglovving.dilin.custom_views.CustomDialogBuilder;
 import ir.proglovving.dilin.R;
 import ir.proglovving.dilin.Utilities;
 import ir.proglovving.dilin.custom_views.ToolTip;
 import ir.proglovving.dilin.database_open_helpers.NotebookOpenHelper;
 import ir.proglovving.dilin.views.fragment.BookmarkedWordsFragment;
-import ir.proglovving.dilin.views.fragment.DictionarySearchFragment;
-import ir.proglovving.dilin.views.fragment.ShowNoteBooksFragment;
+import ir.proglovving.dilin.views.fragment.DictionaryFragment;
+import ir.proglovving.dilin.views.fragment.NotebookListFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -53,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
     private FrameLayout containerFrameLayout;
     private BottomNavigationView bottomNavigationView;
 
-    private ShowNoteBooksFragment showNoteBooksFragment;
-    private DictionarySearchFragment dictionarySearchFragment;
+    private NotebookListFragment notebookListFragment;
+    private DictionaryFragment dictionaryFragment;
     private BookmarkedWordsFragment bookmarkedWordsFragment;
 
     private NotebookOpenHelper notebookOpenHelper;
@@ -69,10 +69,10 @@ public class MainActivity extends AppCompatActivity {
         Utilities.setupExitTransition(this);
 
         notebookOpenHelper = new NotebookOpenHelper(this);
-        showNoteBooksFragment = new ShowNoteBooksFragment(notebookOpenHelper, coordinatorLayout, (FloatingActionButton) findViewById(R.id.fab_add));
+        notebookListFragment = new NotebookListFragment(notebookOpenHelper, coordinatorLayout, (FloatingActionButton) findViewById(R.id.fab_add));
 
         getSupportFragmentManager().beginTransaction()
-                .add(containerFrameLayout.getId(), showNoteBooksFragment)
+                .add(containerFrameLayout.getId(), notebookListFragment)
                 .commit();
     }
 
@@ -194,13 +194,13 @@ public class MainActivity extends AppCompatActivity {
                     fabAddNotebook.hide();
                 }
 
-                hideAFragmentForBottomNavigation(dictionarySearchFragment, getSupportFragmentManager());
-                hideAFragmentForBottomNavigation(showNoteBooksFragment, getSupportFragmentManager());
+                hideAFragmentForBottomNavigation(dictionaryFragment, getSupportFragmentManager());
+                hideAFragmentForBottomNavigation(notebookListFragment, getSupportFragmentManager());
                 hideAFragmentForBottomNavigation(bookmarkedWordsFragment, getSupportFragmentManager());
 
                 switch (menuItem.getItemId()) {
                     case R.id.notebooks:
-                        getSupportFragmentManager().beginTransaction().show(showNoteBooksFragment).commit();
+                        getSupportFragmentManager().beginTransaction().show(notebookListFragment).commit();
                         break;
                     case R.id.bookmark:
                         if (bookmarkedWordsFragment == null) {
@@ -210,11 +210,11 @@ public class MainActivity extends AppCompatActivity {
                         getSupportFragmentManager().beginTransaction().show(bookmarkedWordsFragment).commit();
                         break;
                     case R.id.dictionary:
-                        if (dictionarySearchFragment == null) {
-                            dictionarySearchFragment = DictionarySearchFragment.newInstance();
-                            getSupportFragmentManager().beginTransaction().add(containerFrameLayout.getId(), dictionarySearchFragment).commit();
+                        if (dictionaryFragment == null) {
+                            dictionaryFragment = DictionaryFragment.newInstance();
+                            getSupportFragmentManager().beginTransaction().add(containerFrameLayout.getId(), dictionaryFragment).commit();
                         }
-                        getSupportFragmentManager().beginTransaction().show(dictionarySearchFragment).commit();
+                        getSupportFragmentManager().beginTransaction().show(dictionaryFragment).commit();
                         break;
                 }
 

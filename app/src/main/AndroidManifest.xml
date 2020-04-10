@@ -39,7 +39,7 @@
             android:name=".views.activity.AboutProgrammerActivity"
             android:screenOrientation="portrait" />
 
-        <receiver android:name=".widgets.ShowWordsWidget">
+        <receiver android:name=".widgets.WordsWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -49,7 +49,7 @@
                 android:resource="@xml/show_words_widget_info" />
         </receiver>
         <receiver android:name=".views.fragment.BookmarkedWordsFragment$BookmarksReceiver" />
-        <receiver android:name=".views.fragment.ShowNoteBooksFragment$UpdateNotebooksBroadcast" />
+        <receiver android:name=".views.fragment.NotebookListFragment$UpdateNotebooksBroadcast" />
     </application>
 
 </manifest>

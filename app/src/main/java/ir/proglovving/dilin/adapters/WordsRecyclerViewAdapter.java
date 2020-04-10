@@ -21,11 +21,10 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import ir.proglovving.dilin.CustomDialogBuilder;
+import ir.proglovving.dilin.custom_views.CustomDialogBuilder;
 import ir.proglovving.dilin.MyApplication;
 import ir.proglovving.dilin.R;
 import ir.proglovving.dilin.custom_views.ToolTip;

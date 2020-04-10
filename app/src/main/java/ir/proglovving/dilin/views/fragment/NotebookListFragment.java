@@ -40,7 +40,7 @@ import ir.proglovving.dilin.data_model.Notebook;
 import ir.proglovving.dilin.database_open_helpers.NotebookOpenHelper;
 
 @SuppressLint("ValidFragment")
-public class ShowNoteBooksFragment extends Fragment {
+public class NotebookListFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private MotionableTextView emptyTextView;
@@ -59,7 +59,7 @@ public class ShowNoteBooksFragment extends Fragment {
         context.sendBroadcast(new Intent("ir.proglovving.dilin.updateNotebooksBroadcast"));
     }
 
-    public ShowNoteBooksFragment(NotebookOpenHelper notebookOpenHelper, CoordinatorLayout coordinatorLayout, FloatingActionButton addFab) {
+    public NotebookListFragment(NotebookOpenHelper notebookOpenHelper, CoordinatorLayout coordinatorLayout, FloatingActionButton addFab) {
         this.notebookOpenHelper = notebookOpenHelper;
         this.coordinatorLayout = coordinatorLayout;
         this.fabAddNotebook = addFab;
@@ -71,7 +71,7 @@ public class ShowNoteBooksFragment extends Fragment {
         updateNotebooksReceiver = new UpdateNotebooksBroadcast();
         getContext().registerReceiver(updateNotebooksReceiver, new IntentFilter("ir.proglovving.dilin.updateNotebooksBroadcast"));
 
-        final View view = inflater.inflate(R.layout.fragment_show_notebooks, container, false);
+        final View view = inflater.inflate(R.layout.fragment_notebook_list, container, false);
         recyclerView = view.findViewById(R.id.recycler_view);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {

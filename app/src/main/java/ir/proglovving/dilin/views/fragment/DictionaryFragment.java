@@ -19,7 +19,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -30,7 +29,7 @@ import ir.proglovving.dilin.custom_views.ToolTip;
 import ir.proglovving.dilin.data_model.DictionaryWord;
 import ir.proglovving.dilin.database_open_helpers.DictionaryOpenHelper;
 
-public class DictionarySearchFragment extends Fragment implements View.OnClickListener, View.OnLongClickListener {
+public class DictionaryFragment extends Fragment implements View.OnClickListener, View.OnLongClickListener {
 
     private View toolbarView;
     private ImageButton eraseButton, searchButton;
@@ -46,12 +45,12 @@ public class DictionarySearchFragment extends Fragment implements View.OnClickLi
 
     private int recyclerViewPaddingTop;
 
-    public DictionarySearchFragment() {
+    public DictionaryFragment() {
         // Required empty public constructor
     }
 
-    public static DictionarySearchFragment newInstance() {
-        return new DictionarySearchFragment();
+    public static DictionaryFragment newInstance() {
+        return new DictionaryFragment();
     }
 
     @Override
@@ -63,7 +62,7 @@ public class DictionarySearchFragment extends Fragment implements View.OnClickLi
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View fragmentView = inflater.inflate(R.layout.fragment_dictionary_search, container, false);
+        View fragmentView = inflater.inflate(R.layout.fragment_dictionary, container, false);
         setupViews(fragmentView);
 
         searchEditText.addTextChangedListener(new TextWatcher() {

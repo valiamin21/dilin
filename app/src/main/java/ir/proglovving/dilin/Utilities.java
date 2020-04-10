@@ -22,7 +22,7 @@ import android.widget.TextView;
 
 import ir.proglovving.dilin.views.activity.MainActivity;
 import ir.proglovving.dilin.views.activity.SplashActivity;
-import ir.proglovving.dilin.widgets.ShowWordsWidget;
+import ir.proglovving.dilin.widgets.WordsWidget;
 
 public class Utilities {
     // TODO: 2/5/19 متد های کاربردی پر تکرار در این کلاس نوشته شود(به صورت استاتیک)ـ
@@ -107,12 +107,12 @@ public class Utilities {
     }
 
     public static void updateShowWordsWidget(Context context) {
-        Intent intent = new Intent(context, ShowWordsWidget.class);
+        Intent intent = new Intent(context, WordsWidget.class);
         intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
         // Use an array and EXTRA_APPWIDGET_IDS instead of AppWidgetManager.EXTRA_APPWIDGET_ID,
         // since it seems the onUpdate() is only fired on that:
         int[] ids = AppWidgetManager.getInstance(context)
-                .getAppWidgetIds(new ComponentName(context, ShowWordsWidget.class));
+                .getAppWidgetIds(new ComponentName(context, WordsWidget.class));
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
         context.sendBroadcast(intent);
     }

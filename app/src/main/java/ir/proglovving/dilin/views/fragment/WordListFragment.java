@@ -23,7 +23,7 @@ import ir.proglovving.dilin.data_model.Word;
 import ir.proglovving.dilin.database_open_helpers.WordsOpenHelper;
 
 @SuppressLint("ValidFragment")
-public class ShowWordsFragment extends Fragment implements WordsRecyclerViewAdapter.WordsRecyclerViewEvent {
+public class WordListFragment extends Fragment implements WordsRecyclerViewAdapter.WordsRecyclerViewEvent {
 
     private RecyclerView recyclerView;
     private NestedScrollView emptyMessageNestedScrollView;
@@ -33,7 +33,7 @@ public class ShowWordsFragment extends Fragment implements WordsRecyclerViewAdap
     private int notebookId;
     private WordsRecyclerViewAdapter recyclerViewAdapter;
 
-    public ShowWordsFragment(boolean bookmarkedMode, RecyclerView.OnScrollListener onScrollListener, int notebookId) {
+    public WordListFragment(boolean bookmarkedMode, RecyclerView.OnScrollListener onScrollListener, int notebookId) {
         this.isBookmarkedMode = bookmarkedMode;
         this.onScrollListener = onScrollListener;
         this.notebookId = notebookId;
@@ -42,7 +42,7 @@ public class ShowWordsFragment extends Fragment implements WordsRecyclerViewAdap
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_show_words, container, false);
+        View view = inflater.inflate(R.layout.fragment_word_list, container, false);
         recyclerView = view.findViewById(R.id.recycler_view);
         emptyMessageNestedScrollView = view.findViewById(R.id.nested_scroll_view_empty);
         emptyTextView = view.findViewById(R.id.tv_empty);
@@ -140,7 +140,7 @@ public class ShowWordsFragment extends Fragment implements WordsRecyclerViewAdap
     @Override
     public void onBookmarked() {
         // sending broadcast for refreshing notebooks fragment
-        ShowNoteBooksFragment.updateMeByBroadcast(getContext());
+        NotebookListFragment.updateMeByBroadcast(getContext());
 
         // sending broadcast for refreshing bookmarkedWordFragment
         BookmarkedWordsFragment.updateMebyBroadcast(getContext());
@@ -149,7 +149,7 @@ public class ShowWordsFragment extends Fragment implements WordsRecyclerViewAdap
     @Override
     public void onDeleted() {
         // sending broadcast for refreshing notebooks fragment
-        ShowNoteBooksFragment.updateMeByBroadcast(getContext());
+        NotebookListFragment.updateMeByBroadcast(getContext());
 
         // sending broadcast for refreshing bookmarkedWordFragment
         BookmarkedWordsFragment.updateMebyBroadcast(getContext());

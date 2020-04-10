@@ -9,7 +9,7 @@ import ir.proglovving.dilin.R;
 import ir.proglovving.dilin.RandomPlayingWord;
 import ir.proglovving.dilin.data_model.Word;
 
-public class ShowWordsWidget extends AppWidgetProvider {
+public class WordsWidget extends AppWidgetProvider {
 
 
     public static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,

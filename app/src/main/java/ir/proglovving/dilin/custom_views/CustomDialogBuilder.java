@@ -1,4 +1,4 @@
-package ir.proglovving.dilin;
+package ir.proglovving.dilin.custom_views;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -6,6 +6,8 @@ import androidx.annotation.StringRes;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import ir.proglovving.dilin.R;
 
 public class CustomDialogBuilder {
 

@@ -30,7 +30,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import ir.proglovving.dilin.CustomDialogBuilder;
+import ir.proglovving.dilin.custom_views.CustomDialogBuilder;
 import ir.proglovving.dilin.R;
 import ir.proglovving.dilin.Utilities;
 import ir.proglovving.dilin.custom_views.ToolTip;
