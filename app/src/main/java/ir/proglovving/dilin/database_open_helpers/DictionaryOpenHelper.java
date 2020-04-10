@@ -1,13 +1,11 @@
 package ir.proglovving.dilin.database_open_helpers;
 
 import android.content.Context;
-import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,8 +22,8 @@ public class DictionaryOpenHelper extends SQLiteOpenHelper {
 
     private static final String COL_EN = "en";
     private static final String COL_FA = "fa";
-    private static final int LIMIT_COUNT = 140;
-
+    private static final int FIRST_LIMIT_COUNT = 50;
+    private static final int SECOND_LIMIT_COUNT = 100;
 
     private static final String[] e1TableLetters = new String[]{"a", "b"};
     private static final String[] e2TableLetters = new String[]{"c", "d"};
@@ -44,9 +42,9 @@ public class DictionaryOpenHelper extends SQLiteOpenHelper {
 
     private static DictionaryOpenHelper instance;
 
-    public static DictionaryOpenHelper getInstance(Context context){
-        if(instance == null){
-            if(!checkDatabase(context)){
+    public static DictionaryOpenHelper getInstance(Context context) {
+        if (instance == null) {
+            if (!checkDatabase(context)) {
                 try {
                     copyDatabase(context);
                 } catch (IOException e) {
@@ -96,22 +94,23 @@ public class DictionaryOpenHelper extends SQLiteOpenHelper {
     public List<DictionaryWord> getDictionaryWordList(String searchText, OnIterationListener onIterationListener) {
         searchText = searchText.toLowerCase(); // for better searching regardless of uppercase and lowercase of words
 
-        List<DictionaryWord> dictionaryWordList = new ArrayList<>();
+        List<DictionaryWord> firstWordList = new ArrayList<>(); // for words that contain searchText at first characters
+        List<DictionaryWord> secondWordList = new ArrayList<>(); // for words that contain searchText but not at first characters
         DictionaryWord dictionaryWord;
 
-        if (searchText.length() == 0) return dictionaryWordList;
+        if (searchText.length() == 0) return secondWordList;
         String tableName = getSuitableTableName(searchText.substring(0, 1));
-        if (tableName == null) return dictionaryWordList;
+        if (tableName == null) return secondWordList;
 
-        SQLiteDatabase readableSqlite = getReadableDatabase();
-        Cursor cursor = readableSqlite.rawQuery("SELECT * FROM " + tableName, null);
+        SQLiteDatabase readableSQLite = getReadableDatabase();
+        Cursor cursor = readableSQLite.rawQuery("SELECT * FROM " + tableName, null);
 
         if (cursor.moveToFirst()) {
-            int counter = 0;
             do {
-                if (onIterationListener.onIterated()) {
+                if (onIterationListener.onInterrupted()) {
                     return null;
                 }
+
                 if (cursor.getString(cursor.getColumnIndex(COL_EN)).toLowerCase().contains(searchText)) {
                     dictionaryWord = new DictionaryWord();
                     dictionaryWord.setWord(
@@ -122,18 +121,24 @@ public class DictionaryOpenHelper extends SQLiteOpenHelper {
                                     .replace("<BR>", "\n").replace("~", " ")
                     );
 
-                    dictionaryWordList.add(dictionaryWord);
+                    if (dictionaryWord.getWord().substring(0, searchText.length()).equals(searchText)) {
+                        firstWordList.add(dictionaryWord);
+                    } else {
+                        secondWordList.add(dictionaryWord);
+                    }
 
-                    if (counter > LIMIT_COUNT) break;
-                    counter++;
+                    if ((firstWordList.size() > FIRST_LIMIT_COUNT && secondWordList.size() > SECOND_LIMIT_COUNT)) {
+                        break;
+                    }
                 }
             } while (cursor.moveToNext());
         }
 
         cursor.close();
-        readableSqlite.close();
+        readableSQLite.close();
 
-        return dictionaryWordList;
+        firstWordList.addAll(secondWordList);
+        return firstWordList;
     }
 
     private String getSuitableTableName(String letter) {
@@ -170,6 +175,6 @@ public class DictionaryOpenHelper extends SQLiteOpenHelper {
     }
 
     public interface OnIterationListener {
-        boolean onIterated();
+        boolean onInterrupted();
     }
 }

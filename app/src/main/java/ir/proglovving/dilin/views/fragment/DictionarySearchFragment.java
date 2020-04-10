@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -180,7 +181,7 @@ public class DictionarySearchFragment extends Fragment implements View.OnClickLi
         private DictionaryOpenHelper.OnIterationListener onIterationListener =
                 new DictionaryOpenHelper.OnIterationListener() {
                     @Override
-                    public boolean onIterated() {
+                    public boolean onInterrupted() {
                         return isInterrupted;
                     }
                 };
@@ -216,6 +217,7 @@ public class DictionarySearchFragment extends Fragment implements View.OnClickLi
                         recyclerView.setAdapter(recyclerAdapter);
                     } else {
                         recyclerAdapter.setDictionaryWordList(dictionaryWordList);
+                        recyclerView.scrollToPosition(0);
                     }
                     progressBar.setVisibility(View.INVISIBLE);
                 }
