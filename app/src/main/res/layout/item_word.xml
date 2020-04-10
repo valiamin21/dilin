@@ -121,7 +121,7 @@
 
         <ir.proglovving.dilin.custom_views.CusTextView
             android:id="@+id/txt_word"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/standard_margin"
             android:layout_marginRight="@dimen/standard_margin"
@@ -132,9 +132,8 @@
 
         <ir.proglovving.dilin.custom_views.CusTextView
             android:id="@+id/txt_meaning"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
             android:layout_marginBottom="@dimen/standard_margin"
             android:paddingLeft="@dimen/standard_margin_x2_5"
             android:paddingRight="@dimen/standard_margin_x2_5"
