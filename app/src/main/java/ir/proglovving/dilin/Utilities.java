@@ -25,7 +25,6 @@ import ir.proglovving.dilin.views.activity.SplashActivity;
 import ir.proglovving.dilin.widgets.WordsWidget;
 
 public class Utilities {
-    // TODO: 2/5/19 متد های کاربردی پر تکرار در این کلاس نوشته شود(به صورت استاتیک)ـ
 
     public static String convertNumberToPersian(int input) {
         return String.valueOf(input)
@@ -73,7 +72,6 @@ public class Utilities {
         }
     }
 
-    // TODO: 7/24/19 بررسی استفاده ی این متد
     public static void applyFontForAViewGroup(ViewGroup viewGroup, Activity context) {
         View view;
         for (int i = 0; i < viewGroup.getChildCount(); i++) {
@@ -91,7 +89,6 @@ public class Utilities {
         for (int i = 0; i < toolbar.getChildCount(); i++) {
             view = toolbar.getChildAt(i);
             if (view instanceof TextView) {
-                // TODO: 7/24/19 chante getApplicationContext to getApplication in other places like below
                 ((TextView) view).setTypeface(getAppTypeFace(context)
                 );
             }

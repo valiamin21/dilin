@@ -19,23 +19,16 @@ public class MyApplication extends Application {
 
     // TODO: 3/1/20 prevent adding a word from dictionary to notebook if the word already existed in notebook
     // TODO: 9/7/19 replacing landscape images with abstract images
-    // TODO: 7/20/19 bug fix: اصلاح بخش جست و جو. زمانی که کاربر در بین کلمات سرچ می کند و در همانجا کلمه ای را ویرایش می کند مشکل ایجاد می شود.
     // TODO: 8/2/19 modify motionable textView
-    // TODO: 7/24/19 اضافه کردن قابلیت تغییر نام دفترها
     // TODO: 8/10/19 modifying fragments of dilin(best practice)
-    // TODO: 12/18/19 making a custom recyclerView for app that saves last position
     // TODO: 8/5/19 علی بدیعی: در کل نباید اسم برنامه‌رو مستقیم بنویسی(توی صفحه‌ی اسپلش) بهتره که با یه فونت قشنگ بنویسی* عکس بگیری* بعد بچسبونی رو عکس والپیپر
     // TODO: 8/2/19 modifying text color of dialogs
-    // TODO: 7/28/19  Color of app decreasing transparency of toolbar
-    // TODO: 7/28/19  Changing icon colors
-    // TODO: 7/28/19 دوزبانه کردن برنامه
+    // TODO: 7/28/19  Making app multi language
     // TODO: 7/28/19  Putting listView in dilin widget
     // TODO: 7/28/19  Using notification for reviewing words
     // TODO: 7/28/19  Using notification for reminding user to review his/her words
     // TODO: 7/27/19 modifying transitions of app (between activities or inside activities)
     // TODO: 7/24/19 modifying toolbars height because subtitles are overflowed
-    // TODO: 7/24/19 قرار دادن قابلیت دکمه‌ی کنسل در customDialog
-    // TODO: 7/24/19 اصلاح صفحه‌ی کمک مالی
     // TODO: 7/24/19 اصلاح و سبک‌تر کردن آیتم‌های ریسایکلرویوها، همچنین قرار دادن پیجینیشن در ریسایکلرویوها
     // TODO: 7/19/19 making custom toast for this app
     // TODO: 7/24/19 modify transitions between activities of app
