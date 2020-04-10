@@ -30,7 +30,6 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import ir.proglovving.dilin.R;
 import ir.proglovving.dilin.Utilities;

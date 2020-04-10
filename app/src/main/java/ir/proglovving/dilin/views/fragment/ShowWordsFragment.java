@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,13 +60,6 @@ public class ShowWordsFragment extends Fragment implements WordsRecyclerViewAdap
         if (recyclerViewAdapter == null) {
             recyclerViewAdapter = new WordsRecyclerViewAdapter(getContext(), words, this);
             recyclerViewAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
-                @Override
-                public void onItemRangeChanged(int positionStart, int itemCount) {
-                    super.onItemRangeChanged(positionStart, itemCount);
-                    Toast.makeText(getContext(), "item range changed " + itemCount, Toast.LENGTH_SHORT).show();
-                }
-
-
                 @Override
                 public void onItemRangeInserted(int positionStart, int itemCount) {
                     super.onItemRangeInserted(positionStart, itemCount);
