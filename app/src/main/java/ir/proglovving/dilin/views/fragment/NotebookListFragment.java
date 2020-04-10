@@ -47,7 +47,7 @@ public class NotebookListFragment extends Fragment {
     private FloatingActionButton fabAddNotebook;
     private CoordinatorLayout coordinatorLayout;
 
-    View favoritePickerView;
+    private View favoritePickerView;
     private SwitchCompat favoriteSwitchButton;
 
     private NotebookOpenHelper notebookOpenHelper;
@@ -57,6 +57,15 @@ public class NotebookListFragment extends Fragment {
 
     public static void updateMeByBroadcast(Context context) {
         context.sendBroadcast(new Intent("ir.proglovving.dilin.updateNotebooksBroadcast"));
+    }
+
+    private static NotebookListFragment instance;
+
+    public static NotebookListFragment getInstance(NotebookOpenHelper notebookOpenHelper, CoordinatorLayout coordinatorLayout, FloatingActionButton addFab){
+        if(instance == null){
+            instance = new NotebookListFragment(notebookOpenHelper,coordinatorLayout,addFab);
+        }
+        return instance;
     }
 
     public NotebookListFragment(NotebookOpenHelper notebookOpenHelper, CoordinatorLayout coordinatorLayout, FloatingActionButton addFab) {

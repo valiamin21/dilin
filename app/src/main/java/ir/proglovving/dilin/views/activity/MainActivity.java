@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         Utilities.setupExitTransition(this);
 
         notebookOpenHelper = new NotebookOpenHelper(this);
-        notebookListFragment = new NotebookListFragment(notebookOpenHelper, coordinatorLayout, (FloatingActionButton) findViewById(R.id.fab_add));
+        notebookListFragment = NotebookListFragment.getInstance(notebookOpenHelper,coordinatorLayout,(FloatingActionButton) findViewById(R.id.fab_add));
 
         getSupportFragmentManager().beginTransaction()
                 .add(containerFrameLayout.getId(), notebookListFragment)

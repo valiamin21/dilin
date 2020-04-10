@@ -75,9 +75,7 @@ public class WordsListActivity extends AppCompatActivity {
 
         setupViews();
 
-        wordListFragment = new WordListFragment(
-                false, getOnScrollListener(), notebookId
-        );
+        wordListFragment = WordListFragment.getInstance(false,getOnScrollListener(),notebookId);
 
         getSupportFragmentManager().beginTransaction()
                 .add(containerFrameLayout.getId(), wordListFragment)

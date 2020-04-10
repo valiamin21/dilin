@@ -33,6 +33,10 @@ public class WordListFragment extends Fragment implements WordsRecyclerViewAdapt
     private int notebookId;
     private WordsRecyclerViewAdapter recyclerViewAdapter;
 
+    public static WordListFragment getInstance(boolean bookmarkedMode, RecyclerView.OnScrollListener onScrollListener, int notebookId) {
+        return new WordListFragment(bookmarkedMode, onScrollListener, notebookId);
+    }
+
     public WordListFragment(boolean bookmarkedMode, RecyclerView.OnScrollListener onScrollListener, int notebookId) {
         this.isBookmarkedMode = bookmarkedMode;
         this.onScrollListener = onScrollListener;
@@ -63,13 +67,13 @@ public class WordListFragment extends Fragment implements WordsRecyclerViewAdapt
                 @Override
                 public void onItemRangeInserted(int positionStart, int itemCount) {
                     super.onItemRangeInserted(positionStart, itemCount);
-                    checkWarningVisibilities(new WordsOpenHelper(getContext(),notebookId).getRawsCount());
+                    checkWarningVisibilities(new WordsOpenHelper(getContext(), notebookId).getRawsCount());
                 }
 
                 @Override
                 public void onItemRangeRemoved(int positionStart, int itemCount) {
                     super.onItemRangeRemoved(positionStart, itemCount);
-                    checkWarningVisibilities(new WordsOpenHelper(getContext(),notebookId).getRawsCount());
+                    checkWarningVisibilities(new WordsOpenHelper(getContext(), notebookId).getRawsCount());
                 }
 
             });
