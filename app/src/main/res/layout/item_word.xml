@@ -127,6 +127,7 @@
             android:layout_marginRight="@dimen/standard_margin"
             android:layout_marginBottom="@dimen/standard_margin"
             android:textColor="@color/english_words_color"
+            android:textIsSelectable="true"
             android:textSize="@dimen/standard_font_size_large"
             tools:text="word : " />
 
@@ -138,6 +139,7 @@
             android:paddingLeft="@dimen/standard_margin_x2_5"
             android:paddingRight="@dimen/standard_margin_x2_5"
             android:textColor="@color/persian_words_color"
+            android:textIsSelectable="true"
             android:textSize="@dimen/standard_font_size_large"
             tools:text="معنای کلمه این می باشد و دارای دو حالت فعلی و اسمی می باشد که دارای معانی متفاموتی می باشد و در اینجا اصلا برای ما اهمیتی ندارد و صرفا برای تست کردن نحوه ی کارکرد برنامه این قسمت نوشته شده است." />
 
