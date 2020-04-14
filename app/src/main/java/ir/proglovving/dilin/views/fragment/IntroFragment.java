@@ -19,28 +19,31 @@ public class IntroFragment extends Fragment {
     private static final String ARG_TITLE = "title";
     private static final String ARG_DESCRIPTION = "description";
     private static final String ARG_IMAGE_DRAWABLE = "image_drawable";
+    private static final String ARG_POSITION = "position";
 
     private String title;
     private String description;
     @DrawableRes
     int imageDrawable;
+    int position;
 
     public IntroFragment() {
         // Required empty public constructor
     }
 
-    public static IntroFragment newInstance(String title, String description, @DrawableRes int imageDrawable) {
+    public static IntroFragment newInstance(String title, String description, @DrawableRes int imageDrawable, int position) {
         IntroFragment fragment = new IntroFragment();
         Bundle args = new Bundle();
         args.putString(ARG_TITLE, title);
         args.putString(ARG_DESCRIPTION, description);
         args.putInt(ARG_IMAGE_DRAWABLE, imageDrawable);
+        args.putInt(ARG_POSITION,position);
         fragment.setArguments(args);
         return fragment;
     }
 
-    public static IntroFragment newInstance(Context context, @StringRes int title, @StringRes int description, @DrawableRes int imageDrawable) {
-        return newInstance(context.getString(title),context.getString(description),imageDrawable);
+    public static IntroFragment newInstance(Context context, @StringRes int title, @StringRes int description, @DrawableRes int imageDrawable, int position) {
+        return newInstance(context.getString(title),context.getString(description),imageDrawable, position);
     }
 
     @Override
@@ -50,6 +53,7 @@ public class IntroFragment extends Fragment {
             title = getArguments().getString(ARG_TITLE);
             description = getArguments().getString(ARG_DESCRIPTION);
             imageDrawable = getArguments().getInt(ARG_IMAGE_DRAWABLE);
+            position = getArguments().getInt(ARG_POSITION);
         }
     }
 
@@ -57,6 +61,13 @@ public class IntroFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_app_intro, container, false);
+
+        if(position % 2 == 0){
+            view.setBackgroundResource(R.drawable.selector_app_intro_background_even);
+        }else{
+            view.setBackgroundResource(R.drawable.selector_app_intro_background_odd);
+        }
+
         TextView titleTextView = view.findViewById(R.id.intro_title);
         TextView descriptionTextView = view.findViewById(R.id.intro_description);
         ImageView imageView = view.findViewById(R.id.intro_image_view);

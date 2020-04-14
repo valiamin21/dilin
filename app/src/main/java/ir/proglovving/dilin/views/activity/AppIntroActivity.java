@@ -43,13 +43,13 @@ public class AppIntroActivity extends AppIntro {
             }
         }, 1);
 
-        IntroFragment introFragment = IntroFragment.newInstance(this,R.string.app_name,R.string.dilin_description,R.drawable.dilin_icon_web);
+        IntroFragment introFragment = IntroFragment.newInstance(this,R.string.app_name,R.string.dilin_description,R.drawable.dilin_icon_web,0);
         addSlide(introFragment);
 
-        introFragment = IntroFragment.newInstance(this,R.string.facility,R.string.dilin_intro_tooltip_description,R.drawable.app_intro_image_tooltip);
+        introFragment = IntroFragment.newInstance(this,R.string.facility,R.string.dilin_intro_tooltip_description,R.drawable.app_intro_image_tooltip,1);
         addSlide(introFragment);
 
-        introFragment = IntroFragment.newInstance(this,R.string.widget,R.string.dilin_intro_widget_description,R.drawable.app_intro_image_widget);
+        introFragment = IntroFragment.newInstance(this,R.string.widget,R.string.dilin_intro_widget_description,R.drawable.app_intro_image_widget,2);
         addSlide(introFragment);
 
     }
