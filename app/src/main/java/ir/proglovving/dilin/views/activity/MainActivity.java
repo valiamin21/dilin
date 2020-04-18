@@ -74,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .add(containerFrameLayout.getId(), notebookListFragment)
                 .commit();
+
+        fabAddNotebook.setOnClickListener(notebookListFragment.getFabAddNotebookOnClickListener());
     }
 
     @Override

@@ -61,9 +61,9 @@ public class NotebookListFragment extends Fragment {
 
     private static NotebookListFragment instance;
 
-    public static NotebookListFragment getInstance(NotebookOpenHelper notebookOpenHelper, CoordinatorLayout coordinatorLayout, FloatingActionButton addFab){
-        if(instance == null){
-            instance = new NotebookListFragment(notebookOpenHelper,coordinatorLayout,addFab);
+    public static NotebookListFragment getInstance(NotebookOpenHelper notebookOpenHelper, CoordinatorLayout coordinatorLayout, FloatingActionButton addFab) {
+        if (instance == null) {
+            instance = new NotebookListFragment(notebookOpenHelper, coordinatorLayout, addFab);
         }
         return instance;
     }
@@ -108,14 +108,16 @@ public class NotebookListFragment extends Fragment {
 
         setupRecyclerView();
 
-        fabAddNotebook.setOnClickListener(new View.OnClickListener() {
+        return view;
+    }
+
+    public View.OnClickListener getFabAddNotebookOnClickListener() {
+        return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showAddNoteBookDialog();
             }
-        });
-
-        return view;
+        };
     }
 
     @Override
@@ -125,6 +127,7 @@ public class NotebookListFragment extends Fragment {
     }
 
     public void addNotebook(Notebook notebook) {
+        showNotebookRecyclerView();
         notebookOpenHelper.addNotebook(notebook);
         notebook.setId(notebookOpenHelper.getLastID());
         recyclerAdapter.addNotebook(notebook);
@@ -133,35 +136,12 @@ public class NotebookListFragment extends Fragment {
 
     public void setupRecyclerView() {
 
-        List<Notebook> notebooks = getSuitableNotebooksList(false);
-
-        if (notebookOpenHelper.getRawsCount() == 0) { // اگر هیچ دفتری ساخته نشده بود!
-            recyclerView.setVisibility(View.INVISIBLE);
-            emptyTextView.changeText(R.string.no_notebook_has_been_made_yet);
-            emptyTextView.setVisibility(View.VISIBLE);
-            return;
-        } else if (favoriteSwitchButton.isChecked() && notebooks.size() == 0) { // اگر در حالت مورد علاقه بود و دفتر موردعلاقه ای یافت نشد!
-            recyclerView.setVisibility(View.INVISIBLE);
-            emptyTextView.changeText(R.string.no_favorite_notebook_was_found);
-            emptyTextView.setVisibility(View.VISIBLE);
-            return;
-        } else {
-            recyclerView.setVisibility(View.VISIBLE);
-            emptyTextView.setVisibility(View.INVISIBLE);
-        }
-
-        if (notebooks.size() == 0) { //  if no notebook was made then
-            recyclerView.setVisibility(View.INVISIBLE);
-            emptyTextView.setVisibility(View.VISIBLE);
-            return;
-        } else if (recyclerView.getVisibility() == View.INVISIBLE) { // اگر دفتری موجود بود و پیام دفتری موجود نیست در حال نمایش بود
-            recyclerView.setVisibility(View.VISIBLE);
-            emptyTextView.setVisibility(View.INVISIBLE);
-        }
+        List<Notebook> notebookList = getSuitableNotebooksList(false);
 
         recyclerAdapter = new NotebookRecyclerAdapter(
-                getContext(), notebooks, coordinatorLayout, notebookOpenHelper, favoritePickerView
+                getContext(), notebookList, coordinatorLayout, notebookOpenHelper, favoritePickerView
         );
+
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
@@ -173,9 +153,43 @@ public class NotebookListFragment extends Fragment {
                 }
             }
         });
+
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(recyclerAdapter);
 
+        validateEmptyDataSet(notebookList);
+
+    }
+
+    private void showNotebookRecyclerView() {
+        recyclerView.setVisibility(View.VISIBLE);
+        emptyTextView.setVisibility(View.INVISIBLE);
+    }
+
+    private void hideNotebookRecyclerView() {
+        recyclerView.setVisibility(View.INVISIBLE);
+        emptyTextView.setVisibility(View.VISIBLE);
+    }
+
+    private void validateEmptyDataSet(List<Notebook> notebookList) {
+
+        if (notebookOpenHelper.getRawsCount() == 0) { // اگر هیچ دفتری ساخته نشده بود!
+            emptyTextView.changeText(R.string.no_notebook_has_been_made_yet);
+            hideNotebookRecyclerView();
+            return;
+        } else if (favoriteSwitchButton.isChecked() && notebookList.size() == 0) { // اگر در حالت مورد علاقه بود و دفتر موردعلاقه ای یافت نشد!
+            emptyTextView.changeText(R.string.no_favorite_notebook_was_found);
+            hideNotebookRecyclerView();
+            return;
+        } else {
+            showNotebookRecyclerView();
+        }
+
+        if (notebookList.size() == 0) { //  if no notebook was made then
+            hideNotebookRecyclerView();
+        } else if (recyclerView.getVisibility() == View.INVISIBLE) { // اگر دفتری موجود بود و پیام دفتری موجود نیست در حال نمایش بود
+            showNotebookRecyclerView();
+        }
     }
 
 
@@ -190,7 +204,7 @@ public class NotebookListFragment extends Fragment {
         return notebooks;
     }
 
-    public void showAddNoteBookDialog() {
+    private void showAddNoteBookDialog() {
         final Dialog dialog = new Dialog(getContext());
         dialog.setContentView(R.layout.dialog_add_notebook);
         final LinearLayout dialogContainer = dialog.findViewById(R.id.ll_dialog_add_notebook);
