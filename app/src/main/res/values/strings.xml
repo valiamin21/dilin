@@ -107,4 +107,7 @@
     <string name="version">نسخه</string>
 
     <string name="show_only_favorite_notebooks">فقط دفترهای موردعلاقه</string>
-</resources>
+
+    <string name="please_install_myket">لطفا مایکت‌را نصب کنید.</string>
+
+    </resources>

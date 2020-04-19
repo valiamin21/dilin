@@ -1,5 +1,6 @@
 package ir.proglovving.dilin.views.activity;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -32,6 +33,7 @@ import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import ir.proglovving.dilin.BuildConfig;
 import ir.proglovving.dilin.custom_views.CustomDialogBuilder;
@@ -156,7 +158,11 @@ public class MainActivity extends AppCompatActivity {
                         rate();
                         break;
                     case R.id.other_apps:
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("myket://developer/ir.proglovving.dilin")));
+                        try{
+                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("myket://developer/ir.proglovving.dilin")));
+                        }catch (ActivityNotFoundException e){
+                            Toast.makeText(MainActivity.this, R.string.please_install_myket, Toast.LENGTH_SHORT).show();
+                        }
                         break;
                     case R.id.about:
                         startActivity(new Intent(MainActivity.this, AboutProgrammerActivity.class), compat.toBundle());
@@ -241,7 +247,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void rate() {
-        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("myket://comment?id=ir.proglovving.dilin")));
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("myket://comment?id=ir.proglovving.dilin")));
+        }catch (ActivityNotFoundException e){
+            Toast.makeText(this, R.string.please_install_myket, Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void hideAFragmentForBottomNavigation(@Nullable Fragment fragment, FragmentManager fm) {
