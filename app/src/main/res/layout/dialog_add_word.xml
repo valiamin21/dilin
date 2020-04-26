@@ -35,7 +35,7 @@
                     android:layout_marginHorizontal="@dimen/standard_table_distance"
                     android:layout_marginTop="@dimen/standard_padding"
                     android:layout_marginBottom="@dimen/standard_margin"
-                    android:hint="@string/add_the_word_text"
+                    android:hint="@string/add_the_word"
                     android:padding="@dimen/standard_padding"
                     android:textSize="@dimen/standard_font_size_large" />
 
@@ -54,7 +54,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/standard_table_distance"
                     android:layout_marginBottom="@dimen/standard_margin_x2"
-                    android:hint="@string/meaning_of_word_text"
+                    android:hint="@string/meaning_of_word"
                     android:padding="@dimen/standard_padding"
                     android:textSize="@dimen/standard_font_size_large" />
 
@@ -79,9 +79,8 @@
                     android:layout_marginLeft="@dimen/standard_margin"
                     android:layout_marginRight="@dimen/standard_margin"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:text="@string/verify_text"
+                    android:text="@string/verify"
                     android:textSize="@dimen/standard_font_size_large" />
-
                 <ir.proglovving.dilin.custom_views.CusButton
                     android:id="@+id/btn_cancel"
                     android:layout_width="wrap_content"
@@ -89,7 +88,7 @@
                     android:layout_marginLeft="@dimen/standard_margin"
                     android:layout_marginRight="@dimen/standard_margin"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:text="@string/cancel_text"
+                    android:text="@string/cancel"
                     android:textSize="@dimen/standard_font_size_large" />
 
 

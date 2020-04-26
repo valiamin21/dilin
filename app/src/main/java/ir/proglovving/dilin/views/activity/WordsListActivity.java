@@ -152,7 +152,7 @@ public class WordsListActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (wordEditText.getText().length() == 0) {
-                    wordEditText.setError(getString(R.string.no_word_was_entered_text));
+                    wordEditText.setError(getString(R.string.no_word_was_entered));
                     return;
                 } else if (new WordsOpenHelper(WordsListActivity.this, notebookId).
                         isThereWord(wordEditText.getText().toString())) {
@@ -222,7 +222,7 @@ public class WordsListActivity extends AppCompatActivity {
 
             addAndEditWordDialog = new Dialog(this);
             addAndEditWordDialog.setContentView(R.layout.dialog_add_word);
-            addAndEditWordDialog.setTitle(R.string.adding_word_text);
+            addAndEditWordDialog.setTitle(R.string.adding_word);
             dialogContainer = addAndEditWordDialog.findViewById(R.id.ll_dialog_add_word);
             dialogContainer.setVisibility(View.INVISIBLE);
 
@@ -250,7 +250,7 @@ public class WordsListActivity extends AppCompatActivity {
         addFab.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                ToolTip.show(WordsListActivity.this, getString(R.string.adding_word_text), v);
+                ToolTip.show(WordsListActivity.this, getString(R.string.adding_word), v);
                 return true;
             }
         });

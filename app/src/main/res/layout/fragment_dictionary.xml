@@ -88,7 +88,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/dictionary_guide_text"
+                android:text="@string/dictionary_guide"
                 android:textColor="@color/secondary_text"
                 android:textSize="@dimen/standard_font_size_large"
                 android:layout_marginLeft="@dimen/standard_table_distance"

@@ -6,7 +6,7 @@
         android:icon="@drawable/ic_action_guidance"
         android:title="@string/guidance" />
 
-    <item android:title="@string/apps_text">
+    <item android:title="@string/app">
         <menu>
             <item
                 android:id="@+id/rate"
@@ -20,7 +20,7 @@
         </menu>
     </item>
 
-    <item android:title="@string/developer_text">
+    <item android:title="@string/developer">
         <menu>
             <item
                 android:id="@+id/about"

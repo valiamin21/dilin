@@ -66,7 +66,7 @@ public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecycler
         final Word word = wordList.get(position);
         wordMeaningViewHolder.wordTextView.setText(word.getWord() + " :");
         if (word.getMeaning().equals("")) { // اگر معنایی وارد نشده بود
-            wordMeaningViewHolder.meaningTextView.setText(R.string.no_meaning_has_been_entered_text);
+            wordMeaningViewHolder.meaningTextView.setText(R.string.no_meaning_has_been_entered);
             wordMeaningViewHolder.meaningTextView.setTextColor(ContextCompat.getColor(context, R.color.meaningless_persian_words_color));
         } else { // اگر معنا وارد شده بود
             wordMeaningViewHolder.meaningTextView.setText(word.getMeaning());
@@ -183,7 +183,7 @@ public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecycler
 
             addAndEditWordDialog = new Dialog(context);
             addAndEditWordDialog.setContentView(R.layout.dialog_add_word);
-            addAndEditWordDialog.setTitle(R.string.adding_word_text);
+            addAndEditWordDialog.setTitle(R.string.adding_word);
             dialogContainer = addAndEditWordDialog.findViewById(R.id.ll_dialog_add_word);
             dialogContainer.setVisibility(View.INVISIBLE);
 
@@ -208,7 +208,7 @@ public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecycler
             public void onClick(View v) {
 
                 if (wordEditText.getText().length() == 0) {
-                    wordTextInputLayout.setError(context.getString(R.string.no_word_was_entered_text));
+                    wordTextInputLayout.setError(context.getString(R.string.no_word_was_entered));
                     return;
                 }
 
@@ -238,9 +238,9 @@ public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecycler
 
     private void deleteWord(final Word word, final int position) {
         new CustomDialogBuilder(context)
-                .setTitle(R.string.delete_word_text)
-                .setMessage(R.string.do_you_want_to_delete_this_word_text)
-                .setPositive(R.string.yes_text, new View.OnClickListener() {
+                .setTitle(R.string.delete_word)
+                .setMessage(R.string.do_you_want_to_delete_this_word)
+                .setPositive(R.string.yes, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
@@ -249,7 +249,7 @@ public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecycler
                         notifyItemRemoved(position);
                         mEvent.onDeleted();
                     }
-                }).setNegative(R.string.no_text, new View.OnClickListener() {
+                }).setNegative(R.string.no, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -271,7 +271,7 @@ public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecycler
     public boolean onLongClick(View v) {
         switch (v.getId()) {
             case R.id.btn_delete:
-                ToolTip.show(context, context.getString(R.string.delete_word_text), v);
+                ToolTip.show(context, context.getString(R.string.delete_word), v);
                 break;
             case R.id.btn_bookmark:
                 ToolTip.show(context, context.getString(R.string.bookmarking), v);

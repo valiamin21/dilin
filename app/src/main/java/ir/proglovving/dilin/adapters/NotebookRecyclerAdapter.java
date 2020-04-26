@@ -110,7 +110,7 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
                 new CustomDialogBuilder(context)
                         .setTitle(R.string.delete_notebook)
                         .setMessage(R.string.do_you_want_to_delete_this_notebook)
-                        .setPositive(R.string.yes_text, new View.OnClickListener() {
+                        .setPositive(R.string.yes, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 final int currentPosition = mViewHolder.getAdapterPosition();
@@ -148,7 +148,7 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
                                     }
                                 }.start();
                             }
-                        }).setNegative(R.string.no_text, new View.OnClickListener() {
+                        }).setNegative(R.string.no, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 

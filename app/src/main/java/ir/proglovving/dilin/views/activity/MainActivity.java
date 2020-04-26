@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
         new CustomDialogBuilder(this)
                 .setTitle(getString(R.string.exit))
                 .setMessage(getString(R.string.exit_message))
-                .setPositive(getString(R.string.yes_text), new View.OnClickListener() {
+                .setPositive(getString(R.string.yes), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         MainActivity.super.onBackPressed();
@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
                         rate();
                     }
                 })
-                .setCancel(getString(R.string.no_text), new View.OnClickListener() {
+                .setCancel(getString(R.string.no), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                     }

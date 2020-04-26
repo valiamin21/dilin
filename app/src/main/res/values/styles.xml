@@ -1,8 +1,6 @@
 <resources>
 
-    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -13,14 +11,6 @@
         <item name="dividerHorizontal">@color/divider</item>
         <item name="dividerVertical">@color/divider</item>
         <item name="android:windowBackground">@color/window_background</item>
-
-    </style>
-
-    <style name="ShadowedTextStyle">
-        <item name="android:shadowColor">#ffffffff</item>
-        <item name="android:shadowDx">1</item>
-        <item name="android:shadowDy">1</item>
-        <item name="android:shadowRadius">0.01</item>
     </style>
 
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">

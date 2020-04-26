@@ -1,39 +1,36 @@
 <resources>
     <string name="app_name">دیلین</string>
-    <string name="adding_word_text">اضافه کردن کلمه</string>
-    <string name="add_the_word_text">کلمه ی مورد نظر را وارد کنید</string>
-    <string name="meaning_of_word_text">معنای کلمه</string>
-    <string name="verify_text">تایید</string>
-    <string name="cancel_text">لغو</string>
+    <string name="adding_word">اضافه کردن کلمه</string>
+    <string name="add_the_word">کلمه ی مورد نظر را وارد کنید</string>
+    <string name="meaning_of_word">معنای کلمه</string>
+    <string name="verify">تایید</string>
+    <string name="cancel">لغو</string>
 
-    <string name="delete_word_text">حذف کلمه</string>
+    <string name="delete_word">حذف کلمه</string>
     <string name="delete_notebook">حذف دفتر</string>
-    <string name="do_you_want_to_delete_this_word_text">آیا می خواهید این کلمه را حذف کنید؟</string>
+    <string name="do_you_want_to_delete_this_word">آیا می خواهید این کلمه را حذف کنید؟</string>
     <string name="do_you_want_to_delete_this_notebook">آیا می خواهید این دفتر را حذف کنید؟</string>
-    <string name="yes_text">بله</string>
-    <string name="no_text">نه</string>
+    <string name="yes">بله</string>
+    <string name="no">نه</string>
 
     <string name="open">open</string>
     <string name="close">close</string>
 
-    <string name="no_meaning_has_been_entered_text">معنایی وارد نشده است!</string>
+    <string name="no_meaning_has_been_entered">معنایی وارد نشده است!</string>
 
-    <string name="no_word_was_entered_text">کلمه ای وارد نشده است!</string>
+    <string name="no_word_was_entered">کلمه ای وارد نشده است!</string>
 
-    <string name="bottomsheet">MR. Bottom Sheet</string>
-    <string name="bottomsheet1">it is a bottom sheet and can be slided up and down with swiping your finger on screen.</string>
-
-    <string name="notebook_name_text">نام دفتر</string>
+    <string name="notebook_name">نام دفتر</string>
     <string name="about_us">درباره ی ما</string>
     <string name="support_programmer">حمایت از برنامه نویس</string>
     <string name="guidance">راهنما</string>
     <string name="rate">امتیاز دهی</string>
     <string name="other_apps">سایر برنامه ها</string>
-    <string name="developer_text">توسعه دهنده</string>
-    <string name="bookmarked_text">نشان شده</string>
-    <string name="main_page_text">صفحه ی اصلی</string>
-    <string name="apps_text">اپلیکیشن</string>
-    <string name="favorite_text">مورد علاقه</string>
+    <string name="developer">توسعه دهنده</string>
+    <string name="bookmarked">نشان شده</string>
+    <string name="main_page">صفحه ی اصلی</string>
+    <string name="app">اپلیکیشن</string>
+    <string name="favorite">مورد علاقه</string>
     <string name="all_notebooks">همه دفترها</string>
     <string name="programmer_folani">برنامه نویس: امین والی</string>
     <string name="email">ایمیل</string>
@@ -43,8 +40,6 @@
     <string name="deleted_from_favorite_list">از لیست علاقه مندی ها حذف شد</string>
     <string name="retrieve">بازگردانی</string>
     <string name="was_deleted">حذف شد</string>
-
-    <string name="fab_transition_name">fab_shared</string>
 
     <string name="no_name_has_been_entered">نامی وارد نشده است!</string>
 
@@ -57,13 +52,13 @@
     <string name="no_word_was_added">کلمه ای اضافه نشده است!</string>
     <string name="no_bookmarked_word_was_found">کلمه ی نشان شده ای یافت نشد!</string>
     <string name="all_words">همه ی کلمه ها</string>
-    <string name="bookmarked_words_text">کلمات نشان شده</string>
+    <string name="bookmarked_words">کلمات نشان شده</string>
     <string name="words_count">تعداد کلمات</string>
     <string name="bookmarked_count">تعداد نشان شده</string>
     <string name="no_favorite_notebook_was_found">دفتر مورد علاقه ای یافت نشد!</string>
     <string name="donate_me_a_coffee_money_if_app_was_useful">اگه این برنامه براتون مفید بوده یه قهوه مهمونم کنید!</string>
     <string name="ok_purchase">باشه(پرداخت)</string>
-    <string name="ok_text">باشه</string>
+    <string name="ok">باشه</string>
     <string name="American">آمریکایی</string>
     <string name="English_UK">انگلستانی</string>
 
@@ -76,7 +71,7 @@
     <string name="exit">خروج</string>
     <string name="exit_message">آیا می‌خواهید خارج شوید؟</string>
 
-    <string name="dictionary_guide_text">کلمه‌ای که دوست دارید در بالا تایپ کنید.</string>
+    <string name="dictionary_guide">کلمه‌ای که دوست دارید در بالا تایپ کنید.</string>
     <string name="dictionary_search_box_hint">جستجوی کلمه</string>
 
     <string name="delete">حذف</string>

@@ -71,7 +71,7 @@ public class ExportDatabaseCSVTask extends AsyncTask<String, Integer, Boolean> {
                     new String[]{
                             context.getString(R.string.word),
                             context.getString(R.string.meaning),
-                            context.getString(R.string.bookmarked_text)
+                            context.getString(R.string.bookmarked)
                     }
             );
 
@@ -81,7 +81,7 @@ public class ExportDatabaseCSVTask extends AsyncTask<String, Integer, Boolean> {
                 recordValues[0] = word.getWord();
                 recordValues[1] = word.getMeaning();
                 if (word.isBookmark()) {
-                    recordValues[2] = context.getString(R.string.yes_text);
+                    recordValues[2] = context.getString(R.string.yes);
                 } else {
                     recordValues[2] = "";
                 }
