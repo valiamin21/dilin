@@ -234,8 +234,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         fabAddNotebook = findViewById(R.id.fab_add);
-
-
         fabAddNotebook.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {

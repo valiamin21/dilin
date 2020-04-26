@@ -25,6 +25,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -107,7 +110,6 @@ public class NotebookListFragment extends Fragment {
         });
 
         setupRecyclerView();
-
         return view;
     }
 
@@ -126,7 +128,7 @@ public class NotebookListFragment extends Fragment {
         getContext().unregisterReceiver(updateNotebooksReceiver);
     }
 
-    public void addNotebook(Notebook notebook) {
+    private void addNotebook(Notebook notebook) {
         showNotebookRecyclerView();
         notebookOpenHelper.addNotebook(notebook);
         notebook.setId(notebookOpenHelper.getLastID());
@@ -134,7 +136,7 @@ public class NotebookListFragment extends Fragment {
         recyclerView.smoothScrollToPosition(recyclerAdapter.getItemCount() - 1);
     }
 
-    public void setupRecyclerView() {
+    private void setupRecyclerView() {
 
         List<Notebook> notebookList = getSuitableNotebooksList(false);
 
@@ -176,6 +178,8 @@ public class NotebookListFragment extends Fragment {
         if (notebookOpenHelper.getRawsCount() == 0) { // اگر هیچ دفتری ساخته نشده بود!
             emptyTextView.changeText(R.string.no_notebook_has_been_made_yet);
             hideNotebookRecyclerView();
+            startShakeAnimation();
+
             return;
         } else if (favoriteSwitchButton.isChecked() && notebookList.size() == 0) { // اگر در حالت مورد علاقه بود و دفتر موردعلاقه ای یافت نشد!
             emptyTextView.changeText(R.string.no_favorite_notebook_was_found);
@@ -191,7 +195,6 @@ public class NotebookListFragment extends Fragment {
             showNotebookRecyclerView();
         }
     }
-
 
     private List<Notebook> getSuitableNotebooksList(boolean isFavoriteMode) {
         List<Notebook> notebooks;
@@ -229,6 +232,7 @@ public class NotebookListFragment extends Fragment {
                     notebookNameEditText.setError(getString(R.string.notebook_is_repeated));
                     return;
                 }
+                fabAddNotebook.clearAnimation();
                 Notebook notebook = new Notebook();
                 notebook.setNoteBookName(notebookNameEditText.getText().toString());
                 notebook.setFavorite(false);
@@ -266,6 +270,15 @@ public class NotebookListFragment extends Fragment {
             dialogContainer.setVisibility(View.VISIBLE);
         }
 
+    }
+
+    private void startShakeAnimation() {
+        ScaleAnimation shakeAnimation = new ScaleAnimation(0.9f, 1.1f, 0.9f, 1.1f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        shakeAnimation.setDuration(400);
+        shakeAnimation.setRepeatMode(Animation.REVERSE);
+        shakeAnimation.setRepeatCount(Animation.INFINITE);
+        shakeAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+        fabAddNotebook.startAnimation(shakeAnimation);
     }
 
     public class UpdateNotebooksBroadcast extends BroadcastReceiver {
