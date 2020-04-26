@@ -27,4 +27,10 @@
         <item name="android:windowBackground">@drawable/splash_background</item>
     </style>
 
+    <style name="AppTheme.FabStyle">
+        <item name="tint">@color/fab_color_tint</item>
+        <item name="android:layout_margin">@dimen/standard_margin_x2</item>
+        <item name="rippleColor">@android:color/white</item>
+    </style>
+
 </resources>

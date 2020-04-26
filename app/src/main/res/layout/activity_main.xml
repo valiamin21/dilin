@@ -47,22 +47,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom|start"
-                        android:layout_margin="@dimen/standard_margin_x2"
-                        android:src="@drawable/ic_action_add"
+                        android:src="@drawable/ic_add_notebook"
                         app:fabSize="normal"
-                        app:rippleColor="@android:color/white" />
-
-            <!--<android.support.design.widget.FloatingActionButton-->
-            <!--android:id="@+id/fab_search"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--app:fabSize="mini"-->
-            <!--android:src="@drawable/ic_action_search"-->
-            <!--app:layout_anchor="@id/app_bar"-->
-            <!--app:layout_anchorGravity="bottom|end"-->
-            <!--android:layout_marginHorizontal="@dimen/standard_margin_x2"-->
-            <!--app:rippleColor="@android:color/white"-->
-            <!--/>-->
+                        style="@style/AppTheme.FabStyle" />
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
