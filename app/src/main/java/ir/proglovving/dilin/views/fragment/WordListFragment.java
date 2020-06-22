@@ -33,11 +33,11 @@ public class WordListFragment extends Fragment implements WordsRecyclerViewAdapt
     private int notebookId;
     private WordsRecyclerViewAdapter recyclerViewAdapter;
 
-    public static WordListFragment newInstance(boolean bookmarkedMode, RecyclerView.OnScrollListener onScrollListener, int notebookId) {
-        return new WordListFragment(bookmarkedMode, onScrollListener, notebookId);
+    public static WordListFragment newInstance(boolean bookmarkedMode, RecyclerView.OnScrollListener onScrollListener, int notebookId, WordsOpenHelper wordsOpenHelper) {
+        return new WordListFragment(bookmarkedMode, onScrollListener, notebookId, wordsOpenHelper);
     }
 
-    public WordListFragment(boolean bookmarkedMode, RecyclerView.OnScrollListener onScrollListener, int notebookId) {
+    public WordListFragment(boolean bookmarkedMode, RecyclerView.OnScrollListener onScrollListener, int notebookId, WordsOpenHelper wordsOpenHelper) {
         this.isBookmarkedMode = bookmarkedMode;
         this.onScrollListener = onScrollListener;
         this.notebookId = notebookId;

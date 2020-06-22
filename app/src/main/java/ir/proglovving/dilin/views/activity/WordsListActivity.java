@@ -1,7 +1,6 @@
 package ir.proglovving.dilin.views.activity;
 
 import android.animation.Animator;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -11,7 +10,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.textfield.TextInputLayout;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,15 +23,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 
 import ir.proglovving.dilin.R;
 import ir.proglovving.dilin.Utilities;
 import ir.proglovving.dilin.custom_views.ToolTip;
+import ir.proglovving.dilin.custom_views.WordsInputDialog;
 import ir.proglovving.dilin.data_model.Word;
 import ir.proglovving.dilin.database_open_helpers.WordsOpenHelper;
 import ir.proglovving.dilin.views.fragment.NotebookListFragment;
@@ -53,14 +50,10 @@ public class WordsListActivity extends AppCompatActivity {
 
     private WordListFragment wordListFragment;
 
-    private Dialog addAndEditWordDialog;
-    Button verifyButton, cancelButton;
-    EditText wordEditText, meaningEditText;
-    TextInputLayout wordTextInputLayout, meaningTextInputLayout;
-    private LinearLayout dialogContainer;
-
     private String noteBookName;
     private int notebookId;
+
+    private WordsOpenHelper wordsOpenHelper;
 
 
     @Override
@@ -75,7 +68,7 @@ public class WordsListActivity extends AppCompatActivity {
 
         setupViews();
 
-        wordListFragment = WordListFragment.newInstance(false,getOnScrollListener(),notebookId);
+        wordListFragment = WordListFragment.newInstance(false, getOnScrollListener(), notebookId, wordsOpenHelper);
 
         getSupportFragmentManager().beginTransaction()
                 .add(containerFrameLayout.getId(), wordListFragment)
@@ -137,114 +130,36 @@ public class WordsListActivity extends AppCompatActivity {
         Utilities.hideSoftKeyboard(searchEditText, this);
     }
 
-    private void showBrowseAddWordDialog() {
-
-        setupDialog();
-        wordEditText.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Utilities.showSoftKeyboard(wordEditText, WordsListActivity.this);
-            }
-        }, 100);
-
-        verifyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (wordEditText.getText().length() == 0) {
-                    wordEditText.setError(getString(R.string.no_word_was_entered));
-                    return;
-                } else if (new WordsOpenHelper(WordsListActivity.this, notebookId).
-                        isThereWord(wordEditText.getText().toString())) {
-                    wordEditText.setError(getString(R.string.word_is_repeated));
-                    return;
-                }
-
-                WordsOpenHelper openHelper = new WordsOpenHelper(WordsListActivity.this, notebookId);
-                Word word = new Word();
-                word.setWord(wordEditText.getText().toString());
-                word.setMeaning(meaningEditText.getText().toString());
-                openHelper.addWord(word);
-
-                word.setId(openHelper.getLastID());
-                word.setNotebookId(notebookId);
-                wordListFragment.addWord(word);
-
-                NotebookListFragment.updateMeByBroadcast(WordsListActivity.this);
-
-                addAndEditWordDialog.dismiss();
-            }
-        });
-
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addAndEditWordDialog.dismiss();
-            }
-        });
-        addAndEditWordDialog.show();
-
-        dialogContainerRevealEffectShow();
-
-    }
-
-    private void dialogContainerRevealEffectShow() {
-        dialogContainer.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    Animator animator =
-                            ViewAnimationUtils.createCircularReveal(dialogContainer,
-                                    dialogContainer.getWidth(), dialogContainer.getHeight(), 0,
-                                    (float) Math.hypot(dialogContainer.getWidth(), dialogContainer.getHeight()));
-                    dialogContainer.setVisibility(View.VISIBLE);
-                    animator.start();
-                } else {
-                    dialogContainer.setVisibility(View.VISIBLE);
-                }
-
-            }
-        }, 100);
-
-    }
-
-    private void setupDialog() {
-        // TODO: 1/14/19 value 'true' in below code have to be improved later !
-        if (true
-//                ||
-//                addAndEditWordDialog == null ||
-//                wordEditText == null ||
-//                meaningEditText == null ||
-//                verifyButton == null ||
-//                cancelButton == null
-        ) {
-
-            addAndEditWordDialog = new Dialog(this);
-            addAndEditWordDialog.setContentView(R.layout.dialog_add_word);
-            addAndEditWordDialog.setTitle(R.string.adding_word);
-            dialogContainer = addAndEditWordDialog.findViewById(R.id.ll_dialog_add_word);
-            dialogContainer.setVisibility(View.INVISIBLE);
-
-            wordEditText = addAndEditWordDialog.findViewById(R.id.et_word);
-            meaningEditText = addAndEditWordDialog.findViewById(R.id.et_meaning);
-            wordTextInputLayout = addAndEditWordDialog.findViewById(R.id.text_input_word);
-            meaningTextInputLayout = addAndEditWordDialog.findViewById(R.id.text_input_meaning);
-            verifyButton = addAndEditWordDialog.findViewById(R.id.btn_verify);
-            cancelButton = addAndEditWordDialog.findViewById(R.id.btn_cancel);
-        } else {
-            wordEditText.setText("");
-            meaningEditText.setText("");
-        }
-    }
-
     private void setupViews() {
         addFab = findViewById(R.id.fab_add);
         addFab.setTag(View.VISIBLE); //  در این جا از تگ ویوی addFab به عنوان نشانه ای برای تشخیص ویزیبل بودن یا نبودن آن استفاده می شود.
         addFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showBrowseAddWordDialog();
+                if (wordsOpenHelper == null) {
+                    wordsOpenHelper = new WordsOpenHelper(WordsListActivity.this, notebookId);
+                }
+                WordsInputDialog.getInstance(WordsListActivity.this).showBrowseAddWordDialog(
+                        new WordsInputDialog.OnAddWord() {
+                            @Override
+                            public void onAdd(String word, String meaning) {
+                                Word w = new Word();
+                                w.setWord(word);
+                                w.setMeaning(meaning);
+                                wordsOpenHelper.addWord(w);
+
+                                w.setId(wordsOpenHelper.getLastID());
+                                w.setNotebookId(notebookId);
+                                wordListFragment.addWord(w);
+
+                                NotebookListFragment.updateMeByBroadcast(WordsListActivity.this);
+                            }
+
+                            @Override
+                            public boolean onAlreadyExists(String w) {
+                                return wordsOpenHelper.isThereWord(w);
+                            }
+                        });
             }
         });
         addFab.setOnLongClickListener(new View.OnLongClickListener() {
