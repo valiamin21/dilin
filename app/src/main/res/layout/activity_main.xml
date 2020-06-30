@@ -39,24 +39,14 @@
                 android:layout_height="match_parent"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-
-<!--            <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--                android:id="@+id/fab_add"-->
-<!--                style="@style/AppTheme.FabStyle"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_gravity="bottom|start"-->
-<!--                android:src="@drawable/ic_add_notebook"-->
-<!--                app:fabSize="normal" />-->
-
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                 android:id="@+id/fab_add"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/standard_margin"
                 android:layout_gravity="bottom|end"
-                app:icon="@drawable/ic_add_notebook"
-                android:text="@string/creating_notebook"/>
+                android:layout_margin="@dimen/standard_margin"
+                android:text="@string/creating_notebook"
+                app:icon="@drawable/ic_add_notebook" />
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
