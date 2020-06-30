@@ -9,7 +9,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -44,7 +44,7 @@ public class WordsListActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private ViewGroup searchBoxContainer;
     private EditText searchEditText;
-    private FloatingActionButton addFab;
+    private ExtendedFloatingActionButton addFab;
     private ActionBarDrawerToggle drawerToggle;
     private FrameLayout containerFrameLayout;
 
@@ -131,7 +131,13 @@ public class WordsListActivity extends AppCompatActivity {
     }
 
     private void setupViews() {
-        addFab = findViewById(R.id.fab_add);
+        addFab = findViewById(R.id.fab_add_word);
+        addFab.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Utilities.applyFontForAView(addFab,WordsListActivity.this);
+            }
+        },10);
         addFab.setTag(View.VISIBLE); //  در این جا از تگ ویوی addFab به عنوان نشانه ای برای تشخیص ویزیبل بودن یا نبودن آن استفاده می شود.
         addFab.setOnClickListener(new View.OnClickListener() {
             @Override

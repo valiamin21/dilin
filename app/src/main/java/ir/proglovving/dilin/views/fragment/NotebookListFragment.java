@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.fragment.app.Fragment;
@@ -47,7 +48,7 @@ public class NotebookListFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private MotionableTextView emptyTextView;
-    private FloatingActionButton fabAddNotebook;
+    private ExtendedFloatingActionButton fabAddNotebook;
     private CoordinatorLayout coordinatorLayout;
 
     private View favoritePickerView;
@@ -64,14 +65,14 @@ public class NotebookListFragment extends Fragment {
 
     private static NotebookListFragment instance;
 
-    public static NotebookListFragment getInstance(NotebookOpenHelper notebookOpenHelper, CoordinatorLayout coordinatorLayout, FloatingActionButton addFab) {
+    public static NotebookListFragment getInstance(NotebookOpenHelper notebookOpenHelper, CoordinatorLayout coordinatorLayout, ExtendedFloatingActionButton addFab) {
         if (instance == null) {
             instance = new NotebookListFragment(notebookOpenHelper, coordinatorLayout, addFab);
         }
         return instance;
     }
 
-    public NotebookListFragment(NotebookOpenHelper notebookOpenHelper, CoordinatorLayout coordinatorLayout, FloatingActionButton addFab) {
+    public NotebookListFragment(NotebookOpenHelper notebookOpenHelper, CoordinatorLayout coordinatorLayout, ExtendedFloatingActionButton addFab) {
         this.notebookOpenHelper = notebookOpenHelper;
         this.coordinatorLayout = coordinatorLayout;
         this.fabAddNotebook = addFab;

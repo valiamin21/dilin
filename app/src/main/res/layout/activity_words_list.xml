@@ -70,13 +70,13 @@
 
     </FrameLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_add"
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fab_add_word"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|start"
-        android:src="@drawable/ic_action_add"
-        app:fabSize="normal"
-        style="@style/AppTheme.FabStyle"/>
+        android:layout_gravity="bottom|center_horizontal"
+        app:icon="@drawable/ic_action_add"
+        android:text="@string/adding_word"
+        android:layout_marginBottom="@dimen/standard_margin"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

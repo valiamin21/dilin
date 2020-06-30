@@ -15,7 +15,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.core.app.ActivityOptionsCompat;
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private ActionBarDrawerToggle drawerToggle;
     private CoordinatorLayout coordinatorLayout;
     private NavigationView navigationView;
-    private FloatingActionButton fabAddNotebook;
+    private ExtendedFloatingActionButton fabAddNotebook;
     private FrameLayout containerFrameLayout;
     private BottomNavigationView bottomNavigationView;
 
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         Utilities.setupExitTransition(this);
 
         notebookOpenHelper = new NotebookOpenHelper(this);
-        notebookListFragment = NotebookListFragment.getInstance(notebookOpenHelper,coordinatorLayout,(FloatingActionButton) findViewById(R.id.fab_add));
+        notebookListFragment = NotebookListFragment.getInstance(notebookOpenHelper,coordinatorLayout,(ExtendedFloatingActionButton) findViewById(R.id.fab_add));
 
         getSupportFragmentManager().beginTransaction()
                 .add(containerFrameLayout.getId(), notebookListFragment)
@@ -234,6 +234,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
         fabAddNotebook = findViewById(R.id.fab_add);
+        fabAddNotebook.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Utilities.applyFontForAView(fabAddNotebook,MainActivity.this);
+            }
+        }, 10);
         fabAddNotebook.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
