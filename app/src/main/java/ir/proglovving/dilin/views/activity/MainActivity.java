@@ -71,13 +71,12 @@ public class MainActivity extends AppCompatActivity {
         Utilities.setupExitTransition(this);
 
         notebookOpenHelper = new NotebookOpenHelper(this);
-        notebookListFragment = NotebookListFragment.getInstance(notebookOpenHelper,coordinatorLayout,(ExtendedFloatingActionButton) findViewById(R.id.fab_add));
+        dictionaryFragment = DictionaryFragment.newInstance();
 
         getSupportFragmentManager().beginTransaction()
-                .add(containerFrameLayout.getId(), notebookListFragment)
+                .add(containerFrameLayout.getId(),dictionaryFragment)
                 .commit();
 
-        fabAddNotebook.setOnClickListener(notebookListFragment.getFabAddNotebookOnClickListener());
     }
 
     @Override
@@ -208,6 +207,11 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (menuItem.getItemId()) {
                     case R.id.notebooks:
+                        if(notebookListFragment == null){
+                            notebookListFragment = NotebookListFragment.getInstance(notebookOpenHelper,coordinatorLayout,(ExtendedFloatingActionButton) findViewById(R.id.fab_add));
+                            fabAddNotebook.setOnClickListener(notebookListFragment.getFabAddNotebookOnClickListener());
+                            getSupportFragmentManager().beginTransaction().add(containerFrameLayout.getId(),notebookListFragment).commit();
+                        }
                         getSupportFragmentManager().beginTransaction().show(notebookListFragment).commit();
                         break;
                     case R.id.bookmark:

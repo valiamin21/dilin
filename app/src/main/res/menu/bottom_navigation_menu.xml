@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/notebooks"
-        android:icon="@drawable/ic_action_books_stack"
-        android:title="@string/notebooks" />
+        android:id="@+id/dictionary"
+        android:icon="@drawable/ic_action_vocabulary"
+        android:title="@string/dictionary" />
 
     <item
         android:id="@+id/bookmark"
@@ -11,8 +11,8 @@
         android:title="@string/bookmarked" />
 
     <item
-        android:id="@+id/dictionary"
-        android:icon="@drawable/ic_action_vocabulary"
-        android:title="@string/dictionary" />
+        android:id="@+id/notebooks"
+        android:icon="@drawable/ic_action_books_stack"
+        android:title="@string/notebooks" />
 
 </menu>
