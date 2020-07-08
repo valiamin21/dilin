@@ -39,6 +39,8 @@ public class CfTextView extends AppCompatTextView {
                     break;
             }
         } finally {
+            invalidate();
+            requestLayout();
             attributes.recycle();
         }
     }

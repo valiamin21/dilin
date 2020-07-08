@@ -38,6 +38,8 @@ public class CfEditText extends AppCompatEditText {
                     break;
             }
         } finally {
+            invalidate();
+            requestLayout();
             attributes.recycle();
         }
     }
