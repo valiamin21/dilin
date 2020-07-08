@@ -119,7 +119,7 @@
             android:layout_marginBottom="@dimen/standard_margin"
             android:background="?android:attr/listDivider" />
 
-        <ir.proglovving.dilin.custom_views.CusTextView
+        <ir.proglovving.cfviews.CfTextView
             android:id="@+id/txt_word"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -131,7 +131,7 @@
             android:textSize="@dimen/standard_font_size_large"
             tools:text="word : " />
 
-        <ir.proglovving.dilin.custom_views.CusTextView
+        <ir.proglovving.cfviews.CfTextView
             android:id="@+id/txt_meaning"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

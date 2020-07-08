@@ -65,7 +65,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <ir.proglovving.dilin.custom_views.CusTextView
+            <ir.proglovving.cfviews.CfTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/support_programmer"
@@ -78,7 +78,7 @@
                 android:textAlignment="center"
                 android:textSize="@dimen/standard_font_size_very_large" />
 
-            <ir.proglovving.dilin.custom_views.CusTextView
+            <ir.proglovving.cfviews.CfTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/protect_us_tv_margin_top"
@@ -88,7 +88,7 @@
                 android:textAlignment="center"
                 android:textSize="@dimen/standard_font_size_very_large"/>
 
-            <ir.proglovving.dilin.custom_views.CusButton
+            <ir.proglovving.cfviews.CfButton
                 android:id="@+id/coffee_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

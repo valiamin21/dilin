@@ -9,6 +9,7 @@ import android.util.AttributeSet;
 
 import ir.proglovving.dilin.R;
 
+// TODO: 7/8/20 removing MotionableTextView from project
 public class MotionableTextView extends MagicTextView {
     private static final int ADDING_NEXT_CHAR_TIME = 115;
     private static final int REFRESHING_IGNORE_TIME = 5000;

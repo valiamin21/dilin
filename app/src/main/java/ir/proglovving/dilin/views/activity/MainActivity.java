@@ -35,8 +35,8 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import ir.proglovving.cfviews.CustomDialogBuilder;
 import ir.proglovving.dilin.BuildConfig;
-import ir.proglovving.dilin.custom_views.CustomDialogBuilder;
 import ir.proglovving.dilin.R;
 import ir.proglovving.dilin.Utilities;
 import ir.proglovving.dilin.custom_views.ToolTip;
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         dictionaryFragment = DictionaryFragment.newInstance();
 
         getSupportFragmentManager().beginTransaction()
-                .add(containerFrameLayout.getId(),dictionaryFragment)
+                .add(containerFrameLayout.getId(), dictionaryFragment)
                 .commit();
 
     }
@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        new CustomDialogBuilder(this)
+        new CustomDialogBuilder(this, R.color.primary_text, R.color.colorAccent)
                 .setTitle(getString(R.string.exit))
                 .setMessage(getString(R.string.exit_message))
                 .setPositive(getString(R.string.yes), new View.OnClickListener() {
@@ -157,9 +157,9 @@ public class MainActivity extends AppCompatActivity {
                         rate();
                         break;
                     case R.id.other_apps:
-                        try{
+                        try {
                             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("myket://developer/ir.proglovving.dilin")));
-                        }catch (ActivityNotFoundException e){
+                        } catch (ActivityNotFoundException e) {
                             Toast.makeText(MainActivity.this, R.string.please_install_myket, Toast.LENGTH_SHORT).show();
                         }
                         break;
@@ -207,10 +207,10 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (menuItem.getItemId()) {
                     case R.id.notebooks:
-                        if(notebookListFragment == null){
-                            notebookListFragment = NotebookListFragment.getInstance(notebookOpenHelper,coordinatorLayout,(ExtendedFloatingActionButton) findViewById(R.id.fab_add));
+                        if (notebookListFragment == null) {
+                            notebookListFragment = NotebookListFragment.getInstance(notebookOpenHelper, coordinatorLayout, (ExtendedFloatingActionButton) findViewById(R.id.fab_add));
                             fabAddNotebook.setOnClickListener(notebookListFragment.getFabAddNotebookOnClickListener());
-                            getSupportFragmentManager().beginTransaction().add(containerFrameLayout.getId(),notebookListFragment).commit();
+                            getSupportFragmentManager().beginTransaction().add(containerFrameLayout.getId(), notebookListFragment).commit();
                         }
                         getSupportFragmentManager().beginTransaction().show(notebookListFragment).commit();
                         break;
@@ -241,7 +241,7 @@ public class MainActivity extends AppCompatActivity {
         fabAddNotebook.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Utilities.applyFontForAView(fabAddNotebook,MainActivity.this);
+                Utilities.applyFontForAView(fabAddNotebook, MainActivity.this);
             }
         }, 10);
         fabAddNotebook.setOnLongClickListener(new View.OnLongClickListener() {
@@ -257,7 +257,7 @@ public class MainActivity extends AppCompatActivity {
     private void rate() {
         try {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("myket://comment?id=ir.proglovving.dilin")));
-        }catch (ActivityNotFoundException e){
+        } catch (ActivityNotFoundException e) {
             Toast.makeText(this, R.string.please_install_myket, Toast.LENGTH_SHORT).show();
         }
     }

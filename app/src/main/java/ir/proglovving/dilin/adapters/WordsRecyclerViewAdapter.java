@@ -20,7 +20,7 @@ import android.widget.TextView;
 import java.util.List;
 import java.util.Locale;
 
-import ir.proglovving.dilin.custom_views.CustomDialogBuilder;
+import ir.proglovving.cfviews.CustomDialogBuilder;
 import ir.proglovving.dilin.MyApplication;
 import ir.proglovving.dilin.R;
 import ir.proglovving.dilin.custom_views.ToolTip;
@@ -157,7 +157,7 @@ public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecycler
     }
 
     private void deleteWord(final Word word, final int position) {
-        new CustomDialogBuilder(context)
+        new CustomDialogBuilder(context,R.color.primary_text,R.color.colorAccent)
                 .setTitle(R.string.delete_word)
                 .setMessage(R.string.do_you_want_to_delete_this_word)
                 .setPositive(R.string.yes, new View.OnClickListener() {

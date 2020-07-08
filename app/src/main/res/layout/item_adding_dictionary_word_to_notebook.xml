@@ -19,7 +19,7 @@
         android:orientation="horizontal"
         android:gravity="center">
 
-        <ir.proglovving.dilin.custom_views.CusTextView
+        <ir.proglovving.cfviews.CfTextView
             android:id="@+id/tv_notebook_name"
             android:layout_width="0dp"
             android:layout_weight="2"

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CfViewsAttributes">
+        <attr name="cusfont" format="integer">
+            <enum name="normal" value="0" />
+            <enum name="light" value="1" />
+            <enum name="bold" value="2"/>
+        </attr>
+    </declare-styleable>
+</resources>

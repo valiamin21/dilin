@@ -18,7 +18,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <ir.proglovving.dilin.custom_views.CusTextView
+        <ir.proglovving.cfviews.CfTextView
             android:id="@+id/txt_notebook_name"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
@@ -30,7 +30,7 @@
             android:textSize="@dimen/standard_font_size_large"
             tools:text="نام دفتر" />
 
-        <ir.proglovving.dilin.custom_views.CusTextView
+        <ir.proglovving.cfviews.CfTextView
             android:id="@+id/txt_words_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
             android:textSize="@dimen/standard_font_size_large"
             tools:text="تعداد کلمات : ۲۲" />
 
-        <ir.proglovving.dilin.custom_views.CusTextView
+        <ir.proglovving.cfviews.CfTextView
             android:id="@+id/txt_bookmarked_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

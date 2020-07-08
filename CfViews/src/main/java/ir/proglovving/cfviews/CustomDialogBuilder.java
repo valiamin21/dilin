@@ -1,13 +1,15 @@
-package ir.proglovving.dilin.custom_views;
+package ir.proglovving.cfviews;
 
 import android.app.Dialog;
 import android.content.Context;
-import androidx.annotation.StringRes;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import ir.proglovving.dilin.R;
+import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
+import androidx.annotation.StringRes;
+import androidx.core.content.ContextCompat;
 
 public class CustomDialogBuilder {
 
@@ -19,7 +21,7 @@ public class CustomDialogBuilder {
 
     private Context context;
 
-    public CustomDialogBuilder(Context context) {
+    public CustomDialogBuilder(Context context, @ColorRes int textViewsColor, @ColorRes int buttonsColor) {
         this.context = context;
         dialog = new Dialog(context);
         dialog.setContentView(R.layout.custom_app_dialog);
@@ -33,6 +35,14 @@ public class CustomDialogBuilder {
         positiveButton.setVisibility(View.GONE);
         cancelButton.setVisibility(View.GONE);
         negativeButton.setVisibility(View.GONE);
+
+
+        titleTextView.setTextColor(ContextCompat.getColor(context, textViewsColor));
+        messageTextView.setTextColor(ContextCompat.getColor(context, textViewsColor));
+
+        positiveButton.setTextColor(ContextCompat.getColor(context, buttonsColor));
+        cancelButton.setTextColor(ContextCompat.getColor(context, buttonsColor));
+        negativeButton.setTextColor(ContextCompat.getColor(context, buttonsColor));
     }
 
     public CustomDialogBuilder setTitle(String title) {
@@ -58,7 +68,7 @@ public class CustomDialogBuilder {
         return this;
     }
 
-    public CustomDialogBuilder setCancel(String cancelText, final View.OnClickListener onCancelClickListener){
+    public CustomDialogBuilder setCancel(String cancelText, final View.OnClickListener onCancelClickListener) {
         cancelButton.setText(cancelText);
         cancelButton.setVisibility(View.VISIBLE);
         cancelButton.setOnClickListener(new View.OnClickListener() {
@@ -84,7 +94,6 @@ public class CustomDialogBuilder {
         return this;
     }
 
-
     public CustomDialogBuilder setTitle(@StringRes int titleId) {
         titleTextView.setText(context.getString(titleId));
         return this;
@@ -96,17 +105,17 @@ public class CustomDialogBuilder {
     }
 
     public CustomDialogBuilder setPositive(@StringRes int positiveTextId, View.OnClickListener onPositiveClickListener) {
-        setPositive(context.getString(positiveTextId),onPositiveClickListener);
+        setPositive(context.getString(positiveTextId), onPositiveClickListener);
         return this;
     }
 
-    public CustomDialogBuilder setCancel(@StringRes int cancelTextId, View.OnClickListener onClickListener){
-        setCancel(context.getString(cancelTextId),onClickListener);
+    public CustomDialogBuilder setCancel(@StringRes int cancelTextId, View.OnClickListener onClickListener) {
+        setCancel(context.getString(cancelTextId), onClickListener);
         return this;
     }
 
     public CustomDialogBuilder setNegative(@StringRes int negativeTextId, View.OnClickListener onNegativeClickListener) {
-        setNegative(context.getString(negativeTextId),onNegativeClickListener);
+        setNegative(context.getString(negativeTextId), onNegativeClickListener);
         return this;
     }
 

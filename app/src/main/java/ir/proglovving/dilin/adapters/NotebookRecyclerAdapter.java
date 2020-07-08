@@ -30,7 +30,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import ir.proglovving.dilin.custom_views.CustomDialogBuilder;
+import ir.proglovving.cfviews.CustomDialogBuilder;
 import ir.proglovving.dilin.R;
 import ir.proglovving.dilin.Utilities;
 import ir.proglovving.dilin.custom_views.ToolTip;
@@ -88,7 +88,7 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
             return;
 
         final NotebookViewHolder notebookViewHolder = (NotebookViewHolder) mViewHolder;
-        final Notebook notebook = notebookList.get(position-1);
+        final Notebook notebook = notebookList.get(position - 1);
 
         notebookViewHolder.noteBookNameTextView.setText(notebook.getNoteBookName());
         notebookViewHolder.wordsCountTextView.setText(context.getString(R.string.words_count) + ": " + Utilities.convertNumberToPersian(notebook.getWordsCount()));
@@ -107,7 +107,7 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
         notebookViewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new CustomDialogBuilder(context)
+                new CustomDialogBuilder(context, R.color.primary_text, R.color.colorAccent)
                         .setTitle(R.string.delete_notebook)
                         .setMessage(R.string.do_you_want_to_delete_this_notebook)
                         .setPositive(R.string.yes, new View.OnClickListener() {

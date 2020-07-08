@@ -28,7 +28,7 @@
                 android:layout_marginTop="@dimen/standard_margin_x2"
                 android:textColorHint="@color/edit_text_color_hint">
 
-                <ir.proglovving.dilin.custom_views.CusEditText
+                <ir.proglovving.cfviews.CfEditText
                     android:id="@+id/et_word"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:textColorHint="@color/edit_text_color_hint">
 
-                <ir.proglovving.dilin.custom_views.CusEditText
+                <ir.proglovving.cfviews.CfEditText
                     android:id="@+id/et_meaning"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -72,7 +72,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/scrollView_add_word"
                 tools:layout_editor_absoluteX="40dp">
 
-                <ir.proglovving.dilin.custom_views.CusButton
+                <ir.proglovving.cfviews.CfButton
                     android:id="@+id/btn_verify"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -81,7 +81,8 @@
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:text="@string/verify"
                     android:textSize="@dimen/standard_font_size_large" />
-                <ir.proglovving.dilin.custom_views.CusButton
+
+                <ir.proglovving.cfviews.CfButton
                     android:id="@+id/btn_cancel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

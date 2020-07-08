@@ -23,7 +23,10 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.WeakHashMap;
 
-public class MagicTextView extends CusTextView {
+import ir.proglovving.cfviews.CfTextView;
+
+// TODO: 7/8/20 removing MagicTextView from project
+public class MagicTextView extends CfTextView {
     private ArrayList<Shadow> outerShadows;
     private ArrayList<Shadow> innerShadows;
 

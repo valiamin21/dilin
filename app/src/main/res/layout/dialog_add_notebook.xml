@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/standard_margin">
 
-        <ir.proglovving.dilin.custom_views.CusEditText
+        <ir.proglovving.cfviews.CfEditText
             android:id="@+id/et_notebook"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
         android:gravity="center"
         android:layout_marginBottom="@dimen/standard_margin">
 
-        <ir.proglovving.dilin.custom_views.CusButton
+        <ir.proglovving.cfviews.CfButton
             android:id="@+id/btn_verify"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
             android:layout_marginHorizontal="@dimen/standard_margin"
             android:background="?attr/selectableItemBackgroundBorderless"/>
 
-        <ir.proglovving.dilin.custom_views.CusButton
+        <ir.proglovving.cfviews.CfButton
             android:id="@+id/btn_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -47,7 +47,7 @@
                     android:scaleType="fitXY"
                     android:src="@drawable/ic_action_close" />
 
-                <ir.proglovving.dilin.custom_views.CusEditText
+                <ir.proglovving.cfviews.CfEditText
                     android:id="@+id/ed_search"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

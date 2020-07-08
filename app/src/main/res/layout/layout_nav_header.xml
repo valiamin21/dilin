@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/navigation_header_height"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginTop="-5dp"
     app:cardCornerRadius="@dimen/standard_radius">
 
@@ -35,16 +35,15 @@
 
     </FrameLayout>
 
-    <ir.proglovving.dilin.custom_views.CusTextView
+    <ir.proglovving.cfviews.CfTextView
         android:id="@+id/tv_app_introduction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
         android:padding="@dimen/standard_padding"
-        tools:text="دیلین، نسخه‌ی 0.5"
         android:textColor="@android:color/white"
-        android:textSize="@dimen/standard_font_size_normal" />
-
+        android:textSize="@dimen/standard_font_size_normal"
+        tools:text="دیلین، نسخه‌ی 0.5" />
 
 
 </androidx.cardview.widget.CardView>
