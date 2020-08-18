@@ -28,7 +28,7 @@ import java.util.List;
 import ir.proglovving.dilin.ExportDatabaseCSVTask;
 import ir.proglovving.dilin.R;
 import ir.proglovving.dilin.data_model.Notebook;
-import ir.proglovving.dilin.data_model.Word;
+import ir.proglovving.dilin.data_model.NotebookWord;
 import ir.proglovving.dilin.database_open_helpers.NotebookOpenHelper;
 import ir.proglovving.dilin.database_open_helpers.WordsOpenHelper;
 
@@ -184,12 +184,12 @@ public class DevTestActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    private List<Word> getWordList(File file) {
+    private List<NotebookWord> getWordList(File file) {
         String fileContent = readTextFile(Uri.fromFile(file));
         fileContent = validateText(fileContent);
 
-        List<Word> wordList = new ArrayList<>();
-        Word word;
+        List<NotebookWord> wordList = new ArrayList<>();
+        NotebookWord word;
 
         String[] vocMeaningWords = getWordMeanings(fileContent);
         for (String vocMeanWord : vocMeaningWords) {
@@ -255,8 +255,8 @@ public class DevTestActivity extends AppCompatActivity implements View.OnClickLi
         return input.split("\n\n\n--------------------\n\n\n");
     }
 
-    private Word getWordFromText(String vocMeaningWord) {
-        Word word = new Word();
+    private NotebookWord getWordFromText(String vocMeaningWord) {
+        NotebookWord word = new NotebookWord();
 
         String[] ss = vocMeaningWord.split(":\n");
         for (int i = 0; i < ss.length; i++) {
@@ -285,9 +285,9 @@ public class DevTestActivity extends AppCompatActivity implements View.OnClickLi
             notebookName = notebookList.get(i).getNoteBookName();
             notebookId = notebookList.get(i).getId();
 
-            List<Word> wordList = new WordsOpenHelper(this, notebookId).getWordList(false);
+            List<NotebookWord> wordList = new WordsOpenHelper(this, notebookId).getWordList();
             for (int j = 0; j < wordList.size(); j++) {
-                Word word = wordList.get(j);
+                NotebookWord word = wordList.get(j);
                 txtContent += word.getWord();
                 txtContent += ":\n";
                 txtContent += word.getMeaning();
@@ -308,7 +308,7 @@ public class DevTestActivity extends AppCompatActivity implements View.OnClickLi
         for (int i = 0; i < notebooks.size(); i++) {
             notebookName = notebooks.get(i).getNoteBookName();
             notebookId = notebooks.get(i).getId();
-            csvTask = new ExportDatabaseCSVTask(this, new WordsOpenHelper(this, notebookId).getWordList(false), notebookName);
+            csvTask = new ExportDatabaseCSVTask(this, new WordsOpenHelper(this, notebookId).getWordList(), notebookName);
             csvTask.execute();
         }
 

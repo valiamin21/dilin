@@ -19,7 +19,7 @@ import java.util.List;
 
 import ir.proglovving.dilin.R;
 import ir.proglovving.dilin.adapters.WordsRecyclerViewAdapter;
-import ir.proglovving.dilin.data_model.Word;
+import ir.proglovving.dilin.data_model.NotebookWord;
 import ir.proglovving.dilin.database_open_helpers.WordsOpenHelper;
 
 @SuppressLint("ValidFragment")
@@ -28,17 +28,15 @@ public class WordListFragment extends Fragment implements WordsRecyclerViewAdapt
     private RecyclerView recyclerView;
     private NestedScrollView emptyMessageNestedScrollView;
     private TextView emptyTextView;
-    private boolean isBookmarkedMode;
     private RecyclerView.OnScrollListener onScrollListener;
     private int notebookId;
     private WordsRecyclerViewAdapter recyclerViewAdapter;
 
-    public static WordListFragment newInstance(boolean bookmarkedMode, RecyclerView.OnScrollListener onScrollListener, int notebookId, WordsOpenHelper wordsOpenHelper) {
-        return new WordListFragment(bookmarkedMode, onScrollListener, notebookId, wordsOpenHelper);
+    public static WordListFragment newInstance(RecyclerView.OnScrollListener onScrollListener, int notebookId, WordsOpenHelper wordsOpenHelper) {
+        return new WordListFragment(onScrollListener, notebookId, wordsOpenHelper);
     }
 
-    public WordListFragment(boolean bookmarkedMode, RecyclerView.OnScrollListener onScrollListener, int notebookId, WordsOpenHelper wordsOpenHelper) {
-        this.isBookmarkedMode = bookmarkedMode;
+    public WordListFragment(RecyclerView.OnScrollListener onScrollListener, int notebookId, WordsOpenHelper wordsOpenHelper) {
         this.onScrollListener = onScrollListener;
         this.notebookId = notebookId;
     }
@@ -59,7 +57,7 @@ public class WordListFragment extends Fragment implements WordsRecyclerViewAdapt
     }
 
     public void refreshRecyclerView() {
-        List<Word> words = new WordsOpenHelper(getContext(), notebookId).getWordList(false);
+        List<NotebookWord> words = new WordsOpenHelper(getContext(), notebookId).getWordList();
 
         if (recyclerViewAdapter == null) {
             recyclerViewAdapter = new WordsRecyclerViewAdapter(getContext(), words, this);
@@ -99,7 +97,7 @@ public class WordListFragment extends Fragment implements WordsRecyclerViewAdapt
         }
     }
 
-    public void addWord(Word word) {
+    public void addWord(NotebookWord word) {
         recyclerViewAdapter.addWord(word);
     }
 
@@ -107,12 +105,11 @@ public class WordListFragment extends Fragment implements WordsRecyclerViewAdapt
         WordsOpenHelper openHelper = new WordsOpenHelper(getContext(), notebookId);
 
         if (openHelper.getRawsCount() == 0 // اگر هیچ کلمه ای به دیتابیس اضافه نشده بود
-                || (isBookmarkedMode && openHelper.getWordList(true).size() == 0) // یا اگر در حالت نشان شده بود و کلمه ی نشان شده ای نبود
         ) { //  جست و جو نکن و در همان شرایط قبلی بمان
             return;
         }
 
-        List<Word> words = getSuitableWordList(isBookmarkedMode, search);
+        List<NotebookWord> words = getSuitableWordList(search);
 
         if (words.size() == 0) { // اگر کلمه ای یافت نشد
             recyclerView.setVisibility(View.INVISIBLE);
@@ -127,10 +124,10 @@ public class WordListFragment extends Fragment implements WordsRecyclerViewAdapt
         recyclerViewAdapter.setWordList(words);
     }
 
-    private List<Word> getSuitableWordList(boolean isBookmarkedMode, String search) {
-        List<Word> result = new ArrayList<>();
+    private List<NotebookWord> getSuitableWordList(String search) {
+        List<NotebookWord> result = new ArrayList<>();
 
-        List<Word> words = new WordsOpenHelper(getContext(), notebookId).getWordList(isBookmarkedMode);
+        List<NotebookWord> words = new WordsOpenHelper(getContext(), notebookId).getWordList();
 
         for (int i = 0; i < words.size(); i++) {
             if (words.get(i).getWord().contains(search) || words.get(i).getMeaning().contains(search)) {
@@ -139,15 +136,6 @@ public class WordListFragment extends Fragment implements WordsRecyclerViewAdapt
         }
 
         return result;
-    }
-
-    @Override
-    public void onBookmarked() {
-        // sending broadcast for refreshing notebooks fragment
-        NotebookListFragment.updateMeByBroadcast(getContext());
-
-        // sending broadcast for refreshing bookmarkedWordFragment
-        BookmarkedWordsFragment.updateMebyBroadcast(getContext());
     }
 
     @Override

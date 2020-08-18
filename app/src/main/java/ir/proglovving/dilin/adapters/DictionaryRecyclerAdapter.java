@@ -19,7 +19,7 @@ import java.util.Locale;
 import ir.proglovving.dilin.MyApplication;
 import ir.proglovving.dilin.R;
 import ir.proglovving.dilin.custom_views.ToolTip;
-import ir.proglovving.dilin.data_model.DictionaryWord;
+import ir.proglovving.dilin.data_model.Word;
 import ir.proglovving.dilin.database_open_helpers.NotebookOpenHelper;
 
 public class DictionaryRecyclerAdapter extends RecyclerView.Adapter<DictionaryRecyclerAdapter.DictionaryViewHolder> implements View.OnLongClickListener {
@@ -27,13 +27,13 @@ public class DictionaryRecyclerAdapter extends RecyclerView.Adapter<DictionaryRe
     private static final int VIEW_TYPE_FIRST_ITEM = 0, VIEW_TYPE_DEFAULT = 1;
 
     private Context context;
-    private List<DictionaryWord> dictionaryWordList;
+    private List<Word> wordList;
     private int marginTop;
 
-    public DictionaryRecyclerAdapter(Context context, List<DictionaryWord> dictionaryWordList, int marginTop) {
+    public DictionaryRecyclerAdapter(Context context, List<Word> wordList, int marginTop) {
         this.context = context;
         this.marginTop = marginTop;
-        this.dictionaryWordList = dictionaryWordList;
+        this.wordList = wordList;
     }
 
     @NonNull
@@ -58,29 +58,29 @@ public class DictionaryRecyclerAdapter extends RecyclerView.Adapter<DictionaryRe
 
     }
 
-    public void setDictionaryWordList(List<DictionaryWord> dictionaryWordList) {
-        this.dictionaryWordList = dictionaryWordList;
+    public void setWordList(List<Word> wordList) {
+        this.wordList = wordList;
         notifyDataSetChanged();
     }
 
     @Override
     public void onBindViewHolder(@NonNull final DictionaryViewHolder mViewHolder, int i) {
-        final DictionaryWord dictionaryWord = dictionaryWordList.get(i);
+        final Word word = wordList.get(i);
 
-        mViewHolder.wordTextView.setText(dictionaryWord.getWord());
-        mViewHolder.meaningTextView.setText(dictionaryWord.getMeaning());
+        mViewHolder.wordTextView.setText(word.getWord());
+        mViewHolder.meaningTextView.setText(word.getMeaning());
 
         mViewHolder.speechButtonUS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MyApplication.speechWord(dictionaryWord.getWord(), Locale.US, context);
+                MyApplication.speechWord(word.getWord(), Locale.US, context);
             }
         });
 
         mViewHolder.speechButtonUK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MyApplication.speechWord(dictionaryWord.getWord(), Locale.UK, context);
+                MyApplication.speechWord(word.getWord(), Locale.UK, context);
             }
         });
 
@@ -96,7 +96,7 @@ public class DictionaryRecyclerAdapter extends RecyclerView.Adapter<DictionaryRe
                 Dialog dialog = new Dialog(context);
                 dialog.setContentView(R.layout.dialog_adding_dictoinary_word_to_notebook);
                 RecyclerView recyclerView = dialog.findViewById(R.id.recycler_view_dw_to_n);
-                AddingDictionaryWordToNotebookRecyclerAdapter recyclerAdapter = new AddingDictionaryWordToNotebookRecyclerAdapter(context, dictionaryWord, dialog);
+                AddingDictionaryWordToNotebookRecyclerAdapter recyclerAdapter = new AddingDictionaryWordToNotebookRecyclerAdapter(context, word, dialog);
                 recyclerView.setAdapter(recyclerAdapter);
                 dialog.show();
             }
@@ -110,7 +110,7 @@ public class DictionaryRecyclerAdapter extends RecyclerView.Adapter<DictionaryRe
 
     @Override
     public int getItemCount() {
-        return dictionaryWordList.size();
+        return wordList.size();
     }
 
     @Override

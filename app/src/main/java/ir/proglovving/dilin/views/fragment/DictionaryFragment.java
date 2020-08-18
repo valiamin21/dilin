@@ -26,7 +26,7 @@ import ir.proglovving.dilin.R;
 import ir.proglovving.dilin.Utilities;
 import ir.proglovving.dilin.adapters.DictionaryRecyclerAdapter;
 import ir.proglovving.dilin.custom_views.ToolTip;
-import ir.proglovving.dilin.data_model.DictionaryWord;
+import ir.proglovving.dilin.data_model.Word;
 import ir.proglovving.dilin.database_open_helpers.DictionaryOpenHelper;
 
 public class DictionaryFragment extends Fragment implements View.OnClickListener, View.OnLongClickListener {
@@ -41,7 +41,7 @@ public class DictionaryFragment extends Fragment implements View.OnClickListener
     private Thread searchingThread;
     private DictionaryOpenHelper dictionaryOpenHelper;
     private DictionaryRecyclerAdapter recyclerAdapter;
-    private List<DictionaryWord> dictionaryWordList;
+    private List<Word> wordList;
 
     private int recyclerViewPaddingTop;
 
@@ -191,14 +191,14 @@ public class DictionaryFragment extends Fragment implements View.OnClickListener
 
         @Override
         public void run() {
-            dictionaryWordList = dictionaryOpenHelper.getDictionaryWordList(searchEditText.getText().toString(), onIterationListener);
+            wordList = dictionaryOpenHelper.getDictionaryWordList(searchEditText.getText().toString(), onIterationListener);
 
             if (isInterrupted) return;
 
             if (recyclerAdapter == null) {
                 recyclerAdapter = new DictionaryRecyclerAdapter(
                         getContext(),
-                        dictionaryWordList,
+                        wordList,
                         recyclerViewPaddingTop
                 );
             }
@@ -206,7 +206,7 @@ public class DictionaryFragment extends Fragment implements View.OnClickListener
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    if (dictionaryWordList.size() != 0) {
+                    if (wordList.size() != 0) {
                         guideContainer.setVisibility(View.INVISIBLE);
                     } else {
                         guideContainer.setVisibility(View.VISIBLE);
@@ -215,7 +215,7 @@ public class DictionaryFragment extends Fragment implements View.OnClickListener
                     if (recyclerView.getAdapter() == null) {
                         recyclerView.setAdapter(recyclerAdapter);
                     } else {
-                        recyclerAdapter.setDictionaryWordList(dictionaryWordList);
+                        recyclerAdapter.setWordList(wordList);
                         recyclerView.scrollToPosition(0);
                     }
                     progressBar.setVisibility(View.INVISIBLE);

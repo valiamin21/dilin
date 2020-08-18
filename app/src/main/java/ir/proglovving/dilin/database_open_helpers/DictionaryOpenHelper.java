@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ir.proglovving.dilin.Utilities;
-import ir.proglovving.dilin.data_model.DictionaryWord;
+import ir.proglovving.dilin.data_model.Word;
 
 public class DictionaryOpenHelper extends SQLiteOpenHelper {
 
@@ -91,12 +91,12 @@ public class DictionaryOpenHelper extends SQLiteOpenHelper {
 
     }
 
-    public List<DictionaryWord> getDictionaryWordList(String searchText, OnIterationListener onIterationListener) {
+    public List<Word> getDictionaryWordList(String searchText, OnIterationListener onIterationListener) {
         searchText = searchText.toLowerCase(); // for better searching regardless of uppercase and lowercase of words
 
-        List<DictionaryWord> firstWordList = new ArrayList<>(); // for words that contain searchText at first characters
-        List<DictionaryWord> secondWordList = new ArrayList<>(); // for words that contain searchText but not at first characters
-        DictionaryWord dictionaryWord;
+        List<Word> firstWordList = new ArrayList<>(); // for words that contain searchText at first characters
+        List<Word> secondWordList = new ArrayList<>(); // for words that contain searchText but not at first characters
+        Word word;
 
         if (searchText.length() == 0) return secondWordList;
         String tableName = getSuitableTableName(searchText.substring(0, 1));
@@ -112,19 +112,19 @@ public class DictionaryOpenHelper extends SQLiteOpenHelper {
                 }
 
                 if (cursor.getString(cursor.getColumnIndex(COL_EN)).toLowerCase().contains(searchText)) {
-                    dictionaryWord = new DictionaryWord();
-                    dictionaryWord.setWord(
+                    word = new Word();
+                    word.setWord(
                             cursor.getString(cursor.getColumnIndex(COL_EN))
                     );
-                    dictionaryWord.setMeaning(
+                    word.setMeaning(
                             cursor.getString(cursor.getColumnIndex(COL_FA))
                                     .replace("<BR>", "\n").replace("~", " ")
                     );
 
-                    if (dictionaryWord.getWord().substring(0, searchText.length()).equals(searchText)) {
-                        firstWordList.add(dictionaryWord);
+                    if (word.getWord().substring(0, searchText.length()).equals(searchText)) {
+                        firstWordList.add(word);
                     } else {
-                        secondWordList.add(dictionaryWord);
+                        secondWordList.add(word);
                     }
 
                     if ((firstWordList.size() > FIRST_LIMIT_COUNT && secondWordList.size() > SECOND_LIMIT_COUNT)) {

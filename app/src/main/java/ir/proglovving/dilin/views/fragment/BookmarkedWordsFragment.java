@@ -19,7 +19,7 @@ import java.util.List;
 
 import ir.proglovving.dilin.R;
 import ir.proglovving.dilin.adapters.WordsRecyclerViewAdapter;
-import ir.proglovving.dilin.data_model.Word;
+import ir.proglovving.dilin.data_model.NotebookWord;
 import ir.proglovving.dilin.database_open_helpers.NotebookOpenHelper;
 import ir.proglovving.dilin.database_open_helpers.WordsOpenHelper;
 
@@ -75,7 +75,7 @@ public class BookmarkedWordsFragment extends Fragment implements WordsRecyclerVi
     }
 
     public void refreshRecyclerView() {
-        List<Word> words = WordsOpenHelper.getAllWords(getContext(), notebookOpenHelper, true);
+        List<NotebookWord> words = WordsOpenHelper.getAllWords(getContext(), notebookOpenHelper);
 
         if (words.size() == 0) { // اگر کلمه ی نشان شده ای یافت نشد
             recyclerView.setVisibility(View.INVISIBLE);
@@ -119,12 +119,6 @@ public class BookmarkedWordsFragment extends Fragment implements WordsRecyclerVi
         } else {
             return getArguments().getBoolean(ARG_REFRESH_REQUIRED);
         }
-    }
-
-    @Override
-    public void onBookmarked() {
-        NotebookListFragment.updateMeByBroadcast(getContext());
-        setRefreshRequirement(true);
     }
 
     @Override

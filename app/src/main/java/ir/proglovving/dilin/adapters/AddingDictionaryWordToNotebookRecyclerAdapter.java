@@ -13,9 +13,9 @@ import android.widget.Toast;
 import java.util.List;
 
 import ir.proglovving.dilin.R;
-import ir.proglovving.dilin.data_model.DictionaryWord;
-import ir.proglovving.dilin.data_model.Notebook;
 import ir.proglovving.dilin.data_model.Word;
+import ir.proglovving.dilin.data_model.Notebook;
+import ir.proglovving.dilin.data_model.NotebookWord;
 import ir.proglovving.dilin.database_open_helpers.NotebookOpenHelper;
 import ir.proglovving.dilin.database_open_helpers.WordsOpenHelper;
 import ir.proglovving.dilin.views.fragment.NotebookListFragment;
@@ -24,17 +24,17 @@ public class AddingDictionaryWordToNotebookRecyclerAdapter extends RecyclerView.
 
     private List<Notebook> notebookList;
     private Context context;
-    private Word word;
+    private NotebookWord word;
     private Dialog dialog;
 
-    public AddingDictionaryWordToNotebookRecyclerAdapter(Context context, DictionaryWord dictionaryWord, Dialog dialog) {
+    public AddingDictionaryWordToNotebookRecyclerAdapter(Context context, Word word, Dialog dialog) {
         this.notebookList = new NotebookOpenHelper(context).getNotebookList();
         this.context = context;
 
-        word = new Word();
-        word.setId(dictionaryWord.getId());
-        word.setWord(dictionaryWord.getWord());
-        word.setMeaning(dictionaryWord.getMeaning());
+        this.word = new NotebookWord();
+        this.word.setId(word.getId());
+        this.word.setWord(word.getWord());
+        this.word.setMeaning(word.getMeaning());
 
         this.dialog = dialog;
     }

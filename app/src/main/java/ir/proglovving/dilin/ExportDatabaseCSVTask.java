@@ -15,16 +15,16 @@ import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.List;
 
-import ir.proglovving.dilin.data_model.Word;
+import ir.proglovving.dilin.data_model.NotebookWord;
 
 public class ExportDatabaseCSVTask extends AsyncTask<String, Integer, Boolean> {
     private static final String TAG = "ExportDatabaseCSVTask";
     private ProgressDialog dialog;
     private Context context;
-    private List<Word> words;
+    private List<NotebookWord> words;
     private String csvName;
 
-    public ExportDatabaseCSVTask(Context context, List<Word> words, String csvName) {
+    public ExportDatabaseCSVTask(Context context, List<NotebookWord> words, String csvName) {
         this.context = context;
         this.words = words;
         this.csvName = csvName;
@@ -76,15 +76,15 @@ public class ExportDatabaseCSVTask extends AsyncTask<String, Integer, Boolean> {
             );
 
             for (int i = 0; i < words.size(); i++) {
-                Word word = words.get(i);
+                NotebookWord word = words.get(i);
                 String[] recordValues = new String[3];
                 recordValues[0] = word.getWord();
                 recordValues[1] = word.getMeaning();
-                if (word.isBookmark()) {
-                    recordValues[2] = context.getString(R.string.yes);
-                } else {
-                    recordValues[2] = "";
-                }
+//                if (word.isBookmark()) {
+//                    recordValues[2] = context.getString(R.string.yes);
+//                } else {
+//                    recordValues[2] = "";
+//                }
                 csvWriter.writeNext(recordValues);
                 publishProgress((i + 1) * 100 / words.size());
             }

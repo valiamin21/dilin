@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ir.proglovving.dilin.data_model.Notebook;
-import ir.proglovving.dilin.data_model.Word;
+import ir.proglovving.dilin.data_model.NotebookWord;
 
 public class WordsOpenHelper extends SQLiteOpenHelper {
 
@@ -19,22 +19,21 @@ public class WordsOpenHelper extends SQLiteOpenHelper {
     private static final String COL_ID = "_id";
     private static final String COL_WORD = "vocabulary";
     private static final String COL_MEANING = "meaning";
-    private static final String COL_BOOKMARKED = "bookmarked";
 
     private String words_table_name;
     private int notebookId;
 
-    public static List<Word> getAllWords(Context context, NotebookOpenHelper notebookOpenHelper, boolean isBookmarked) {
-        List<Word> detailedWords = new ArrayList<>();
+    public static List<NotebookWord> getAllWords(Context context, NotebookOpenHelper notebookOpenHelper) {
+        List<NotebookWord> words = new ArrayList<>();
 
         List<Notebook> notebookList = notebookOpenHelper.getNotebookList();
         for (Notebook notebook : notebookList) {
-            detailedWords.addAll(
-                    new WordsOpenHelper(context, notebook.getId()).getWordList(isBookmarked)
+            words.addAll(
+                    new WordsOpenHelper(context, notebook.getId()).getWordList()
             );
         }
 
-        return detailedWords;
+        return words;
     }
 
 
@@ -54,31 +53,29 @@ public class WordsOpenHelper extends SQLiteOpenHelper {
 
     }
 
-    public void addWord(Word word) {
+    public void addWord(NotebookWord word) {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
 
         ContentValues cv = new ContentValues();
         cv.put(COL_WORD, word.getWord());
         cv.put(COL_MEANING, word.getMeaning());
-        cv.put(COL_BOOKMARKED, word.isBookmark());
 
         sqLiteDatabase.insert(words_table_name, null, cv);
 
         sqLiteDatabase.close();
     }
 
-    public void addWords(List<Word> words) {
+    public void addWords(List<NotebookWord> words) {
         for (int i = 0; i < words.size(); i++) {
             addWord(words.get(i));
         }
     }
 
-    public void update(Word word, int id) {
+    public void update(NotebookWord word, int id) {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(COL_WORD, word.getWord());
         cv.put(COL_MEANING, word.getMeaning());
-        cv.put(COL_BOOKMARKED, word.isBookmark());
         sqLiteDatabase.update(words_table_name, cv, COL_ID + " =?", new String[]{String.valueOf(id)});
 
         sqLiteDatabase.close();
@@ -90,8 +87,8 @@ public class WordsOpenHelper extends SQLiteOpenHelper {
         sqLiteDatabase.close();
     }
 
-    public Word getWord(int id) {
-        Word word = new Word();
+    public NotebookWord getWord(int id) {
+        NotebookWord word = new NotebookWord();
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + words_table_name + " WHERE " + COL_ID + "=?", new String[]{String.valueOf(id)});
         cursor.moveToFirst();
@@ -103,8 +100,8 @@ public class WordsOpenHelper extends SQLiteOpenHelper {
         return word;
     }
 
-    public List<Word> getSearchedWordList(String searchText) {
-        List<Word> wordList = new ArrayList<>();
+    public List<NotebookWord> getSearchedWordList(String searchText) {
+        List<NotebookWord> wordList = new ArrayList<>();
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
 
         //شروع جست و جو در لغات انگلیسی
@@ -113,7 +110,7 @@ public class WordsOpenHelper extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                Word word = new Word();
+                NotebookWord word = new NotebookWord();
                 setValuesOfCursorInWord(cursor, word);
                 wordList.add(word);
             } while (cursor.moveToNext());
@@ -126,7 +123,7 @@ public class WordsOpenHelper extends SQLiteOpenHelper {
                 sqLiteDatabase.rawQuery("SELECT * FROM " + words_table_name + " WHERE " + COL_MEANING + " LIKE '%" + searchText + "%'", null);
         if (cursor.moveToFirst()) {
             do {
-                Word word = new Word();
+                NotebookWord word = new NotebookWord();
                 setValuesOfCursorInWord(cursor, word);
                 wordList.add(word);
             } while (cursor.moveToNext());
@@ -140,8 +137,8 @@ public class WordsOpenHelper extends SQLiteOpenHelper {
         return wordList;
     }
 
-    public List<Word> getWordList(boolean isBookmarked) {
-        List<Word> wordList = new ArrayList<>();
+    public List<NotebookWord> getWordList() {
+        List<NotebookWord> wordList = new ArrayList<>();
 
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
         if (!sqLiteDatabase.isOpen()) {
@@ -150,16 +147,10 @@ public class WordsOpenHelper extends SQLiteOpenHelper {
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + words_table_name, null);
         if (cursor.moveToFirst()) {
             do {
-                Word word = new Word();
+                NotebookWord word = new NotebookWord();
                 setValuesOfCursorInWord(cursor, word);
 
-                if (isBookmarked) {
-                    if (word.isBookmark()) {
-                        wordList.add(word);
-                    }
-                } else {
-                    wordList.add(word);
-                }
+                wordList.add(word);
 
             } while (cursor.moveToNext());
         }
@@ -181,29 +172,11 @@ public class WordsOpenHelper extends SQLiteOpenHelper {
         return result;
     }
 
-    public int getBookmarkRawsCount() {
-        SQLiteDatabase readableSqliteDatabase = getReadableDatabase();
-        Cursor cursor = readableSqliteDatabase.rawQuery("SELECT * FROM " + words_table_name + " WHERE " + COL_BOOKMARKED + " = 1", null);
-
-        int result = cursor.getCount();
-
-        cursor.close();
-        readableSqliteDatabase.close();
-
-        return result;
-    }
-
-    private void setValuesOfCursorInWord(Cursor cursor, Word word) {
+    private void setValuesOfCursorInWord(Cursor cursor, NotebookWord word) {
         word.setNotebookId(notebookId);
         word.setId(cursor.getInt(cursor.getColumnIndex(COL_ID)));
         word.setWord(cursor.getString(cursor.getColumnIndex(COL_WORD)));
         word.setMeaning(cursor.getString(cursor.getColumnIndex(COL_MEANING)));
-
-        if (cursor.getInt(cursor.getColumnIndex(COL_BOOKMARKED)) == 0) {
-            word.setBookmark(false);
-        } else {
-            word.setBookmark(true);
-        }
     }
 
     private String creating_words_table_command() {
@@ -212,8 +185,7 @@ public class WordsOpenHelper extends SQLiteOpenHelper {
                         "(" +
                         COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                         COL_WORD + " TEXT," +
-                        COL_MEANING + " TEXT," +
-                        COL_BOOKMARKED + " INTEGER);";
+                        COL_MEANING + " TEXT);";
     }
 
     public boolean isThereWord(String word) {

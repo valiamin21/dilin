@@ -7,13 +7,13 @@ import android.widget.RemoteViews;
 
 import ir.proglovving.dilin.R;
 import ir.proglovving.dilin.RandomPlayingWord;
-import ir.proglovving.dilin.data_model.Word;
+import ir.proglovving.dilin.data_model.NotebookWord;
 
 public class WordsWidget extends AppWidgetProvider {
 
 
     public static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-                                       int appWidgetId, Word word) {
+                                       int appWidgetId, NotebookWord word) {
 
 
         // Construct the RemoteViews object
@@ -29,7 +29,7 @@ public class WordsWidget extends AppWidgetProvider {
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         // There may be multiple widgets active, so update all of them
         for (int appWidgetId : appWidgetIds) {
-            Word word = RandomPlayingWord.getARandomWord(context);
+            NotebookWord word = RandomPlayingWord.getARandomWord(context);
             if (word != null) {
                 updateAppWidget(context, appWidgetManager, appWidgetId, word);
             }

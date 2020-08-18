@@ -67,7 +67,6 @@ public class NotebookOpenHelper extends SQLiteOpenHelper {
                 WordsOpenHelper wordsOpenHelper = new WordsOpenHelper(context, notebook.getId());
 
                 notebook.setWordsCount(wordsOpenHelper.getRawsCount());
-                notebook.setBookmarkedCount(wordsOpenHelper.getBookmarkRawsCount());
 
                 if (cursor.getInt(cursor.getColumnIndex(COL_FAVORITE)) == 0) {
                     notebook.setFavorite(false);
