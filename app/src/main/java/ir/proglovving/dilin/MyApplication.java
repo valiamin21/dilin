@@ -19,7 +19,6 @@ public class MyApplication extends Application {
 
     // TODO: 3/1/20 prevent adding a word from dictionary to notebook if the word already existed in notebook
     // TODO: 9/7/19 replacing landscape images with abstract images
-    // TODO: 8/2/19 modify motionable textView
     // TODO: 8/10/19 modifying fragments of dilin(best practice)
     // TODO: 8/5/19 علی بدیعی: در کل نباید اسم برنامه‌رو مستقیم بنویسی(توی صفحه‌ی اسپلش) بهتره که با یه فونت قشنگ بنویسی* عکس بگیری* بعد بچسبونی رو عکس والپیپر
     // TODO: 8/2/19 modifying text color of dialogs
@@ -32,6 +31,15 @@ public class MyApplication extends Application {
     // TODO: 7/24/19 اصلاح و سبک‌تر کردن آیتم‌های ریسایکلرویوها، همچنین قرار دادن پیجینیشن در ریسایکلرویوها
     // TODO: 7/19/19 making custom toast for this app
     // TODO: 7/24/19 modify transitions between activities of app
+    
+    
+    // word saving revolution to do's
+    // TODO: 8/18/20 removing favorite notebook field from model, database, view
+    // TODO: 8/18/20 removing switch button for switching between favorite and non-favorite notebooks
+    // TODO: 8/18/20 removing bookmarked field from model, database, view
+    // TODO: 8/18/20 returning saved words in all notebooks as bookmarked words
+    // TODO: 8/18/20 renaming bookmarked words menu to saved words
+
 
     private static Typeface appTypeface;
 
