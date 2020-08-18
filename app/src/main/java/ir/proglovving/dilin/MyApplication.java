@@ -17,6 +17,7 @@ public class MyApplication extends Application {
         قرار دادن امکان انتشار دفترهای زبان توسط کاربران
      */
 
+    // TODO: 8/18/20 adding faq to app in navigation bar
     // TODO: 3/1/20 prevent adding a word from dictionary to notebook if the word already existed in notebook
     // TODO: 9/7/19 replacing landscape images with abstract images
     // TODO: 8/10/19 modifying fragments of dilin(best practice)
@@ -36,9 +37,7 @@ public class MyApplication extends Application {
     // word saving revolution to do's
     // TODO: 8/18/20 removing favorite notebook field from model, database, view
     // TODO: 8/18/20 removing switch button for switching between favorite and non-favorite notebooks
-    // TODO: 8/18/20 removing bookmarked field from model, database, view
     // TODO: 8/18/20 returning saved words in all notebooks as bookmarked words
-    // TODO: 8/18/20 renaming bookmarked words menu to saved words
 
 
     private static Typeface appTypeface;
