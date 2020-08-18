@@ -12,13 +12,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import ir.proglovving.dilin.R;
 import ir.proglovving.dilin.adapters.WordsRecyclerViewAdapter;
-import ir.proglovving.dilin.custom_views.MotionableTextView;
 import ir.proglovving.dilin.data_model.Word;
 import ir.proglovving.dilin.database_open_helpers.WordsOpenHelper;
 
@@ -27,7 +27,7 @@ public class WordListFragment extends Fragment implements WordsRecyclerViewAdapt
 
     private RecyclerView recyclerView;
     private NestedScrollView emptyMessageNestedScrollView;
-    private MotionableTextView emptyTextView;
+    private TextView emptyTextView;
     private boolean isBookmarkedMode;
     private RecyclerView.OnScrollListener onScrollListener;
     private int notebookId;
@@ -91,7 +91,7 @@ public class WordListFragment extends Fragment implements WordsRecyclerViewAdapt
     private void checkWarningVisibilities(int wordsCount) {
         if (wordsCount == 0) { //  اگر هیچ کلمه ای اضافه نشده باشد
             recyclerView.setVisibility(View.INVISIBLE);
-            emptyTextView.changeText(R.string.no_word_was_added);
+            emptyTextView.setText(R.string.no_word_was_added);
             emptyMessageNestedScrollView.setVisibility(View.VISIBLE);
         } else if (recyclerView.getVisibility() == View.INVISIBLE) {
             recyclerView.setVisibility(View.VISIBLE);
@@ -116,7 +116,7 @@ public class WordListFragment extends Fragment implements WordsRecyclerViewAdapt
 
         if (words.size() == 0) { // اگر کلمه ای یافت نشد
             recyclerView.setVisibility(View.INVISIBLE);
-            emptyTextView.changeText(R.string.nothing_was_found);
+            emptyTextView.setText(R.string.nothing_was_found);
             emptyMessageNestedScrollView.setVisibility(View.VISIBLE);
             return;
         } else {

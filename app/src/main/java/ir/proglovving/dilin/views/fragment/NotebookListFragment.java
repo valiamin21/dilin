@@ -15,7 +15,6 @@ import androidx.annotation.Nullable;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -33,13 +32,13 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.List;
 
 import ir.proglovving.dilin.R;
 import ir.proglovving.dilin.Utilities;
 import ir.proglovving.dilin.adapters.NotebookRecyclerAdapter;
-import ir.proglovving.dilin.custom_views.MotionableTextView;
 import ir.proglovving.dilin.data_model.Notebook;
 import ir.proglovving.dilin.database_open_helpers.NotebookOpenHelper;
 
@@ -47,7 +46,7 @@ import ir.proglovving.dilin.database_open_helpers.NotebookOpenHelper;
 public class NotebookListFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private MotionableTextView emptyTextView;
+    private TextView emptyTextView;
     private ExtendedFloatingActionButton fabAddNotebook;
     private CoordinatorLayout coordinatorLayout;
 
@@ -177,13 +176,13 @@ public class NotebookListFragment extends Fragment {
     private void validateEmptyDataSet(List<Notebook> notebookList) {
 
         if (notebookOpenHelper.getRawsCount() == 0) { // اگر هیچ دفتری ساخته نشده بود!
-            emptyTextView.changeText(R.string.no_notebook_has_been_made_yet);
+            emptyTextView.setText(R.string.no_notebook_has_been_made_yet);
             hideNotebookRecyclerView();
             startShakeAnimation();
 
             return;
         } else if (favoriteSwitchButton.isChecked() && notebookList.size() == 0) { // اگر در حالت مورد علاقه بود و دفتر موردعلاقه ای یافت نشد!
-            emptyTextView.changeText(R.string.no_favorite_notebook_was_found);
+            emptyTextView.setText(R.string.no_favorite_notebook_was_found);
             hideNotebookRecyclerView();
             return;
         } else {
