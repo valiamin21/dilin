@@ -23,7 +23,7 @@ import ir.proglovving.dilin.data_model.NotebookWord;
 import ir.proglovving.dilin.database_open_helpers.NotebookOpenHelper;
 import ir.proglovving.dilin.database_open_helpers.WordsOpenHelper;
 
-public class BookmarkedWordsFragment extends Fragment implements WordsRecyclerViewAdapter.WordsRecyclerViewEvent {
+public class SavedWordsFragment extends Fragment implements WordsRecyclerViewAdapter.WordsRecyclerViewEvent {
 
     private static final String ARG_REFRESH_REQUIRED = "refresh_required";
 
@@ -33,14 +33,14 @@ public class BookmarkedWordsFragment extends Fragment implements WordsRecyclerVi
     private WordsRecyclerViewAdapter recyclerAdapter;
     private NotebookOpenHelper notebookOpenHelper;
 
-    private BookmarksReceiver receiver;
+    private SavesReceiver receiver;
 
-    public BookmarkedWordsFragment() {
+    public SavedWordsFragment() {
         // Required empty public constructor
     }
 
-    public static BookmarkedWordsFragment newInstance() {
-        return new BookmarkedWordsFragment();
+    public static SavedWordsFragment newInstance() {
+        return new SavedWordsFragment();
     }
 
     public static void updateMebyBroadcast(Context context) {
@@ -57,10 +57,10 @@ public class BookmarkedWordsFragment extends Fragment implements WordsRecyclerVi
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        receiver = new BookmarksReceiver();
+        receiver = new SavesReceiver();
         getContext().registerReceiver(receiver, new IntentFilter("ir.proglovving.dilin.BookmarkedFragmentRefresh"));
 
-        View view = inflater.inflate(R.layout.fragment_bookmarked_words, container, false);
+        View view = inflater.inflate(R.layout.fragment_saved_words, container, false);
         recyclerView = view.findViewById(R.id.recycler_view_bookmarked_fragment);
         emptyMessageContainer = view.findViewById(R.id.nested_scroll_view_empty);
 
@@ -131,7 +131,7 @@ public class BookmarkedWordsFragment extends Fragment implements WordsRecyclerVi
         NotebookListFragment.updateMeByBroadcast(getContext());
     }
 
-    public class BookmarksReceiver extends BroadcastReceiver {
+    public class SavesReceiver extends BroadcastReceiver {
 
         @Override
         public void onReceive(Context context, Intent intent) {

@@ -41,7 +41,7 @@ import ir.proglovving.dilin.R;
 import ir.proglovving.dilin.Utilities;
 import ir.proglovving.dilin.custom_views.ToolTip;
 import ir.proglovving.dilin.database_open_helpers.NotebookOpenHelper;
-import ir.proglovving.dilin.views.fragment.BookmarkedWordsFragment;
+import ir.proglovving.dilin.views.fragment.SavedWordsFragment;
 import ir.proglovving.dilin.views.fragment.DictionaryFragment;
 import ir.proglovving.dilin.views.fragment.NotebookListFragment;
 
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
     private NotebookListFragment notebookListFragment;
     private DictionaryFragment dictionaryFragment;
-    private BookmarkedWordsFragment bookmarkedWordsFragment;
+    private SavedWordsFragment savedWordsFragment;
 
     private NotebookOpenHelper notebookOpenHelper;
 
@@ -203,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
 
                 hideAFragmentForBottomNavigation(dictionaryFragment, getSupportFragmentManager());
                 hideAFragmentForBottomNavigation(notebookListFragment, getSupportFragmentManager());
-                hideAFragmentForBottomNavigation(bookmarkedWordsFragment, getSupportFragmentManager());
+                hideAFragmentForBottomNavigation(savedWordsFragment, getSupportFragmentManager());
 
                 switch (menuItem.getItemId()) {
                     case R.id.notebooks:
@@ -215,11 +215,11 @@ public class MainActivity extends AppCompatActivity {
                         getSupportFragmentManager().beginTransaction().show(notebookListFragment).commit();
                         break;
                     case R.id.bookmark:
-                        if (bookmarkedWordsFragment == null) {
-                            bookmarkedWordsFragment = BookmarkedWordsFragment.newInstance();
-                            getSupportFragmentManager().beginTransaction().add(containerFrameLayout.getId(), bookmarkedWordsFragment).commit();
+                        if (savedWordsFragment == null) {
+                            savedWordsFragment = SavedWordsFragment.newInstance();
+                            getSupportFragmentManager().beginTransaction().add(containerFrameLayout.getId(), savedWordsFragment).commit();
                         }
-                        getSupportFragmentManager().beginTransaction().show(bookmarkedWordsFragment).commit();
+                        getSupportFragmentManager().beginTransaction().show(savedWordsFragment).commit();
                         break;
                     case R.id.dictionary:
                         if (dictionaryFragment == null) {
@@ -230,8 +230,8 @@ public class MainActivity extends AppCompatActivity {
                         break;
                 }
 
-                if (bookmarkedWordsFragment != null) {
-                    bookmarkedWordsFragment.refreshIfRequired();
+                if (savedWordsFragment != null) {
+                    savedWordsFragment.refreshIfRequired();
                 }
                 return true;
             }

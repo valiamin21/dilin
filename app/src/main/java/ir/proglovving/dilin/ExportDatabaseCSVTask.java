@@ -70,8 +70,7 @@ public class ExportDatabaseCSVTask extends AsyncTask<String, Integer, Boolean> {
             csvWriter.writeNext(
                     new String[]{
                             context.getString(R.string.word),
-                            context.getString(R.string.meaning),
-                            context.getString(R.string.bookmarked)
+                            context.getString(R.string.meaning)
                     }
             );
 

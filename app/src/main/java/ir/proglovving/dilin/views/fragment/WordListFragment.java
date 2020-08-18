@@ -144,12 +144,12 @@ public class WordListFragment extends Fragment implements WordsRecyclerViewAdapt
         NotebookListFragment.updateMeByBroadcast(getContext());
 
         // sending broadcast for refreshing bookmarkedWordFragment
-        BookmarkedWordsFragment.updateMebyBroadcast(getContext());
+        SavedWordsFragment.updateMebyBroadcast(getContext());
     }
 
     @Override
     public void onWordEdited() {
         // sending broadcast for refreshing bookmarkedWordFragment
-        BookmarkedWordsFragment.updateMebyBroadcast(getContext());
+        SavedWordsFragment.updateMebyBroadcast(getContext());
     }
 }

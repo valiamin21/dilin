@@ -48,7 +48,7 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/show_words_widget_info" />
         </receiver>
-        <receiver android:name=".views.fragment.BookmarkedWordsFragment$BookmarksReceiver" />
+        <receiver android:name=".views.fragment.SavedWordsFragment$SavesReceiver" />
         <receiver android:name=".views.fragment.NotebookListFragment$UpdateNotebooksBroadcast" />
     </application>
 

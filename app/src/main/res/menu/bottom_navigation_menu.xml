@@ -8,7 +8,7 @@
     <item
         android:id="@+id/bookmark"
         android:icon="@drawable/ic_action_bookmark"
-        android:title="@string/bookmarked" />
+        android:title="@string/saved" />
 
     <item
         android:id="@+id/notebooks"
