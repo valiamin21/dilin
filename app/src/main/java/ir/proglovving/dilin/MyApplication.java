@@ -37,7 +37,6 @@ public class MyApplication extends Application {
     // word saving revolution to do's
     // TODO: 8/18/20 removing favorite notebook field from model, database, view
     // TODO: 8/18/20 removing switch button for switching between favorite and non-favorite notebooks
-    // TODO: 8/18/20 returning saved words in all notebooks as bookmarked words
 
     private static Typeface appTypeface;
 
