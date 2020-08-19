@@ -34,6 +34,7 @@ import ir.proglovving.dilin.custom_views.WordsInputDialog;
 import ir.proglovving.dilin.data_model.NotebookWord;
 import ir.proglovving.dilin.database_open_helpers.WordsOpenHelper;
 import ir.proglovving.dilin.views.fragment.NotebookListFragment;
+import ir.proglovving.dilin.views.fragment.SavedWordsFragment;
 import ir.proglovving.dilin.views.fragment.WordListFragment;
 
 public class WordsListActivity extends AppCompatActivity {
@@ -159,6 +160,7 @@ public class WordsListActivity extends AppCompatActivity {
                                 wordListFragment.addWord(w);
 
                                 NotebookListFragment.updateMeByBroadcast(WordsListActivity.this);
+                                SavedWordsFragment.updateMebyBroadcast(WordsListActivity.this);
                             }
 
                             @Override
