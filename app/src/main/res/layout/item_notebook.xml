@@ -40,15 +40,6 @@
             android:textSize="@dimen/standard_font_size_large"
             tools:text="تعداد کلمات : ۲۲" />
 
-        <ir.proglovving.cfviews.CfTextView
-            android:id="@+id/txt_bookmarked_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:textColor="@color/secondary_text"
-            android:textSize="@dimen/standard_font_size_large"
-            tools:text="نشان شده: ۵" />
-
         <View
             android:id="@+id/divider"
             android:layout_width="match_parent"
@@ -67,7 +58,6 @@
             android:gravity="bottom|center"
             android:orientation="horizontal">
 
-            <!-- TODO modify below code  -->
             <ImageButton
                 android:id="@+id/btn_edit"
                 android:layout_width="0dp"
@@ -79,16 +69,11 @@
                 android:tint="@color/icon_color"/>
 
 
-            <ImageButton
-                android:id="@+id/btn_favorite"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/standard_icon_size"
-                android:layout_weight="1"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:paddingVertical="@dimen/app_imageButton_padding"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ic_action_favorite" />
-
+            <View
+                android:id="@+id/divider3"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="?android:attr/listDivider" />
 
             <ImageButton
                 android:id="@+id/btn_delete"

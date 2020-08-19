@@ -50,9 +50,6 @@ public class NotebookListFragment extends Fragment {
     private ExtendedFloatingActionButton fabAddNotebook;
     private CoordinatorLayout coordinatorLayout;
 
-    private View favoritePickerView;
-    private SwitchCompat favoriteSwitchButton;
-
     private NotebookOpenHelper notebookOpenHelper;
     private NotebookRecyclerAdapter recyclerAdapter;
 
@@ -100,14 +97,6 @@ public class NotebookListFragment extends Fragment {
 
 
         emptyTextView = view.findViewById(R.id.tv_empty);
-        favoritePickerView = inflater.inflate(R.layout.item_notebook_favorite_switch_button, null, false);
-        favoriteSwitchButton = favoritePickerView.findViewById(R.id.switch_favorite);
-        favoriteSwitchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                recyclerAdapter.setNotebookList(getSuitableNotebooksList(b));
-            }
-        });
 
         setupRecyclerView();
         return view;
@@ -138,25 +127,13 @@ public class NotebookListFragment extends Fragment {
 
     private void setupRecyclerView() {
 
-        List<Notebook> notebookList = getSuitableNotebooksList(false);
+        List<Notebook> notebookList = notebookOpenHelper.getNotebookList();
 
         recyclerAdapter = new NotebookRecyclerAdapter(
-                getContext(), notebookList, coordinatorLayout, notebookOpenHelper, favoritePickerView
+                getContext(), notebookList, coordinatorLayout, notebookOpenHelper
         );
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
-        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override
-            public int getSpanSize(int position) {
-                if (position == 0) {
-                    return 2;
-                } else {
-                    return 1;
-                }
-            }
-        });
-
-        recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         recyclerView.setAdapter(recyclerAdapter);
 
         validateEmptyDataSet(notebookList);
@@ -181,10 +158,6 @@ public class NotebookListFragment extends Fragment {
             startShakeAnimation();
 
             return;
-        } else if (favoriteSwitchButton.isChecked() && notebookList.size() == 0) { // اگر در حالت مورد علاقه بود و دفتر موردعلاقه ای یافت نشد!
-            emptyTextView.setText(R.string.no_favorite_notebook_was_found);
-            hideNotebookRecyclerView();
-            return;
         } else {
             showNotebookRecyclerView();
         }
@@ -194,17 +167,6 @@ public class NotebookListFragment extends Fragment {
         } else if (recyclerView.getVisibility() == View.INVISIBLE) { // اگر دفتری موجود بود و پیام دفتری موجود نیست در حال نمایش بود
             showNotebookRecyclerView();
         }
-    }
-
-    private List<Notebook> getSuitableNotebooksList(boolean isFavoriteMode) {
-        List<Notebook> notebooks;
-        if (isFavoriteMode) {
-            notebooks = notebookOpenHelper.getFavoriteNotebookList();
-        } else {
-            notebooks = notebookOpenHelper.getNotebookList();
-        }
-
-        return notebooks;
     }
 
     private void showAddNoteBookDialog() {
@@ -235,7 +197,6 @@ public class NotebookListFragment extends Fragment {
                 fabAddNotebook.clearAnimation();
                 Notebook notebook = new Notebook();
                 notebook.setNoteBookName(notebookNameEditText.getText().toString());
-                notebook.setFavorite(false);
 
                 addNotebook(notebook);
                 dialog.dismiss();
@@ -285,7 +246,7 @@ public class NotebookListFragment extends Fragment {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            recyclerAdapter.setNotebookList(getSuitableNotebooksList(favoriteSwitchButton.isChecked()));
+            recyclerAdapter.setNotebookList(notebookOpenHelper.getNotebookList());
         }
     }
 }

@@ -174,7 +174,6 @@ public class DevTestActivity extends AppCompatActivity implements View.OnClickLi
         File[] files = root.listFiles();
         for (File f : files) {
             notebook.setNoteBookName(f.getName().replace(".txt", ""));
-            notebook.setFavorite(false);
             new NotebookOpenHelper(this).addNotebook(notebook);
 
             // TODO: 7/20/19 make a function WordsOpenHelper namely findNotebookIdByName

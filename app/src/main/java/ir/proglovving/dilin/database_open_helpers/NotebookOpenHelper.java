@@ -18,13 +18,11 @@ public class NotebookOpenHelper extends SQLiteOpenHelper {
 
     private static final String COL_ID = "_id";
     private static final String COL_NOTEBOOK_NAME = "notebook_name";
-    private static final String COL_FAVORITE = "favorite";
 
     private static final String COMMAND_CREATE_NOTEBOOK_TABLE =
             "CREATE TABLE " + NOTEBOOK_TABLE_NAME + "(" +
                     COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    COL_NOTEBOOK_NAME + " TEXT," +
-                    COL_FAVORITE + " INTEGER);";
+                    COL_NOTEBOOK_NAME + " TEXT);";
     private Context context;
 
     public NotebookOpenHelper(Context context) {
@@ -46,7 +44,6 @@ public class NotebookOpenHelper extends SQLiteOpenHelper {
         SQLiteDatabase writableSqLiteDatabase = getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(COL_NOTEBOOK_NAME, notebook.getNoteBookName());
-        cv.put(COL_FAVORITE, notebook.isFavorite());
 
         writableSqLiteDatabase.insert(NOTEBOOK_TABLE_NAME, null, cv);
         writableSqLiteDatabase.close();
@@ -68,12 +65,6 @@ public class NotebookOpenHelper extends SQLiteOpenHelper {
 
                 notebook.setWordsCount(wordsOpenHelper.getRawsCount());
 
-                if (cursor.getInt(cursor.getColumnIndex(COL_FAVORITE)) == 0) {
-                    notebook.setFavorite(false);
-                } else {
-                    notebook.setFavorite(true);
-                }
-
                 notebooks.add(notebook);
             } while (cursor.moveToNext());
         }
@@ -82,20 +73,6 @@ public class NotebookOpenHelper extends SQLiteOpenHelper {
         readableSqLiteDatabase.close();
 
         return notebooks;
-    }
-
-    // TODO: 1/16/19 این تابع بعدا به صورت استاندارد پیاده سازی شود
-    public List<Notebook> getFavoriteNotebookList() {
-        List<Notebook> resultNotebooks = new ArrayList<>();
-
-        List<Notebook> notebooks = getNotebookList();
-        for (int i = 0; i < notebooks.size(); i++) {
-            if (notebooks.get(i).isFavorite()) {
-                resultNotebooks.add(notebooks.get(i));
-            }
-        }
-
-        return resultNotebooks;
     }
 
     public void deleteNotebook(int id) {
@@ -113,7 +90,6 @@ public class NotebookOpenHelper extends SQLiteOpenHelper {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(COL_NOTEBOOK_NAME, notebook.getNoteBookName());
-        cv.put(COL_FAVORITE, notebook.isFavorite());
         sqLiteDatabase.update(NOTEBOOK_TABLE_NAME, cv, COL_ID + " = ?", new String[]{String.valueOf(notebook.getId())});
         sqLiteDatabase.close();
     }
@@ -125,7 +101,6 @@ public class NotebookOpenHelper extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
 
         cv.put(COL_NOTEBOOK_NAME, notebook.getNoteBookName());
-        cv.put(COL_FAVORITE, notebook.isFavorite());
 
         sqLiteDatabase.insert(NOTEBOOK_TABLE_NAME, null, cv);
 
@@ -152,7 +127,6 @@ public class NotebookOpenHelper extends SQLiteOpenHelper {
         cursor.close();
         return result;
     }
-
 
     public boolean isThereNotebook(String name) {
         boolean result = false;
