@@ -145,7 +145,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/usr/local/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_note_add_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/usr/local/android-studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/bookmark_border/baseline_bookmark_border_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -155,7 +155,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_add_notebook" />
+                            <entry key="outputName" value="ic_baseline_bookmark_border_24" />
                             <entry key="sourceFile" value="$USER_HOME$" />
                           </map>
                         </option>

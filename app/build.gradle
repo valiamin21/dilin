@@ -9,6 +9,8 @@ android {
         versionCode 5
         versionName "0.5.3"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
