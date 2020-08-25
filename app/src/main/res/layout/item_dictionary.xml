@@ -85,10 +85,10 @@
                 android:id="@+id/img_add_to_notebook"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@null"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 android:scaleType="fitXY"
-                android:src="@drawable/ic_action_add_to_notebook"
-                android:tint="@color/icon_color" />
+                android:tint="@color/icon_color"
+                app:srcCompat="@drawable/ic_baseline_bookmark_border_24" />
 
         </FrameLayout>
 
