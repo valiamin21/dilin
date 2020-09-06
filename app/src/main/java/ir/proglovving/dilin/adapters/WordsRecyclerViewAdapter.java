@@ -160,8 +160,8 @@ public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecycler
     }
 
     public void addWord(NotebookWord word) {
-        wordList.add(word);
-        notifyItemInserted(wordList.size() - 1);
+        wordList.add(0,word);
+        notifyItemInserted(0);
     }
 
     @Override

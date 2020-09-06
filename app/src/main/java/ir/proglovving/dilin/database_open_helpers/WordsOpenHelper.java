@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import ir.proglovving.dilin.data_model.Notebook;
@@ -121,6 +122,7 @@ public class WordsOpenHelper extends SQLiteOpenHelper {
         cursor.close();
         sqLiteDatabase.close();
 
+        Collections.reverse(wordList);
         return wordList;
     }
 

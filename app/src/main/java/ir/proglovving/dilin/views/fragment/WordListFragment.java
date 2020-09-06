@@ -99,6 +99,7 @@ public class WordListFragment extends Fragment implements WordsRecyclerViewAdapt
 
     public void addWord(NotebookWord word) {
         recyclerViewAdapter.addWord(word);
+        recyclerView.smoothScrollToPosition(0);
     }
 
     public void searchRefresh(String search) {
