@@ -100,43 +100,6 @@ public class WordsOpenHelper extends SQLiteOpenHelper {
         return word;
     }
 
-    public List<NotebookWord> getSearchedWordList(String searchText) {
-        List<NotebookWord> wordList = new ArrayList<>();
-        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
-
-        //شروع جست و جو در لغات انگلیسی
-        Cursor cursor =
-                sqLiteDatabase.rawQuery("SELECT * FROM " + words_table_name + " WHERE " + COL_WORD + " LIKE '%" + searchText + "%'", null);
-
-        if (cursor.moveToFirst()) {
-            do {
-                NotebookWord word = new NotebookWord();
-                setValuesOfCursorInWord(cursor, word);
-                wordList.add(word);
-            } while (cursor.moveToNext());
-        }
-        //پایان جست و جو در لغات انگلیسی
-
-
-        // شروع جست و جو در لغات فارسی
-        cursor =
-                sqLiteDatabase.rawQuery("SELECT * FROM " + words_table_name + " WHERE " + COL_MEANING + " LIKE '%" + searchText + "%'", null);
-        if (cursor.moveToFirst()) {
-            do {
-                NotebookWord word = new NotebookWord();
-                setValuesOfCursorInWord(cursor, word);
-                wordList.add(word);
-            } while (cursor.moveToNext());
-        }
-        // پایان جست و جو در لغات فارسی
-
-
-        sqLiteDatabase.close();
-        cursor.close();
-
-        return wordList;
-    }
-
     public List<NotebookWord> getWordList() {
         List<NotebookWord> wordList = new ArrayList<>();
 
