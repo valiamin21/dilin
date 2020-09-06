@@ -35,6 +35,7 @@ public class MyApplication extends Application {
     
     
     // word saving revolution to do's
+    // TODO: 9/6/20 reverse lists
     // TODO: 8/19/20 adding default notebook named my words or sth 
     // TODO: 8/19/20 changing add to notebook icon to bookmark icon in dictionary fragment 
     // TODO: 8/19/20 feature of making a notebook while adding a word in dictionary fragment
