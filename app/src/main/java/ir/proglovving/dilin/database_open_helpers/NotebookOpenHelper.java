@@ -9,6 +9,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.List;
 
+import ir.proglovving.dilin.FirstTimeManager;
+import ir.proglovving.dilin.R;
 import ir.proglovving.dilin.data_model.Notebook;
 
 public class NotebookOpenHelper extends SQLiteOpenHelper {
@@ -23,6 +25,8 @@ public class NotebookOpenHelper extends SQLiteOpenHelper {
             "CREATE TABLE " + NOTEBOOK_TABLE_NAME + "(" +
                     COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                     COL_NOTEBOOK_NAME + " TEXT);";
+    private static final String PREF_KEY_NOTEBOOK_DB_FIRST_TIME = "notebook_db_first_time";
+
     private Context context;
 
     public NotebookOpenHelper(Context context) {
@@ -40,6 +44,16 @@ public class NotebookOpenHelper extends SQLiteOpenHelper {
 
     }
 
+    // adding a notebook named my words if it was first time
+    private void firstTimeCheck() {
+        if (FirstTimeManager.isFirstTime(context, PREF_KEY_NOTEBOOK_DB_FIRST_TIME) && getRawsCount() == 0) {
+            Notebook defaultNotebook = new Notebook();
+            defaultNotebook.setNoteBookName(context.getString(R.string.my_words));
+            addNotebook(defaultNotebook);
+            FirstTimeManager.registerAsFirstTime(context, PREF_KEY_NOTEBOOK_DB_FIRST_TIME);
+        }
+    }
+
     public void addNotebook(Notebook notebook) {
         SQLiteDatabase writableSqLiteDatabase = getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -50,6 +64,8 @@ public class NotebookOpenHelper extends SQLiteOpenHelper {
     }
 
     public List<Notebook> getNotebookList() {
+        firstTimeCheck();
+
         List<Notebook> notebooks = new ArrayList<>();
 
         SQLiteDatabase readableSqLiteDatabase = getReadableDatabase();
@@ -122,8 +138,10 @@ public class NotebookOpenHelper extends SQLiteOpenHelper {
     }
 
     public int getRawsCount() {
-        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM " + NOTEBOOK_TABLE_NAME, null);
+        SQLiteDatabase readableSqLiteDatabase = getReadableDatabase();
+        Cursor cursor = readableSqLiteDatabase.rawQuery("SELECT * FROM " + NOTEBOOK_TABLE_NAME, null);
         int result = cursor.getCount();
+        readableSqLiteDatabase.close();
         cursor.close();
         return result;
     }
