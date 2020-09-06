@@ -38,7 +38,6 @@ public class MyApplication extends Application {
     // TODO: 8/19/20 changing add to notebook icon to bookmark icon in dictionary fragment
     // TODO: 8/19/20 feature of making a notebook while adding a word in dictionary fragment
     // TODO: 8/19/20 reverse items in words fragment
-    // TODO: 8/19/20 reverse items in notebooks list (also in adding to notebook dialog)
 
     private static Typeface appTypeface;
 

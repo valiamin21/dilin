@@ -11,8 +11,6 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import com.google.android.material.snackbar.Snackbar;
 
-import androidx.transition.Fade;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -100,7 +98,7 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
                                 notifyItemRemoved(currentPosition);
 
                                 final boolean[] isReturned = {false};
-                                Snackbar.make(coordinatorLayout, R.string.was_deleted, Snackbar.LENGTH_LONG)
+                                Snackbar.make(mViewHolder.itemView, R.string.was_deleted, Snackbar.LENGTH_LONG)
                                         .setAction(R.string.retrieve, new View.OnClickListener() {
                                             @Override
                                             public void onClick(View v) {
@@ -223,8 +221,8 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
     }
 
     public void addNotebook(Notebook notebook) {
-        notebookList.add(notebook);
-        notifyItemInserted(notebookList.size());
+        notebookList.add(0, notebook);
+        notifyItemInserted(0);
     }
 
     public void setNotebookList(List<Notebook> notebookList) {

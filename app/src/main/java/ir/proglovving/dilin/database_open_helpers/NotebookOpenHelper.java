@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import ir.proglovving.dilin.FirstTimeManager;
@@ -88,6 +89,7 @@ public class NotebookOpenHelper extends SQLiteOpenHelper {
         cursor.close();
         readableSqLiteDatabase.close();
 
+        Collections.reverse(notebooks);
         return notebooks;
     }
 
