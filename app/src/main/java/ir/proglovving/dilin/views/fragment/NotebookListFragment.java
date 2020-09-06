@@ -120,7 +120,7 @@ public class NotebookListFragment extends Fragment {
         notebookOpenHelper.addNotebook(notebook);
         notebook.setId(notebookOpenHelper.getLastID());
         recyclerAdapter.addNotebook(notebook);
-        recyclerView.smoothScrollToPosition(recyclerAdapter.getItemCount() - 1);
+        recyclerView.smoothScrollToPosition(0);
     }
 
     private void setupRecyclerView() {
