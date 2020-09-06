@@ -48,7 +48,6 @@ public class NotebookListFragment extends Fragment {
     private RecyclerView recyclerView;
     private TextView emptyTextView;
     private ExtendedFloatingActionButton fabAddNotebook;
-    private CoordinatorLayout coordinatorLayout;
 
     private NotebookOpenHelper notebookOpenHelper;
     private NotebookRecyclerAdapter recyclerAdapter;
@@ -63,14 +62,13 @@ public class NotebookListFragment extends Fragment {
 
     public static NotebookListFragment getInstance(NotebookOpenHelper notebookOpenHelper, CoordinatorLayout coordinatorLayout, ExtendedFloatingActionButton addFab) {
         if (instance == null) {
-            instance = new NotebookListFragment(notebookOpenHelper, coordinatorLayout, addFab);
+            instance = new NotebookListFragment(notebookOpenHelper, addFab);
         }
         return instance;
     }
 
-    public NotebookListFragment(NotebookOpenHelper notebookOpenHelper, CoordinatorLayout coordinatorLayout, ExtendedFloatingActionButton addFab) {
+    public NotebookListFragment(NotebookOpenHelper notebookOpenHelper, ExtendedFloatingActionButton addFab) {
         this.notebookOpenHelper = notebookOpenHelper;
-        this.coordinatorLayout = coordinatorLayout;
         this.fabAddNotebook = addFab;
     }
 
@@ -130,7 +128,7 @@ public class NotebookListFragment extends Fragment {
         List<Notebook> notebookList = notebookOpenHelper.getNotebookList();
 
         recyclerAdapter = new NotebookRecyclerAdapter(
-                getContext(), notebookList, coordinatorLayout, notebookOpenHelper
+                getContext(), notebookList, notebookOpenHelper
         );
 
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));

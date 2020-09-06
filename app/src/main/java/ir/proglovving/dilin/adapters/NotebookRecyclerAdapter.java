@@ -40,7 +40,6 @@ import ir.proglovving.dilin.views.fragment.SavedWordsFragment;
 public class NotebookRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnLongClickListener {
     private Context context;
     private List<Notebook> notebookList;
-    private CoordinatorLayout coordinatorLayout;
     private NotebookOpenHelper notebookOpenHelper;
 
     private int lastPosition = -1;
@@ -48,12 +47,10 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
     public NotebookRecyclerAdapter(
             Context context,
             List<Notebook> notebookList,
-            CoordinatorLayout coordinatorLayout,
             NotebookOpenHelper notebookOpenHelper) {
 
         this.context = context;
         this.notebookList = notebookList;
-        this.coordinatorLayout = coordinatorLayout;
         this.notebookOpenHelper = notebookOpenHelper;
     }
 
