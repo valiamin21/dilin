@@ -51,8 +51,8 @@ public class NotebookOpenHelper extends SQLiteOpenHelper {
             Notebook defaultNotebook = new Notebook();
             defaultNotebook.setNoteBookName(context.getString(R.string.my_words));
             addNotebook(defaultNotebook);
-            FirstTimeManager.registerAsFirstTime(context, PREF_KEY_NOTEBOOK_DB_FIRST_TIME);
         }
+        FirstTimeManager.registerAsFirstTime(context, PREF_KEY_NOTEBOOK_DB_FIRST_TIME);
     }
 
     public void addNotebook(Notebook notebook) {
