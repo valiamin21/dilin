@@ -73,24 +73,16 @@
                 android:tint="@color/icon_color" />
         </FrameLayout>
 
-        <FrameLayout
+        <ImageButton
+            android:id="@+id/img_add_to_notebook"
             android:layout_width="@dimen/standard_icon_size"
             android:layout_height="@dimen/standard_icon_size"
-            android:clickable="true"
-            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:scaleType="fitXY"
+            android:tint="@color/icon_color"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageButton
-                android:id="@+id/img_add_to_notebook"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:scaleType="fitXY"
-                android:tint="@color/icon_color"
-                app:srcCompat="@drawable/ic_baseline_bookmark_border_24" />
-
-        </FrameLayout>
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_action_bookmark_add_bordered" />
 
         <ir.proglovving.cfviews.CfTextView
             android:id="@+id/txt_word"
