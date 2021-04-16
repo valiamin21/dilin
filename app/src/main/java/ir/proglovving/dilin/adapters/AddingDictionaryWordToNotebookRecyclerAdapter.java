@@ -19,6 +19,7 @@ import ir.proglovving.dilin.data_model.NotebookWord;
 import ir.proglovving.dilin.database_open_helpers.NotebookOpenHelper;
 import ir.proglovving.dilin.database_open_helpers.WordsOpenHelper;
 import ir.proglovving.dilin.views.fragment.NotebookListFragment;
+import ir.proglovving.dilin.views.fragment.SavedWordsFragment;
 
 public class AddingDictionaryWordToNotebookRecyclerAdapter extends RecyclerView.Adapter<AddingDictionaryWordToNotebookRecyclerAdapter.AddingDictionaryWordToNotebookViewHolder> {
 
@@ -56,6 +57,7 @@ public class AddingDictionaryWordToNotebookRecyclerAdapter extends RecyclerView.
                 new WordsOpenHelper(context, notebookList.get(holder.getAdapterPosition()).getId()).addWord(word);
                 Toast.makeText(context, "کلمه‌ی مورد نظر با موفقیت به " + notebookList.get(holder.getAdapterPosition()).getNoteBookName() + " اضافه شد!", Toast.LENGTH_SHORT).show();
                 NotebookListFragment.updateMeByBroadcast(context);
+                SavedWordsFragment.updateMebyBroadcast(context);
                 dialog.hide();
             }
         });
