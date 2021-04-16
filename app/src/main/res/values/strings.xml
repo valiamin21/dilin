@@ -24,7 +24,7 @@
     <string name="about_us">درباره ی ما</string>
     <string name="support_programmer">حمایت از برنامه نویس</string>
     <string name="guidance">راهنما</string>
-    <string name="rate">امتیاز دهی</string>
+    <string name="rate_in_bazar">نظر در بازار</string>
     <string name="other_apps">سایر برنامه ها</string>
     <string name="developer">توسعه دهنده</string>
     <string name="saved">ذخیره شده</string>
@@ -100,7 +100,8 @@
 
     <string name="version">نسخه</string>
 
-    <string name="please_install_myket">لطفا مایکت‌را نصب کنید.</string>
+    <string name="please_install_bazar">لطفا بازار را نصب کنید.</string>
+    <string name="developer_id">073228114325</string>
 
     <string name="my_words">کلمات من</string>
 

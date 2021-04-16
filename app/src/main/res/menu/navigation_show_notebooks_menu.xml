@@ -11,7 +11,7 @@
             <item
                 android:id="@+id/rate"
                 android:icon="@drawable/ic_action_star"
-                android:title="@string/rate" />
+                android:title="@string/rate_in_bazar" />
 
             <item
                 android:id="@+id/other_apps"
