@@ -23,8 +23,10 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/text_input_word"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/standard_margin_x2"
                 android:layout_marginTop="@dimen/standard_margin_x2"
                 android:textColorHint="@color/edit_text_color_hint">
 
@@ -32,7 +34,6 @@
                     android:id="@+id/et_word"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/standard_table_distance"
                     android:layout_marginTop="@dimen/standard_padding"
                     android:layout_marginBottom="@dimen/standard_margin"
                     android:hint="@string/add_the_word"
@@ -44,15 +45,16 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/text_input_meaning"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/standard_margin_x2"
                 android:textColorHint="@color/edit_text_color_hint">
 
                 <ir.proglovving.cfviews.CfEditText
                     android:id="@+id/et_meaning"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/standard_table_distance"
                     android:layout_marginBottom="@dimen/standard_margin_x2"
                     android:hint="@string/meaning_of_word"
                     android:padding="@dimen/standard_padding"

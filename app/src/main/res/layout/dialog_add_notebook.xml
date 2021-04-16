@@ -1,57 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_dialog_add_notebook"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:id="@+id/ll_dialog_add_notebook"
     android:visibility="invisible">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tab_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/standard_margin">
+        android:layout_marginHorizontal="@dimen/standard_margin_x2"
+        android:layout_marginTop="@dimen/standard_margin"
+        android:hint="@string/notebook_name"
+        android:layoutDirection="ltr">
 
         <ir.proglovving.cfviews.CfEditText
             android:id="@+id/et_notebook"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/notebook_name"
             android:maxLength="50"
-            android:layout_marginVertical="@dimen/standard_margin_x2"
-            android:layout_marginHorizontal="@dimen/standard_table_distance"
-            android:textSize="@dimen/standard_font_size_large"
-            android:padding="@dimen/standard_padding"/>
-
+            android:textSize="@dimen/standard_font_size_large" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginHorizontal="@dimen/standard_table_distance"
+        android:layout_marginBottom="@dimen/standard_margin"
         android:gravity="center"
-        android:layout_marginBottom="@dimen/standard_margin">
+        android:orientation="horizontal">
 
         <ir.proglovving.cfviews.CfButton
             android:id="@+id/btn_verify"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/verify"
-            android:textSize="@dimen/standard_font_size_large"
             android:layout_marginHorizontal="@dimen/standard_margin"
-            android:background="?attr/selectableItemBackgroundBorderless"/>
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:text="@string/verify"
+            android:textSize="@dimen/standard_font_size_large" />
 
         <ir.proglovving.cfviews.CfButton
             android:id="@+id/btn_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/cancel"
-            android:textSize="@dimen/standard_font_size_large"
             android:layout_marginHorizontal="@dimen/standard_margin"
             android:background="?attr/selectableItemBackgroundBorderless"
-            />
+            android:text="@string/cancel"
+            android:textSize="@dimen/standard_font_size_large" />
         <!--android:background="@drawable/ripple_text_button"-->
 
     </LinearLayout>
