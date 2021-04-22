@@ -2,14 +2,19 @@ package ir.proglovving.dilin.views.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+
 import android.transition.Slide;
 import android.view.animation.OvershootInterpolator;
 
 import ir.proglovving.dilin.R;
 import ir.proglovving.dilin.Utilities;
+import ir.proglovving.dilin.views.RainbowParticleView;
 
 public class AboutProgrammerActivity extends AppCompatActivity {
 
@@ -29,8 +34,10 @@ public class AboutProgrammerActivity extends AppCompatActivity {
 
     private void setupToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar_about_us);
-        Utilities.applyFontForToolbar(toolbar,this);
+        Utilities.applyFontForToolbar(toolbar, this);
         setSupportActionBar(toolbar);
+        RainbowParticleView rainbowParticleView = findViewById(R.id.particle_view);
+        rainbowParticleView.setColors(new int[]{ContextCompat.getColor(this, R.color.colorPrimary), ContextCompat.getColor(this, R.color.colorAccent)});
     }
 
     private void setupEnterTransition() {
@@ -43,7 +50,7 @@ public class AboutProgrammerActivity extends AppCompatActivity {
         }
     }
 
-    public static void start(Context context,Bundle optionsCompat){
-        context.startActivity(new Intent(context, AboutProgrammerActivity.class),optionsCompat);
+    public static void start(Context context, Bundle optionsCompat) {
+        context.startActivity(new Intent(context, AboutProgrammerActivity.class), optionsCompat);
     }
 }

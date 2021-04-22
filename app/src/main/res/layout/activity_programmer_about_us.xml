@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ir.proglovving.dilin.views.activity.AboutProgrammerActivity"
-    android:layoutDirection="rtl">
+    android:layoutDirection="rtl"
+    tools:context="ir.proglovving.dilin.views.activity.AboutProgrammerActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -19,6 +19,11 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <ir.proglovving.dilin.views.RainbowParticleView
+        android:id="@+id/particle_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
