@@ -37,24 +37,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:fabCustomSize="@dimen/coffee_image_size"
-        android:src="@drawable/programmer_profile_picture"
+        android:src="@drawable/me"
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="left|bottom"
         android:layout_marginLeft="@dimen/standard_margin"
         android:layout_marginRight="@dimen/standard_margin"
         />
-
-    <!--<com.github.abdularis.civ.AvatarImageView-->
-
-        <!--android:layout_width="170dp"-->
-        <!--android:layout_height="170dp"-->
-        <!--android:src="@drawable/coffee"-->
-        <!--app:strokeColor="#1976D2"-->
-        <!--app:strokeWidth="0dp"-->
-        <!--app:state="IMAGE"-->
-        <!--app:avatarBackgroundColor="#1976D2"-->
-        <!--app:layout_anchor="@id/app_bar"-->
-        <!--app:layout_anchorGravity="center_horizontal|bottom"/>-->
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"

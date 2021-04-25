@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat;
 
 import android.transition.Slide;
 import android.view.animation.OvershootInterpolator;
+import android.widget.TextView;
 
 import ir.proglovving.dilin.R;
 import ir.proglovving.dilin.Utilities;
@@ -18,26 +19,29 @@ import ir.proglovving.dilin.views.RainbowParticleView;
 
 public class AboutProgrammerActivity extends AppCompatActivity {
 
+    private TextView otherAppsTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_programmer_about_us);
 
         initViews();
-
+        otherAppsTextView.setOnClickListener(v -> MainActivity.openDeveloperApps(this));
         setupEnterTransition();
     }
 
     private void initViews() {
         setupToolbar();
+        RainbowParticleView rainbowParticleView = findViewById(R.id.particle_view);
+        rainbowParticleView.setColors(new int[]{ContextCompat.getColor(this, R.color.colorPrimary), ContextCompat.getColor(this, R.color.colorAccent)});
+        otherAppsTextView = findViewById(R.id.other_apps);
     }
 
     private void setupToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar_about_us);
         Utilities.applyFontForToolbar(toolbar, this);
         setSupportActionBar(toolbar);
-        RainbowParticleView rainbowParticleView = findViewById(R.id.particle_view);
-        rainbowParticleView.setColors(new int[]{ContextCompat.getColor(this, R.color.colorPrimary), ContextCompat.getColor(this, R.color.colorAccent)});
     }
 
     private void setupEnterTransition() {

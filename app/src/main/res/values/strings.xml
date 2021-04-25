@@ -35,7 +35,11 @@
     <string name="programmer_folani">برنامه نویس: امین والی</string>
     <string name="email">ایمیل</string>
     <string name="email_colon">ایمیل:</string>
+    <string name="github_colon">گیت‌هاب:</string>
+    <string name="github_address">github.com/valiamin21</string>
     <string name="programmer_email_address">valiamin21@gmail.com</string>
+    <string name="source_colon">منبع:</string>
+    <string name="source_address">https://source-roid.ir/</string>
     <string name="notebooks">دفتر ها</string>
     <string name="deleted_from_favorite_list">از لیست علاقه مندی ها حذف شد</string>
     <string name="retrieve">بازگردانی</string>

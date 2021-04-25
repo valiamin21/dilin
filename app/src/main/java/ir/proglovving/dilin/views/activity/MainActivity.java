@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                 .setNegative(R.string.rate_in_bazar, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        rate();
+                        rate(MainActivity.this);
                     }
                 })
                 .setCancel(getString(R.string.no), new View.OnClickListener() {
@@ -154,10 +154,10 @@ public class MainActivity extends AppCompatActivity {
                         AppIntroActivity.start(MainActivity.this, true);
                         break;
                     case R.id.rate:
-                        rate();
+                        rate(MainActivity.this);
                         break;
                     case R.id.other_apps:
-                        openDeveloperApps();
+                        openDeveloperApps(MainActivity.this);
                         break;
                     case R.id.about:
                         startActivity(new Intent(MainActivity.this, AboutProgrammerActivity.class), compat.toBundle());
@@ -250,25 +250,25 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void rate() {
+    public static void rate(Context context) {
         try {
             Intent intent = new Intent(Intent.ACTION_EDIT);
-            intent.setData(Uri.parse("bazaar://details?id=" + getPackageName()));
+            intent.setData(Uri.parse("bazaar://details?id=" + context.getPackageName()));
             intent.setPackage("com.farsitel.bazaar");
-            startActivity(intent);
+            context.startActivity(intent);
         } catch (ActivityNotFoundException e) {
-            Toast.makeText(this, R.string.please_install_bazar, Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, R.string.please_install_bazar, Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void openDeveloperApps(){
+    public static void openDeveloperApps(Context context) {
         try {
             Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse("bazaar://collection?slug=by_author&aid=" + getString(R.string.developer_id)));
+            intent.setData(Uri.parse("bazaar://collection?slug=by_author&aid=" + context.getString(R.string.developer_id)));
             intent.setPackage("com.farsitel.bazaar");
-            startActivity(intent);
+            context.startActivity(intent);
         } catch (ActivityNotFoundException e) {
-            Toast.makeText(MainActivity.this, R.string.please_install_bazar, Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, R.string.please_install_bazar, Toast.LENGTH_SHORT).show();
         }
     }
 
