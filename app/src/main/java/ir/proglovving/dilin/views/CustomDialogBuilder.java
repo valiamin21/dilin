@@ -1,4 +1,4 @@
-package ir.proglovving.cfviews;
+package ir.proglovving.dilin.views;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -10,6 +10,8 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
 import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
+
+import ir.proglovving.dilin.R;
 
 public class CustomDialogBuilder {
 

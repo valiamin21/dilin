@@ -35,12 +35,12 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import ir.proglovving.cfviews.CustomDialogBuilder;
 import ir.proglovving.dilin.BuildConfig;
 import ir.proglovving.dilin.R;
 import ir.proglovving.dilin.Utilities;
 import ir.proglovving.dilin.custom_views.ToolTip;
 import ir.proglovving.dilin.database_open_helpers.NotebookOpenHelper;
+import ir.proglovving.dilin.views.CustomDialogBuilder;
 import ir.proglovving.dilin.views.fragment.SavedWordsFragment;
 import ir.proglovving.dilin.views.fragment.DictionaryFragment;
 import ir.proglovving.dilin.views.fragment.NotebookListFragment;
@@ -132,7 +132,6 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar_show_note_activity);
         setSupportActionBar(toolbar);
         toolbar.setTitle(getString(R.string.notebooks));
-        Utilities.applyFontForToolbar(toolbar, this);
 
         drawerLayout = findViewById(R.id.drawable_layout);
         drawerToggle =
@@ -144,9 +143,6 @@ public class MainActivity extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-
-                Utilities.applyFontForAViewGroup(navigationView, MainActivity.this);
-
                 ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, null);
 
                 switch (menuItem.getItemId()) {
@@ -167,26 +163,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // adding custom font for navigationView
-        navigationView.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Utilities.applyFontForAViewGroup(navigationView, MainActivity.this);
-            }
-        }, 1);
-
         // the textView in navigation header for showing app name along with version
         TextView appIntroductionTextView = navigationView.getHeaderView(0).findViewById(R.id.tv_app_introduction);
         appIntroductionTextView.setText(getString(R.string.app_name) + "، " + getString(R.string.version) + " " + BuildConfig.VERSION_NAME);
 
         containerFrameLayout = findViewById(R.id.container_frame_layout);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
-        bottomNavigationView.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Utilities.applyFontForAViewGroup(bottomNavigationView, MainActivity.this);
-            }
-        }, 1);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -234,12 +216,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         fabAddNotebook = findViewById(R.id.fab_add);
-        fabAddNotebook.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Utilities.applyFontForAView(fabAddNotebook, MainActivity.this);
-            }
-        }, 10);
         fabAddNotebook.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {

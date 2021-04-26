@@ -30,7 +30,7 @@
                 android:layout_marginTop="@dimen/standard_margin_x2"
                 android:textColorHint="@color/edit_text_color_hint">
 
-                <ir.proglovving.cfviews.CfEditText
+                <EditText
                     android:id="@+id/et_word"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
                 android:layout_marginHorizontal="@dimen/standard_margin_x2"
                 android:textColorHint="@color/edit_text_color_hint">
 
-                <ir.proglovving.cfviews.CfEditText
+                <EditText
                     android:id="@+id/et_meaning"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -74,7 +74,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/scrollView_add_word"
                 tools:layout_editor_absoluteX="40dp">
 
-                <ir.proglovving.cfviews.CfButton
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_verify"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -82,9 +82,10 @@
                     android:layout_marginRight="@dimen/standard_margin"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:text="@string/verify"
-                    android:textSize="@dimen/standard_font_size_large" />
+                    android:textSize="@dimen/standard_font_size_large"
+                    android:textColor="@color/colorAccent"/>
 
-                <ir.proglovving.cfviews.CfButton
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_cancel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -92,7 +93,8 @@
                     android:layout_marginRight="@dimen/standard_margin"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:text="@string/cancel"
-                    android:textSize="@dimen/standard_font_size_large" />
+                    android:textSize="@dimen/standard_font_size_large"
+                    android:textColor="@color/colorAccent"/>
 
 
             </LinearLayout>

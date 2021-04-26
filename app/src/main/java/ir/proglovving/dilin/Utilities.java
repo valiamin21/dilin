@@ -50,14 +50,6 @@ public class Utilities {
         return false;
     }
 
-    public static void applyFontForAView(View view, Activity context) {
-        if (view instanceof ViewGroup) {
-            applyFontForAViewGroup((ViewGroup) view, context);
-        } else if (view instanceof TextView) {
-            ((TextView) view).setTypeface(getAppTypeFace(context));
-        }
-    }
-
     public static void applyPaddintBottomForToolbarSubtitle(Context context, Toolbar toolbar) {
         View view;
         for (int i = 0; i < toolbar.getChildCount(); i++) {
@@ -70,37 +62,6 @@ public class Utilities {
                 }
             }
         }
-    }
-
-    public static void applyFontForAViewGroup(ViewGroup viewGroup, Activity context) {
-        View view;
-        for (int i = 0; i < viewGroup.getChildCount(); i++) {
-            view = viewGroup.getChildAt(i);
-            if (view instanceof TextView) {
-                ((TextView) view).setTypeface(getAppTypeFace(context));
-            } else if (view instanceof ViewGroup) {
-                applyFontForAViewGroup((ViewGroup) view, context);
-            }
-        }
-    }
-
-    public static void applyFontForToolbar(Toolbar toolbar, Activity context) {
-        View view;
-        for (int i = 0; i < toolbar.getChildCount(); i++) {
-            view = toolbar.getChildAt(i);
-            if (view instanceof TextView) {
-                ((TextView) view).setTypeface(getAppTypeFace(context)
-                );
-            }
-        }
-    }
-
-    public static Typeface getAppTypeFace(Context context) {
-        return getMyApplication(context).getAppTypeface();
-    }
-
-    public static MyApplication getMyApplication(Context context) {
-        return (MyApplication) context.getApplicationContext();
     }
 
     public static void updateShowWordsWidget(Context context) {

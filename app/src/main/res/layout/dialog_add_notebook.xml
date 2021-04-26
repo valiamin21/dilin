@@ -16,7 +16,7 @@
         android:hint="@string/notebook_name"
         android:layoutDirection="ltr">
 
-        <ir.proglovving.cfviews.CfEditText
+        <EditText
             android:id="@+id/et_notebook"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -32,24 +32,25 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <ir.proglovving.cfviews.CfButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_verify"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/standard_margin"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:text="@string/verify"
+            android:textColor="@color/colorAccent"
             android:textSize="@dimen/standard_font_size_large" />
 
-        <ir.proglovving.cfviews.CfButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/standard_margin"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:text="@string/cancel"
+            android:textColor="@color/colorAccent"
             android:textSize="@dimen/standard_font_size_large" />
-        <!--android:background="@drawable/ripple_text_button"-->
 
     </LinearLayout>
 

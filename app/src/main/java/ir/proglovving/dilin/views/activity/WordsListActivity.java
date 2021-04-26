@@ -133,49 +133,37 @@ public class WordsListActivity extends AppCompatActivity {
 
     private void setupViews() {
         addFab = findViewById(R.id.fab_add_word);
-        addFab.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Utilities.applyFontForAView(addFab,WordsListActivity.this);
-            }
-        },10);
         addFab.setTag(View.VISIBLE); //  در این جا از تگ ویوی addFab به عنوان نشانه ای برای تشخیص ویزیبل بودن یا نبودن آن استفاده می شود.
-        addFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (wordsOpenHelper == null) {
-                    wordsOpenHelper = new WordsOpenHelper(WordsListActivity.this, notebookId);
-                }
-                WordsInputDialog.getInstance(WordsListActivity.this).showBrowseAddWordDialog(
-                        new WordsInputDialog.OnAddWord() {
-                            @Override
-                            public void onAdd(String word, String meaning) {
-                                NotebookWord w = new NotebookWord();
-                                w.setWord(word);
-                                w.setMeaning(meaning);
-                                wordsOpenHelper.addWord(w);
-
-                                w.setId(wordsOpenHelper.getLastID());
-                                w.setNotebookId(notebookId);
-                                wordListFragment.addWord(w);
-
-                                NotebookListFragment.updateMeByBroadcast(WordsListActivity.this);
-                                SavedWordsFragment.updateMebyBroadcast(WordsListActivity.this);
-                            }
-
-                            @Override
-                            public boolean onAlreadyExists(String w) {
-                                return wordsOpenHelper.isThereWord(w);
-                            }
-                        });
+        addFab.setOnClickListener(v -> {
+            if (wordsOpenHelper == null) {
+                wordsOpenHelper = new WordsOpenHelper(WordsListActivity.this, notebookId);
             }
+            WordsInputDialog.getInstance(WordsListActivity.this).showBrowseAddWordDialog(
+                    new WordsInputDialog.OnAddWord() {
+                        @Override
+                        public void onAdd(String word, String meaning) {
+                            NotebookWord w = new NotebookWord();
+                            w.setWord(word);
+                            w.setMeaning(meaning);
+                            wordsOpenHelper.addWord(w);
+
+                            w.setId(wordsOpenHelper.getLastID());
+                            w.setNotebookId(notebookId);
+                            wordListFragment.addWord(w);
+
+                            NotebookListFragment.updateMeByBroadcast(WordsListActivity.this);
+                            SavedWordsFragment.updateMebyBroadcast(WordsListActivity.this);
+                        }
+
+                        @Override
+                        public boolean onAlreadyExists(String w) {
+                            return wordsOpenHelper.isThereWord(w);
+                        }
+                    });
         });
-        addFab.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                ToolTip.show(WordsListActivity.this, getString(R.string.adding_word), v);
-                return true;
-            }
+        addFab.setOnLongClickListener(v -> {
+            ToolTip.show(WordsListActivity.this, getString(R.string.adding_word), v);
+            return true;
         });
 
         setupToolbar();
@@ -189,12 +177,7 @@ public class WordsListActivity extends AppCompatActivity {
         searchEditText = findViewById(R.id.ed_search);
         ImageButton closeSearchBoxButton = findViewById(R.id.btn_search_close);
 
-        closeSearchBoxButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                hideSearchBox();
-            }
-        });
+        closeSearchBoxButton.setOnClickListener(view -> hideSearchBox());
 
         searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -218,7 +201,6 @@ public class WordsListActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(noteBookName);
         toolbar.setSubtitle(R.string.all_words);
-        Utilities.applyFontForAViewGroup(toolbar, this);
         Utilities.applyPaddintBottomForToolbarSubtitle(this, toolbar);
         setSupportActionBar(toolbar);
 

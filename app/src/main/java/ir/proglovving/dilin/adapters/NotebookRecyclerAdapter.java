@@ -28,12 +28,12 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import ir.proglovving.cfviews.CustomDialogBuilder;
 import ir.proglovving.dilin.R;
 import ir.proglovving.dilin.Utilities;
 import ir.proglovving.dilin.custom_views.ToolTip;
 import ir.proglovving.dilin.data_model.Notebook;
 import ir.proglovving.dilin.database_open_helpers.NotebookOpenHelper;
+import ir.proglovving.dilin.views.CustomDialogBuilder;
 import ir.proglovving.dilin.views.activity.WordsListActivity;
 import ir.proglovving.dilin.views.fragment.SavedWordsFragment;
 

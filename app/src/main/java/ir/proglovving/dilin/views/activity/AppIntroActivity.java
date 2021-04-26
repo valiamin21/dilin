@@ -35,14 +35,6 @@ public class AppIntroActivity extends AppIntro {
         skipButton.setEnabled(false);
         skipButton.setAlpha(0);
 
-        // changing doneButton Font
-        doneButton.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Utilities.applyFontForAView(doneButton, AppIntroActivity.this);
-            }
-        }, 1);
-
         IntroFragment introFragment = IntroFragment.newInstance(this,R.string.app_name,R.string.dilin_description,R.drawable.dilin_icon_web,0);
         addSlide(introFragment);
 

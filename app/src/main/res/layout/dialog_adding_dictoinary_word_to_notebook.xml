@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:layoutDirection="rtl">
 
-    <ir.proglovving.cfviews.CfTextView
+    <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

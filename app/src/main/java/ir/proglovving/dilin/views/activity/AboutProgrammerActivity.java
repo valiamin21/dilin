@@ -40,7 +40,6 @@ public class AboutProgrammerActivity extends AppCompatActivity {
 
     private void setupToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar_about_us);
-        Utilities.applyFontForToolbar(toolbar, this);
         setSupportActionBar(toolbar);
     }
 

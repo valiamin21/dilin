@@ -26,7 +26,7 @@
         app:cardElevation="@dimen/standard_card_elevation"
         app:contentPadding="@dimen/standard_padding">
 
-        <ir.proglovving.cfviews.CfTextView
+        <TextView
             android:id="@+id/programmer_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <ir.proglovving.cfviews.CfTextView
+            <TextView
                 android:id="@+id/tv_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -62,7 +62,7 @@
                 android:textColor="@color/primary_text"
                 android:textSize="@dimen/standard_font_size_normal" />
 
-            <ir.proglovving.cfviews.CfTextView
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/programmer_email_address"
@@ -89,7 +89,7 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <ir.proglovving.cfviews.CfTextView
+            <TextView
                 android:id="@+id/tv_github"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -99,7 +99,7 @@
                 android:textColor="@color/primary_text"
                 android:textSize="@dimen/standard_font_size_normal" />
 
-            <ir.proglovving.cfviews.CfTextView
+            <TextView
                 android:id="@+id/tv_github_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -127,7 +127,7 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <ir.proglovving.cfviews.CfTextView
+            <TextView
                 android:id="@+id/tv_source"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -137,7 +137,7 @@
                 android:textColor="@color/primary_text"
                 android:textSize="@dimen/standard_font_size_normal" />
 
-            <ir.proglovving.cfviews.CfTextView
+            <TextView
                 android:id="@+id/tv_source_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -158,7 +158,7 @@
         android:clickable="true"
         android:foreground="?attr/selectableItemBackgroundBorderless">
 
-        <ir.proglovving.cfviews.CfTextView
+        <TextView
             android:id="@+id/other_apps"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

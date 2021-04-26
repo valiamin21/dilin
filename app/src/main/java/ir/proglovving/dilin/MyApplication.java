@@ -37,7 +37,6 @@ public class MyApplication extends Application {
     // word saving revolution to do's
     // TODO: 8/19/20 feature of making a notebook while adding a word in dictionary fragment
 
-    private static Typeface appTypeface;
 
     private static TextToSpeech textToSpeech;
     private static boolean isTTSReady;
@@ -93,13 +92,5 @@ public class MyApplication extends Application {
                 textToSpeech.speak(word, TextToSpeech.QUEUE_FLUSH, null);
             }
         }
-    }
-
-    public Typeface getAppTypeface() {
-        if (appTypeface == null) {
-            appTypeface = Typeface.createFromAsset(getAssets(), "fonts/Vazir.ttf");
-        }
-
-        return appTypeface;
     }
 }

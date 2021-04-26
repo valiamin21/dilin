@@ -20,13 +20,13 @@ import android.widget.TextView;
 import java.util.List;
 import java.util.Locale;
 
-import ir.proglovving.cfviews.CustomDialogBuilder;
 import ir.proglovving.dilin.MyApplication;
 import ir.proglovving.dilin.R;
 import ir.proglovving.dilin.custom_views.ToolTip;
 import ir.proglovving.dilin.custom_views.WordsInputDialog;
 import ir.proglovving.dilin.data_model.NotebookWord;
 import ir.proglovving.dilin.database_open_helpers.WordsOpenHelper;
+import ir.proglovving.dilin.views.CustomDialogBuilder;
 
 public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecyclerViewAdapter.WordMeaningViewHolder> implements View.OnLongClickListener {
 

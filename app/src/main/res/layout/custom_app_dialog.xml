@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:padding="@dimen/standard_margin">
 
-    <ir.proglovving.cfviews.CfTextView
+    <TextView
         android:id="@+id/tv_cusDialog_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,7 +16,7 @@
         android:textSize="@dimen/standard_font_size_very_large"
         tools:text="عنوان" />
 
-    <ir.proglovving.cfviews.CfTextView
+    <TextView
         android:id="@+id/tv_cusDialog_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
         android:orientation="horizontal"
         android:paddingLeft="@dimen/standard_margin">
 
-        <ir.proglovving.cfviews.CfButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_cusDialog_positive"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -42,7 +42,7 @@
             android:textSize="@dimen/standard_font_size_small"
             tools:text="yew" />
 
-        <ir.proglovving.cfviews.CfButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_cusDialog_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
             android:textSize="@dimen/standard_font_size_small"
             tools:text="yes" />
 
-        <ir.proglovving.cfviews.CfButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_cusDialog_negative"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
