@@ -80,6 +80,7 @@
 
     <string name="delete">حذف</string>
     <string name="edit">ویرایش</string>
+    <string name="name_edit">ویرایش نام</string>
     <string name="american_speech">تلفظ آمریکایی</string>
     <string name="british_speech">تلفظ بریتانیایی</string>
 

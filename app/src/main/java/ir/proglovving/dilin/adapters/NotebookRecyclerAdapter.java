@@ -239,7 +239,7 @@ public class NotebookRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
                 ToolTip.show(context, context.getString(R.string.delete_notebook), v);
                 break;
             case R.id.btn_edit:
-                ToolTip.show(context, context.getString(R.string.showing_in_app_widget), v);
+                ToolTip.show(context, context.getString(R.string.name_edit), v);
                 break;
         }
         return true;
