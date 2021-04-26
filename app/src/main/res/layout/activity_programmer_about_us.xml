@@ -15,7 +15,7 @@
             android:id="@+id/toolbar_about_us"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="@string/about_us" />
+            app:title="@string/about_developer" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
