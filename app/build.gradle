@@ -6,7 +6,7 @@ android {
         applicationId "ir.proglovving.dilin"
         minSdkVersion 17
         targetSdkVersion 30
-        versionCode 7
+        versionCode 8
         versionName "0.6.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
